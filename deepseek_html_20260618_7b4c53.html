@@ -1,0 +1,976 @@
+<!DOCTYPE html>
+<html lang="hi">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>FlixZone - Admin Control</title>
+<style>
+  * { margin: 0; padding: 0; box-sizing: border-box; }
+  body {
+    background: #0a0a0a;
+    color: #fff;
+    font-family: 'Segoe UI', sans-serif;
+    min-height: 100vh;
+    padding-bottom: 80px;
+  }
+
+  .header {
+    position: sticky;
+    top: 0;
+    z-index: 100;
+    background: linear-gradient(180deg, #0a0a0a 70%, transparent);
+    padding: 16px 16px 8px;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+  }
+  .logo { font-size: 26px; font-weight: 800; color: #fff; letter-spacing: -0.5px; }
+  .logo span { color: #e50914; }
+  .header-icons { display: flex; gap: 14px; align-items: center; }
+  .header-icons svg { width: 24px; height: 24px; fill: none; stroke: #fff; stroke-width: 2; cursor: pointer; }
+  .admin-badge {
+    background: #e50914;
+    padding: 4px 10px;
+    border-radius: 12px;
+    font-size: 11px;
+    font-weight: 700;
+    color: #fff;
+  }
+
+  .hero {
+    position: relative;
+    height: 280px;
+    overflow: hidden;
+    margin-bottom: 0;
+  }
+  .hero img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    object-position: top;
+    display: block;
+  }
+  .hero-overlay {
+    position: absolute;
+    inset: 0;
+    background: linear-gradient(to bottom, rgba(10,10,10,0.2) 0%, rgba(10,10,10,0.95) 100%);
+    display: flex;
+    flex-direction: column;
+    justify-content: flex-end;
+    padding: 20px 16px;
+  }
+  .hero-title { font-size: 28px; font-weight: 800; line-height: 1.1; margin-bottom: 6px; }
+  .hero-meta { font-size: 13px; color: #aaa; margin-bottom: 14px; }
+  .hero-meta span { color: #e50914; font-weight: 600; }
+  .hero-btns { display: flex; gap: 10px; }
+  .btn-play {
+    background: #e50914;
+    color: #fff;
+    border: none;
+    padding: 10px 22px;
+    border-radius: 6px;
+    font-size: 14px;
+    font-weight: 700;
+    cursor: pointer;
+    display: flex;
+    align-items: center;
+    gap: 6px;
+  }
+  .btn-play svg { width: 16px; height: 16px; fill: #fff; }
+  .btn-info {
+    background: rgba(255,255,255,0.15);
+    color: #fff;
+    border: none;
+    padding: 10px 18px;
+    border-radius: 6px;
+    font-size: 14px;
+    font-weight: 600;
+    cursor: pointer;
+    backdrop-filter: blur(4px);
+  }
+
+  .tabs {
+    display: flex;
+    margin: 0 16px 20px;
+    background: #1a1a1a;
+    border-radius: 8px;
+    overflow: hidden;
+    border: 1px solid #2a2a2a;
+  }
+  .tab {
+    flex: 1;
+    text-align: center;
+    padding: 12px 0;
+    font-size: 14px;
+    font-weight: 600;
+    color: #888;
+    cursor: pointer;
+    transition: all 0.2s;
+    border-radius: 6px;
+    margin: 3px;
+  }
+  .tab.active { background: #e50914; color: #fff; }
+
+  .section { margin-bottom: 28px; }
+  .section-title {
+    font-size: 17px;
+    font-weight: 700;
+    padding: 0 16px 12px;
+    color: #fff;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+  }
+
+  .featured-scroll {
+    display: flex;
+    gap: 10px;
+    padding: 0 16px;
+    overflow-x: auto;
+    scrollbar-width: none;
+  }
+  .featured-scroll::-webkit-scrollbar { display: none; }
+  .featured-card {
+    flex: 0 0 280px;
+    border-radius: 10px;
+    overflow: hidden;
+    position: relative;
+    cursor: pointer;
+  }
+  .featured-card img {
+    width: 100%;
+    height: 160px;
+    object-fit: cover;
+    display: block;
+    transition: transform 0.3s;
+  }
+  .featured-card:hover img { transform: scale(1.04); }
+  .featured-card-overlay {
+    position: absolute;
+    bottom: 0; left: 0; right: 0;
+    background: linear-gradient(transparent, rgba(0,0,0,0.85));
+    padding: 20px 10px 10px;
+  }
+  .featured-card-title { font-size: 13px; font-weight: 700; }
+  .featured-card-badge {
+    display: inline-block;
+    background: #e50914;
+    color: #fff;
+    font-size: 10px;
+    font-weight: 700;
+    padding: 2px 6px;
+    border-radius: 4px;
+    margin-bottom: 4px;
+  }
+
+  .movie-grid {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 8px;
+    padding: 0 16px;
+  }
+  .movie-card {
+    border-radius: 8px;
+    overflow: hidden;
+    position: relative;
+    cursor: pointer;
+    background: #1a1a1a;
+  }
+  .movie-card img {
+    width: 100%;
+    aspect-ratio: 2/3;
+    object-fit: cover;
+    display: block;
+    transition: transform 0.3s;
+  }
+  .movie-card:hover img { transform: scale(1.05); }
+  .movie-card-overlay {
+    position: absolute;
+    bottom: 0; left: 0; right: 0;
+    background: linear-gradient(transparent, rgba(0,0,0,0.8));
+    padding: 16px 6px 6px;
+  }
+  .movie-card-title { font-size: 10px; font-weight: 600; line-height: 1.3; color: #fff; }
+
+  .bottom-nav {
+    position: fixed;
+    bottom: 0; left: 0; right: 0;
+    background: #111;
+    border-top: 1px solid #222;
+    display: flex;
+    justify-content: space-around;
+    align-items: center;
+    padding: 10px 0 14px;
+    z-index: 200;
+  }
+  .nav-item {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 3px;
+    cursor: pointer;
+    color: #666;
+    font-size: 10px;
+    transition: color 0.2s;
+  }
+  .nav-item.active { color: #e50914; }
+  .nav-item svg { width: 22px; height: 22px; fill: none; stroke: currentColor; stroke-width: 2; }
+
+  .modal-overlay {
+    display: none;
+    position: fixed;
+    inset: 0;
+    background: rgba(0,0,0,0.92);
+    z-index: 999;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    padding: 16px;
+  }
+  .modal-overlay.open { display: flex; }
+  .modal-box {
+    width: 100%;
+    max-width: 480px;
+    background: #161616;
+    border-radius: 14px;
+    overflow: hidden;
+  }
+  .modal-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 14px 16px;
+  }
+  .modal-title { font-size: 15px; font-weight: 700; }
+  .modal-close {
+    background: #2a2a2a;
+    border: none;
+    color: #fff;
+    border-radius: 50%;
+    width: 32px; height: 32px;
+    font-size: 18px;
+    cursor: pointer;
+    display: flex; align-items: center; justify-content: center;
+  }
+  .video-wrap {
+    position: relative;
+    padding-bottom: 56.25%;
+    height: 0;
+    background: #000;
+  }
+  .video-wrap iframe {
+    position: absolute;
+    top: 0; left: 0;
+    width: 100%; height: 100%;
+    border: none;
+  }
+  .modal-meta {
+    padding: 14px 16px;
+    color: #aaa;
+    font-size: 13px;
+    line-height: 1.6;
+  }
+
+  .search-bar {
+    margin: 0 16px 16px;
+    position: relative;
+  }
+  .search-bar input {
+    width: 100%;
+    background: #1a1a1a;
+    border: 1px solid #2a2a2a;
+    border-radius: 8px;
+    padding: 11px 40px 11px 14px;
+    color: #fff;
+    font-size: 14px;
+    outline: none;
+  }
+  .search-bar input::placeholder { color: #666; }
+  .search-bar svg {
+    position: absolute;
+    right: 12px;
+    top: 50%;
+    transform: translateY(-50%);
+    width: 18px; height: 18px;
+    stroke: #666; fill: none; stroke-width: 2;
+  }
+
+  .admin-panel {
+    background: #1a1a1a;
+    border-radius: 12px;
+    padding: 20px 16px;
+    margin: 0 16px 20px;
+    border: 1px solid #2a2a2a;
+  }
+  .admin-panel h3 {
+    font-size: 16px;
+    margin-bottom: 12px;
+    color: #e50914;
+  }
+  .admin-panel input, .admin-panel textarea {
+    width: 100%;
+    padding: 10px 12px;
+    margin-bottom: 10px;
+    background: #0a0a0a;
+    border: 1px solid #2a2a2a;
+    border-radius: 6px;
+    color: #fff;
+    font-size: 13px;
+    font-family: inherit;
+    resize: vertical;
+  }
+  .admin-panel input:focus, .admin-panel textarea:focus {
+    border-color: #e50914;
+    outline: none;
+  }
+  .admin-panel .row {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 10px;
+  }
+  .admin-panel .btn {
+    padding: 10px 16px;
+    border: none;
+    border-radius: 6px;
+    font-weight: 700;
+    font-size: 13px;
+    cursor: pointer;
+    background: #e50914;
+    color: #fff;
+    width: 100%;
+  }
+  .admin-panel .btn-danger {
+    background: #333;
+    color: #ff4444;
+  }
+  .admin-panel .btn-sm {
+    padding: 4px 10px;
+    font-size: 11px;
+    width: auto;
+    margin: 2px;
+  }
+  .admin-panel .movie-item {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 8px 0;
+    border-bottom: 1px solid #222;
+  }
+  .admin-panel .movie-item span {
+    font-size: 13px;
+    flex: 1;
+  }
+  .admin-panel .movie-item .actions {
+    display: flex;
+    gap: 4px;
+  }
+  .admin-panel .movie-item .btn-sm {
+    padding: 2px 8px;
+    font-size: 10px;
+  }
+
+  .pin-overlay {
+    display: none;
+    position: fixed;
+    inset: 0;
+    background: rgba(0,0,0,0.95);
+    z-index: 1000;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+  }
+  .pin-overlay.open { display: flex; }
+  .pin-box {
+    background: #1a1a1a;
+    padding: 30px 24px;
+    border-radius: 16px;
+    text-align: center;
+    max-width: 320px;
+    width: 90%;
+  }
+  .pin-box h2 { color: #fff; margin-bottom: 8px; }
+  .pin-box p { color: #888; font-size: 14px; margin-bottom: 16px; }
+  .pin-box input {
+    width: 100%;
+    padding: 14px;
+    font-size: 20px;
+    text-align: center;
+    background: #0a0a0a;
+    border: 2px solid #2a2a2a;
+    border-radius: 8px;
+    color: #fff;
+    letter-spacing: 8px;
+  }
+  .pin-box input:focus { border-color: #e50914; outline: none; }
+  .pin-box .btn {
+    margin-top: 14px;
+    padding: 12px;
+    width: 100%;
+    background: #e50914;
+    border: none;
+    border-radius: 8px;
+    color: #fff;
+    font-weight: 700;
+    font-size: 16px;
+    cursor: pointer;
+  }
+  .pin-box .error { color: #ff4444; font-size: 13px; margin-top: 10px; display: none; }
+
+  .fab {
+    position: fixed;
+    bottom: 80px;
+    right: 16px;
+    background: #e50914;
+    color: #fff;
+    border: none;
+    border-radius: 28px;
+    padding: 12px 18px;
+    font-size: 13px;
+    font-weight: 700;
+    cursor: pointer;
+    z-index: 200;
+    box-shadow: 0 4px 20px rgba(229,9,20,0.5);
+  }
+
+  @media (max-width: 480px) {
+    .admin-panel .row { grid-template-columns: 1fr; }
+  }
+</style>
+</head>
+<body>
+
+<!-- HEADER -->
+<div class="header">
+  <div class="logo">Flix<span>Zone</span></div>
+  <div class="header-icons">
+    <span id="adminBadge" class="admin-badge" style="display:none;">ADMIN</span>
+    <svg viewBox="0 0 24 24"><circle cx="11" cy="11" r="8"/><line x1="21" y1="21" x2="16.65" y2="16.65"/></svg>
+    <svg viewBox="0 0 24 24"><path d="M20 21v-2a4 4 0 0 0-4-4H8a4 4 0 0 0-4 4v2"/><circle cx="12" cy="7" r="4"/></svg>
+    <a href="?admin=1" style="color:#fff;text-decoration:none;font-size:13px;">⚙️</a>
+  </div>
+</div>
+
+<!-- HERO -->
+<div class="hero" id="heroBanner" onclick="openModal(getHeroMovieId())">
+  <img id="heroImg" src="" alt="Hero" onerror="this.style.background='#e50914';this.src=''">
+  <div class="hero-overlay">
+    <div class="hero-title" id="heroTitle">The Batman</div>
+    <div class="hero-meta" id="heroMeta"><span id="heroYear">2022</span> &nbsp;·&nbsp; <span id="heroGenre">Action</span> &nbsp;·&nbsp; <span id="heroDuration">2h 30m</span></div>
+    <div class="hero-btns">
+      <button class="btn-play" onclick="event.stopPropagation(); openModal(getHeroMovieId())">
+        <svg viewBox="0 0 24 24"><polygon points="5 3 19 12 5 21 5 3"/></svg>
+        Play Now
+      </button>
+      <button class="btn-info">+ Watchlist</button>
+    </div>
+  </div>
+</div>
+
+<!-- TABS -->
+<div class="tabs" style="margin-top:16px">
+  <div class="tab active" onclick="switchTab(this,'movies')">Movies</div>
+  <div class="tab" onclick="switchTab(this,'tvshow')">TV Show</div>
+  <div class="tab" onclick="switchTab(this,'skill')">Skill</div>
+</div>
+
+<!-- SEARCH -->
+<div class="search-bar">
+  <input type="text" placeholder="Search movies, shows..." id="searchInput" oninput="filterMovies()">
+  <svg viewBox="0 0 24 24"><circle cx="11" cy="11" r="8"/><line x1="21" y1="21" x2="16.65" y2="16.65"/></svg>
+</div>
+
+<!-- ADMIN PANEL -->
+<div id="adminPanel" style="display:none;">
+  <div class="admin-panel">
+    <h3>🎬 Movie Management</h3>
+    <div class="row">
+      <input type="text" id="movieTitle" placeholder="Movie Title">
+      <input type="text" id="movieYear" placeholder="Year (e.g. 2022)">
+    </div>
+    <div class="row">
+      <input type="text" id="movieGenre" placeholder="Genre (e.g. Action)">
+      <input type="text" id="movieYt" placeholder="YouTube Video ID">
+    </div>
+    <input type="text" id="movieImg" placeholder="Poster Image URL">
+    <textarea id="movieDesc" rows="2" placeholder="Description"></textarea>
+    <div style="display:flex; gap:10px;">
+      <button class="btn" id="addMovieBtn">➕ Add Movie</button>
+      <button class="btn btn-danger" id="cancelEditBtn" style="display:none;">Cancel Edit</button>
+    </div>
+    <div style="margin-top:16px; max-height:300px; overflow-y:auto;">
+      <div id="movieListAdmin"></div>
+    </div>
+  </div>
+
+  <div class="admin-panel">
+    <h3>📺 TV Show Management</h3>
+    <div class="row">
+      <input type="text" id="tvTitle" placeholder="TV Show Title">
+      <input type="text" id="tvYear" placeholder="Year">
+    </div>
+    <div class="row">
+      <input type="text" id="tvGenre" placeholder="Genre">
+      <input type="text" id="tvYt" placeholder="YouTube Video ID">
+    </div>
+    <input type="text" id="tvImg" placeholder="Poster Image URL">
+    <textarea id="tvDesc" rows="2" placeholder="Description"></textarea>
+    <div style="display:flex; gap:10px;">
+      <button class="btn" id="addTvBtn">➕ Add TV Show</button>
+      <button class="btn btn-danger" id="cancelEditTvBtn" style="display:none;">Cancel Edit</button>
+    </div>
+    <div style="margin-top:16px; max-height:300px; overflow-y:auto;">
+      <div id="tvListAdmin"></div>
+    </div>
+  </div>
+</div>
+
+<!-- CONTENT -->
+<div id="moviesSection">
+  <div class="section">
+    <div class="section-title">🔥 Trending Now</div>
+    <div class="featured-scroll" id="featuredScroll"></div>
+  </div>
+  <div class="section">
+    <div class="section-title">🎬 All Movies</div>
+    <div class="movie-grid" id="movieGrid"></div>
+  </div>
+</div>
+
+<div id="tvshowSection" style="display:none; padding:16px;">
+  <div class="section-title" style="padding:0 0 16px;">📺 Popular TV Shows</div>
+  <div class="movie-grid" id="tvGrid"></div>
+</div>
+
+<div id="skillSection" style="display:none; padding:16px;">
+  <div style="background:#1a1a1a; border-radius:12px; padding:20px; text-align:center; color:#aaa;">
+    <div style="font-size:40px; margin-bottom:12px;">🎓</div>
+    <div style="font-size:18px; font-weight:700; color:#fff; margin-bottom:8px;">Skill Section</div>
+    <div style="font-size:14px; line-height:1.7;">Yahan par aap apni favorite genre, language, aur actor ki preference save kar sakte hain. Jald aa raha hai!</div>
+    <button class="btn-play" style="margin:20px auto 0; display:flex; width:fit-content;">Coming Soon</button>
+  </div>
+</div>
+
+<!-- BOTTOM NAV -->
+<div class="bottom-nav">
+  <div class="nav-item active" onclick="setNav(this)">
+    <svg viewBox="0 0 24 24"><path d="M3 9l9-7 9 7v11a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2z"/><polyline points="9 22 9 12 15 12 15 22"/></svg>
+    Home
+  </div>
+  <div class="nav-item" onclick="setNav(this)">
+    <svg viewBox="0 0 24 24"><polygon points="23 7 16 12 23 17 23 7"/><rect x="1" y="5" width="15" height="14" rx="2"/></svg>
+    Movies
+  </div>
+  <div class="nav-item" onclick="setNav(this)">
+    <svg viewBox="0 0 24 24"><rect x="2" y="7" width="20" height="15" rx="2"/><polyline points="17 2 12 7 7 2"/></svg>
+    TV Shows
+  </div>
+  <div class="nav-item" onclick="setNav(this)">
+    <svg viewBox="0 0 24 24"><path d="M20 21v-2a4 4 0 0 0-4-4H8a4 4 0 0 0-4 4v2"/><circle cx="12" cy="7" r="4"/></svg>
+    Profile
+  </div>
+</div>
+
+<!-- FAB -->
+<button class="fab" onclick="alert('Subscribe ka feature jald aayega! 🎉')">⭐ Subscribe</button>
+
+<!-- MODAL -->
+<div class="modal-overlay" id="modalOverlay" onclick="closeModal(event)">
+  <div class="modal-box">
+    <div class="modal-header">
+      <div class="modal-title" id="modalTitle">Movie</div>
+      <button class="modal-close" onclick="closeModal(null, true)">✕</button>
+    </div>
+    <div class="video-wrap">
+      <iframe id="ytPlayer" src="" allow="autoplay; encrypted-media" allowfullscreen></iframe>
+    </div>
+    <div class="modal-meta" id="modalMeta"></div>
+  </div>
+</div>
+
+<!-- PIN LOGIN -->
+<div class="pin-overlay" id="pinOverlay">
+  <div class="pin-box">
+    <h2>🔐 Admin Access</h2>
+    <p>Enter PIN to manage movies</p>
+    <input type="password" id="pinInput" maxlength="6" placeholder="••••" inputmode="numeric">
+    <button class="btn" onclick="verifyPin()">Unlock</button>
+    <div class="error" id="pinError">Wrong PIN! Try again.</div>
+  </div>
+</div>
+
+<script>
+// ===== DEFAULT DATA =====
+const DEFAULT_MOVIES = [
+  { id:'batman',    title:'The Batman',          year:'2022', genre:'Action',    img:'https://upload.wikimedia.org/wikipedia/en/1/1b/The_Batman_%28film%29_poster.jpg',    yt:'mqqft2x_Aa4', desc:'Gotham City mein ek serial killer hai. Batman ko uska raaz sulajhna hai.' },
+  { id:'avengers',  title:'Avengers: Infinity War', year:'2018', genre:'Action', img:'https://upload.wikimedia.org/wikipedia/en/4/4d/Avengers_Infinity_War_poster.jpg',  yt:'6ZfuNTqbHE8', desc:'Thanos ne aadhi duniya ko mita dene ki kasam khayi hai. Avengers mil ke ladenge.' },
+  { id:'lotr',      title:'Lord of the Rings',    year:'2001', genre:'Fantasy',   img:'https://upload.wikimedia.org/wikipedia/en/f/fb/Lord_Rings_Fellowship_Ring.jpg',    yt:'V75dMMIW2B4', desc:'Ek hobbit ek shaktishali angoothi ko nasht karne ki yatra par nikalta hai.' },
+  { id:'blackpanther', title:'Black Panther',     year:'2018', genre:'Action',   img:'https://upload.wikimedia.org/wikipedia/en/0/0c/Black_Panther_film_poster.jpg',     yt:'xjDjITE7pWc', desc:'Wakanda ka raja T\'Challa apni dharti ko bachata hai.' },
+  { id:'dunki',     title:'Dunki',                year:'2023', genre:'Hindi',     img:'https://upload.wikimedia.org/wikipedia/en/0/0f/Dunki_poster.jpg',                  yt:'pVAaFBGlbMU', desc:'Ek group ka sapna — videsh jaana — aur unki behtareen journey.' },
+  { id:'godzilla',  title:'Godzilla vs Kong',     year:'2021', genre:'Action',   img:'https://upload.wikimedia.org/wikipedia/en/8/89/Godzilla_vs._Kong_%282021_film%29.jpg', yt:'odM92ap8_c0', desc:'Dharti ke do titans ek dusre se bhed jaate hain.' },
+  { id:'bp2',       title:'Black Panther: WF',    year:'2022', genre:'Action',   img:'https://upload.wikimedia.org/wikipedia/en/b/b2/Black_Panther_Wakanda_Forever_poster.jpg', yt:'_Z3QKkl1WyM', desc:'Wakanda abhi bhi khatron mein hai. Ek nayi Black Panther janam leti hai.' },
+  { id:'guardians', title:'Guardians of Galaxy',  year:'2014', genre:'Action',   img:'https://upload.wikimedia.org/wikipedia/en/9/9e/Guardians_of_the_galaxy.jpg',      yt:'d96cjJleqcA', desc:'Ek group of misfits galaxy ko bachane ke liye aata hai.' },
+  { id:'incredibles', title:'The Incredibles',    year:'2004', genre:'Animation',img:'https://upload.wikimedia.org/wikipedia/en/2/27/The_Incredibles_%282004_film%29_poster.jpg', yt:'eZbzbC9285I', desc:'Ek superhero family apni powers chhupa ke normal life jee rahi hai.' },
+];
+
+const DEFAULT_TV = [
+  { id:'bb',     title:'Breaking Bad',    year:'2008', genre:'Drama',    img:'https://upload.wikimedia.org/wikipedia/en/6/61/Breaking_Bad_title_card.png',    yt:'HhesaQXLuRY', desc:'Ek chemistry teacher drugs ki duniya mein kadam rakhta hai.' },
+  { id:'got',    title:'Game of Thrones', year:'2011', genre:'Fantasy',  img:'https://upload.wikimedia.org/wikipedia/en/d/d8/Game_of_Thrones_Season_3.jpg',  yt:'KPLWWIOCOOQ', desc:'Saat rajwansh ek iron throne ke liye ladte hain.' },
+  { id:'money',  title:'Money Heist',     year:'2017', genre:'Thriller', img:'https://upload.wikimedia.org/wikipedia/en/e/e4/La_Casa_de_Papel_Netflix_poster.jpg', yt:'A_zy4Hm_dlo', desc:'Professor apne gang ke saath Spain ka royal mint lootna chahta hai.' },
+  { id:'stranger', title:'Stranger Things', year:'2016', genre:'Sci-Fi', img:'https://upload.wikimedia.org/wikipedia/en/4/43/Stranger_Things_season_1.jpg',  yt:'b9EkMc79ZSU', desc:'Ek chota sa town supernatural ghatnaon ka ghar ban jata hai.' },
+  { id:'witcher', title:'The Witcher',     year:'2019', genre:'Fantasy', img:'https://upload.wikimedia.org/wikipedia/en/8/8c/The_Witcher_%28TV_series%29.jpg', yt:'ndl1W4ltcmg', desc:'Geralt of Rivia ek monster hunter hai jo destiny ko maanta nahin.' },
+  { id:'squid',  title:'Squid Game',      year:'2021', genre:'Thriller', img:'https://upload.wikimedia.org/wikipedia/en/8/82/Squid_Game.jpg',                yt:'oqxAJKy0ii4', desc:'456 log ek khatarnak game mein participate karte hain sirf survive karne ke liye.' },
+];
+
+// ===== STORAGE =====
+function loadData(key, defaultData) {
+  const stored = localStorage.getItem(key);
+  if (stored) {
+    try { return JSON.parse(stored); } catch(e) {}
+  }
+  return defaultData;
+}
+
+function saveData(key, data) {
+  localStorage.setItem(key, JSON.stringify(data));
+}
+
+// ===== STATE =====
+let allMovies = loadData('flixzone_movies', DEFAULT_MOVIES);
+let allTv = loadData('flixzone_tv', DEFAULT_TV);
+let editingMovieId = null;
+let editingTvId = null;
+let isAdmin = false;
+const ADMIN_PIN = '1234';
+
+// ===== RENDER FUNCTIONS (sab ek saath refresh) =====
+function refreshAll() {
+  renderMovieGrid();
+  renderTvGrid();
+  renderFeatured();
+  renderHero();
+  if (isAdmin) {
+    renderAdminMovieList();
+    renderAdminTvList();
+  }
+}
+
+function renderMovieGrid() {
+  const grid = document.getElementById('movieGrid');
+  grid.innerHTML = allMovies.map(m => `
+    <div class="movie-card" onclick="openModal('${m.id}')">
+      <img src="${m.img}" alt="${m.title}" onerror="this.style.background='#2a2a2a'; this.src=''">
+      <div class="movie-card-overlay">
+        <div class="movie-card-title">${m.title}</div>
+      </div>
+    </div>
+  `).join('');
+}
+
+function renderTvGrid() {
+  const grid = document.getElementById('tvGrid');
+  grid.innerHTML = allTv.map(m => `
+    <div class="movie-card" onclick="openModal('${m.id}')">
+      <img src="${m.img}" alt="${m.title}" onerror="this.style.background='#2a2a2a'; this.src=''">
+      <div class="movie-card-overlay">
+        <div class="movie-card-title">${m.title}</div>
+      </div>
+    </div>
+  `).join('');
+}
+
+function renderFeatured() {
+  const container = document.getElementById('featuredScroll');
+  const featured = allMovies.slice(0, 5);
+  container.innerHTML = featured.map(m => `
+    <div class="featured-card" onclick="openModal('${m.id}')">
+      <img src="${m.img}" alt="${m.title}" onerror="this.style.background='#2a2a2a'; this.src=''">
+      <div class="featured-card-overlay">
+        <div class="featured-card-badge">${m.genre}</div>
+        <div class="featured-card-title">${m.title}</div>
+      </div>
+    </div>
+  `).join('');
+}
+
+function renderHero() {
+  const hero = allMovies.length > 0 ? allMovies[0] : DEFAULT_MOVIES[0];
+  document.getElementById('heroImg').src = hero.img;
+  document.getElementById('heroTitle').textContent = hero.title;
+  document.getElementById('heroYear').textContent = hero.year;
+  document.getElementById('heroGenre').textContent = hero.genre;
+}
+
+function getHeroMovieId() {
+  return allMovies.length > 0 ? allMovies[0].id : DEFAULT_MOVIES[0].id;
+}
+
+function renderAdminMovieList() {
+  const container = document.getElementById('movieListAdmin');
+  container.innerHTML = allMovies.map(m => `
+    <div class="movie-item">
+      <span>${m.title} (${m.year})</span>
+      <div class="actions">
+        <button class="btn btn-sm" onclick="editMovie('${m.id}')">✏️</button>
+        <button class="btn btn-sm btn-danger" onclick="deleteMovie('${m.id}')">🗑️</button>
+      </div>
+    </div>
+  `).join('');
+}
+
+function renderAdminTvList() {
+  const container = document.getElementById('tvListAdmin');
+  container.innerHTML = allTv.map(m => `
+    <div class="movie-item">
+      <span>${m.title} (${m.year})</span>
+      <div class="actions">
+        <button class="btn btn-sm" onclick="editTv('${m.id}')">✏️</button>
+        <button class="btn btn-sm btn-danger" onclick="deleteTv('${m.id}')">🗑️</button>
+      </div>
+    </div>
+  `).join('');
+}
+
+// ===== ADMIN CRUD =====
+function addMovie() {
+  const title = document.getElementById('movieTitle').value.trim();
+  const year = document.getElementById('movieYear').value.trim();
+  const genre = document.getElementById('movieGenre').value.trim();
+  const yt = document.getElementById('movieYt').value.trim();
+  const img = document.getElementById('movieImg').value.trim() || 'https://via.placeholder.com/300x450/222/666?text=No+Image';
+  const desc = document.getElementById('movieDesc').value.trim() || 'No description available.';
+
+  if (!title || !year || !genre || !yt) {
+    alert('Please fill all required fields: Title, Year, Genre, YouTube ID');
+    return;
+  }
+
+  if (editingMovieId) {
+    const index = allMovies.findIndex(m => m.id === editingMovieId);
+    if (index !== -1) {
+      allMovies[index] = { ...allMovies[index], title, year, genre, yt, img, desc };
+    }
+    editingMovieId = null;
+    document.getElementById('addMovieBtn').textContent = '➕ Add Movie';
+    document.getElementById('cancelEditBtn').style.display = 'none';
+  } else {
+    const id = title.toLowerCase().replace(/[^a-z0-9]/g, '') + Date.now();
+    allMovies.push({ id, title, year, genre, yt, img, desc });
+  }
+
+  saveData('flixzone_movies', allMovies);
+  clearMovieForm();
+  refreshAll(); // <-- YAHI SE SAB REFRESH HOGA
+}
+
+function editMovie(id) {
+  const m = allMovies.find(x => x.id === id);
+  if (!m) return;
+  document.getElementById('movieTitle').value = m.title;
+  document.getElementById('movieYear').value = m.year;
+  document.getElementById('movieGenre').value = m.genre;
+  document.getElementById('movieYt').value = m.yt;
+  document.getElementById('movieImg').value = m.img;
+  document.getElementById('movieDesc').value = m.desc;
+  editingMovieId = id;
+  document.getElementById('addMovieBtn').textContent = '💾 Update Movie';
+  document.getElementById('cancelEditBtn').style.display = 'inline-block';
+}
+
+function cancelEditMovie() {
+  editingMovieId = null;
+  clearMovieForm();
+  document.getElementById('addMovieBtn').textContent = '➕ Add Movie';
+  document.getElementById('cancelEditBtn').style.display = 'none';
+}
+
+function clearMovieForm() {
+  document.getElementById('movieTitle').value = '';
+  document.getElementById('movieYear').value = '';
+  document.getElementById('movieGenre').value = '';
+  document.getElementById('movieYt').value = '';
+  document.getElementById('movieImg').value = '';
+  document.getElementById('movieDesc').value = '';
+}
+
+function deleteMovie(id) {
+  if (!confirm('Delete this movie?')) return;
+  allMovies = allMovies.filter(m => m.id !== id);
+  saveData('flixzone_movies', allMovies);
+  refreshAll(); // <-- YAHI SE SAB REFRESH HOGA
+}
+
+// ===== TV SHOW CRUD =====
+function addTv() {
+  const title = document.getElementById('tvTitle').value.trim();
+  const year = document.getElementById('tvYear').value.trim();
+  const genre = document.getElementById('tvGenre').value.trim();
+  const yt = document.getElementById('tvYt').value.trim();
+  const img = document.getElementById('tvImg').value.trim() || 'https://via.placeholder.com/300x450/222/666?text=No+Image';
+  const desc = document.getElementById('tvDesc').value.trim() || 'No description available.';
+
+  if (!title || !year || !genre || !yt) {
+    alert('Please fill all required fields: Title, Year, Genre, YouTube ID');
+    return;
+  }
+
+  if (editingTvId) {
+    const index = allTv.findIndex(m => m.id === editingTvId);
+    if (index !== -1) {
+      allTv[index] = { ...allTv[index], title, year, genre, yt, img, desc };
+    }
+    editingTvId = null;
+    document.getElementById('addTvBtn').textContent = '➕ Add TV Show';
+    document.getElementById('cancelEditTvBtn').style.display = 'none';
+  } else {
+    const id = title.toLowerCase().replace(/[^a-z0-9]/g, '') + Date.now();
+    allTv.push({ id, title, year, genre, yt, img, desc });
+  }
+
+  saveData('flixzone_tv', allTv);
+  clearTvForm();
+  refreshAll(); // <-- YAHI SE SAB REFRESH HOGA
+}
+
+function editTv(id) {
+  const m = allTv.find(x => x.id === id);
+  if (!m) return;
+  document.getElementById('tvTitle').value = m.title;
+  document.getElementById('tvYear').value = m.year;
+  document.getElementById('tvGenre').value = m.genre;
+  document.getElementById('tvYt').value = m.yt;
+  document.getElementById('tvImg').value = m.img;
+  document.getElementById('tvDesc').value = m.desc;
+  editingTvId = id;
+  document.getElementById('addTvBtn').textContent = '💾 Update TV Show';
+  document.getElementById('cancelEditTvBtn').style.display = 'inline-block';
+}
+
+function cancelEditTv() {
+  editingTvId = null;
+  clearTvForm();
+  document.getElementById('addTvBtn').textContent = '➕ Add TV Show';
+  document.getElementById('cancelEditTvBtn').style.display = 'none';
+}
+
+function clearTvForm() {
+  document.getElementById('tvTitle').value = '';
+  document.getElementById('tvYear').value = '';
+  document.getElementById('tvGenre').value = '';
+  document.getElementById('tvYt').value = '';
+  document.getElementById('tvImg').value = '';
+  document.getElementById('tvDesc').value = '';
+}
+
+function deleteTv(id) {
+  if (!confirm('Delete this TV show?')) return;
+  allTv = allTv.filter(m => m.id !== id);
+  saveData('flixzone_tv', allTv);
+  refreshAll(); // <-- YAHI SE SAB REFRESH HOGA
+}
+
+// ===== MODAL =====
+function openModal(id) {
+  const all = [...allMovies, ...allTv];
+  const m = all.find(x => x.id === id);
+  if (!m) return;
+  document.getElementById('modalTitle').textContent = m.title;
+  document.getElementById('modalMeta').innerHTML = `<strong style="color:#fff">${m.year} · ${m.genre}</strong><br>${m.desc}`;
+  document.getElementById('ytPlayer').src = `https://www.youtube.com/embed/${m.yt}?autoplay=1&rel=0`;
+  document.getElementById('modalOverlay').classList.add('open');
+  document.body.style.overflow = 'hidden';
+}
+
+function closeModal(e, force) {
+  if (force || (e && e.target === document.getElementById('modalOverlay'))) {
+    document.getElementById('ytPlayer').src = '';
+    document.getElementById('modalOverlay').classList.remove('open');
+    document.body.style.overflow = '';
+  }
+}
+
+// ===== SEARCH =====
+function filterMovies() {
+  const q = document.getElementById('searchInput').value.toLowerCase();
+  const filtered = allMovies.filter(m =>
+    m.title.toLowerCase().includes(q) ||
+    m.genre.toLowerCase().includes(q) ||
+    m.year.includes(q)
+  );
+  const grid = document.getElementById('movieGrid');
+  grid.innerHTML = filtered.map(m => `
+    <div class="movie-card" onclick="openModal('${m.id}')">
+      <img src="${m.img}" alt="${m.title}" onerror="this.style.background='#2a2a2a'; this.src=''">
+      <div class="movie-card-overlay">
+        <div class="movie-card-title">${m.title}</div>
+      </div>
+    </div>
+  `).join('');
+}
+
+// ===== TABS =====
+function switchTab(el, section) {
+  document.querySelectorAll('.tab').forEach(t => t.classList.remove('active'));
+  el.classList.add('active');
+  document.getElementById('moviesSection').style.display = section === 'movies' ? '' : 'none';
+  document.getElementById('tvshowSection').style.display = section === 'tvshow' ? '' : 'none';
+  document.getElementById('skillSection').style.display = section === 'skill' ? '' : 'none';
+}
+
+function setNav(el) {
+  document.querySelectorAll('.nav-item').forEach(n => n.classList.remove('active'));
+  el.classList.add('active');
+}
+
+// ===== PIN LOGIN =====
+function verifyPin() {
+  const input = document.getElementById('pinInput').value;
+  if (input === ADMIN_PIN) {
+    isAdmin = true;
+    document.getElementById('pinOverlay').classList.remove('open');
+    document.getElementById('adminPanel').style.display = 'block';
+    document.getElementById('adminBadge').style.display = 'inline';
+    refreshAll();
+  } else {
+    document.getElementById('pinError').style.display = 'block';
+    document.getElementById('pinInput').value = '';
+    document.getElementById('pinInput').focus();
+  }
+}
+
+// ===== ADMIN MODE DETECTION =====
+function checkAdminMode() {
+  const urlParams = new URLSearchParams(window.location.search);
+  if (urlParams.get('admin') === '1') {
+    document.getElementById('pinOverlay').classList.add('open');
+    document.getElementById('pinInput').focus();
+  }
+}
+
+// ===== EVENT LISTENERS =====
+document.addEventListener('DOMContentLoaded', function() {
+  refreshAll();
+  checkAdminMode();
+
+  document.getElementById('addMovieBtn').addEventListener('click', addMovie);
+  document.getElementById('cancelEditBtn').addEventListener('click', cancelEditMovie);
+  document.getElementById('addTvBtn').addEventListener('click', addTv);
+  document.getElementById('cancelEditTvBtn').addEventListener('click', cancelEditTv);
+
+  document.getElementById('pinInput').addEventListener('keydown', function(e) {
+    if (e.key === 'Enter') verifyPin();
+  });
+});
+
+// ===== DEVTOOLS DETERRENT =====
+document.addEventListener('contextmenu', e => e.preventDefault());
+document.addEventListener('keydown', function(e) {
+  const k = e.key.toLowerCase();
+  if (e.key === 'F12' || (e.ctrlKey && e.shiftKey && ['i','j','c','k'].includes(k)) || (e.ctrlKey && ['u','s'].includes(k))) {
+    e.preventDefault();
+    e.stopPropagation();
+    return false;
+  }
+});
+</script>
+</body>
+</html>
