@@ -14,7 +14,6 @@
     padding-bottom: 70px;
   }
 
-  /* HEADER */
   .header {
     position: sticky;
     top: 0;
@@ -25,12 +24,9 @@
     align-items: center;
     justify-content: space-between;
   }
-  .logo { font-size: 26px; font-weight: 800; color: #fff; letter-spacing: -0.5px; cursor: pointer; }
+  .logo { font-size: 26px; font-weight: 800; color: #fff; letter-spacing: -0.5px; }
   .logo span { color: #e50914; }
-  .header-icons { display: flex; gap: 14px; align-items: center; }
-  .header-icons svg { width: 24px; height: 24px; fill: none; stroke: #fff; stroke-width: 2; cursor: pointer; }
 
-  /* HERO BANNER - PEHLE LOAD HOGA */
   .hero {
     position: relative;
     height: 280px;
@@ -74,7 +70,6 @@
   }
   .btn-play svg { width: 16px; height: 16px; fill: #fff; }
 
-  /* CATEGORY TABS - SIRF 3 */
   .tabs {
     display: flex;
     margin: 16px 16px 20px;
@@ -105,74 +100,44 @@
     color: #fff;
   }
 
-  /* MOVIE GRID - LAZY LOAD */
+  /* ===== GRID - FULLY RESPONSIVE ===== */
   .movie-grid {
     display: grid;
-    grid-template-columns: repeat(3, 1fr);
-    gap: 8px;
+    grid-template-columns: repeat(auto-fill, minmax(150px, 1fr));
+    gap: 12px;
     padding: 0 16px;
-    min-height: 200px;
   }
+
   .movie-card {
-    border-radius: 8px;
+    border-radius: 10px;
     overflow: hidden;
     position: relative;
     cursor: pointer;
     background: #1a1a1a;
-    opacity: 0;
-    transform: translateY(20px);
-    animation: fadeInUp 0.4s ease forwards;
+    transition: transform 0.2s;
   }
-  .movie-card:nth-child(1) { animation-delay: 0.05s; }
-  .movie-card:nth-child(2) { animation-delay: 0.10s; }
-  .movie-card:nth-child(3) { animation-delay: 0.15s; }
-  .movie-card:nth-child(4) { animation-delay: 0.20s; }
-  .movie-card:nth-child(5) { animation-delay: 0.25s; }
-  .movie-card:nth-child(6) { animation-delay: 0.30s; }
-  .movie-card:nth-child(7) { animation-delay: 0.35s; }
-  .movie-card:nth-child(8) { animation-delay: 0.40s; }
-  .movie-card:nth-child(9) { animation-delay: 0.45s; }
-
-  @keyframes fadeInUp {
-    to { opacity: 1; transform: translateY(0); }
-  }
-
+  .movie-card:hover { transform: scale(1.04); }
   .movie-card img {
     width: 100%;
     aspect-ratio: 2/3;
     object-fit: cover;
     display: block;
-    transition: transform 0.3s;
   }
-  .movie-card:hover img { transform: scale(1.05); }
   .movie-card-overlay {
     position: absolute;
     bottom: 0; left: 0; right: 0;
-    background: linear-gradient(transparent, rgba(0,0,0,0.8));
+    background: linear-gradient(transparent, rgba(0,0,0,0.85));
     padding: 16px 6px 6px;
   }
-  .movie-card-title { font-size: 10px; font-weight: 600; line-height: 1.3; color: #fff; }
+  .movie-card-title { font-size: 11px; font-weight: 600; line-height: 1.3; color: #fff; }
   .movie-card-category {
-    font-size: 8px;
+    font-size: 9px;
     color: #e50914;
     font-weight: 600;
     text-transform: uppercase;
   }
 
-  /* SKELETON LOADER - JAB TAK DATA NAHI AATA */
-  .skeleton {
-    background: linear-gradient(90deg, #1a1a1a 25%, #2a2a2a 50%, #1a1a1a 75%);
-    background-size: 200% 100%;
-    animation: shimmer 1.5s infinite;
-    border-radius: 8px;
-    aspect-ratio: 2/3;
-  }
-  @keyframes shimmer {
-    0% { background-position: -200% 0; }
-    100% { background-position: 200% 0; }
-  }
-
-  /* BOTTOM NAV - SIRF 2 BUTTON */
+  /* ===== BOTTOM NAV ===== */
   .bottom-nav {
     position: fixed;
     bottom: 0; left: 0; right: 0;
@@ -197,7 +162,7 @@
   .nav-item.active { color: #e50914; }
   .nav-item svg { width: 22px; height: 22px; fill: none; stroke: currentColor; stroke-width: 2; }
 
-  /* MODAL PLAYER */
+  /* ===== PLAYER MODAL ===== */
   .modal-overlay {
     display: none;
     position: fixed;
@@ -261,7 +226,6 @@
     background: #0a0a0a;
   }
 
-  /* SEARCH */
   .search-bar {
     margin: 0 16px 16px;
     position: relative;
@@ -286,86 +250,32 @@
     stroke: #666; fill: none; stroke-width: 2;
   }
 
-  /* ===== ADMIN PANEL ===== */
-  .admin-panel {
-    display: none;
-    background: #1a1a1a;
-    border-radius: 12px;
-    padding: 20px 16px;
-    margin: 0 16px 20px;
-    border: 1px solid #2a2a2a;
+  /* ===== RESPONSIVE ===== */
+  @media (max-width: 600px) {
+    .movie-grid { grid-template-columns: repeat(2, 1fr); gap: 8px; }
+    .hero { height: 200px; }
+    .hero-title { font-size: 20px; }
   }
-  .admin-panel.visible { display: block; }
-  .admin-panel h3 { font-size: 16px; margin-bottom: 12px; color: #e50914; }
-  .admin-panel input, .admin-panel textarea, .admin-panel select {
-    width: 100%;
-    padding: 10px 12px;
-    margin-bottom: 10px;
-    background: #0a0a0a;
-    border: 1px solid #2a2a2a;
-    border-radius: 6px;
-    color: #fff;
-    font-size: 13px;
-    font-family: inherit;
-    resize: vertical;
+  @media (min-width: 601px) and (max-width: 900px) {
+    .movie-grid { grid-template-columns: repeat(3, 1fr); }
   }
-  .admin-panel input:focus, .admin-panel textarea:focus, .admin-panel select:focus {
-    border-color: #e50914;
-    outline: none;
-  }
-  .admin-panel .row { display: grid; grid-template-columns: 1fr 1fr; gap: 10px; }
-  .admin-panel .btn {
-    padding: 10px 16px;
-    border: none;
-    border-radius: 6px;
-    font-weight: 700;
-    font-size: 13px;
-    cursor: pointer;
-    background: #e50914;
-    color: #fff;
-    width: 100%;
-  }
-  .admin-panel .btn-danger { background: #333; color: #ff4444; }
-  .admin-panel .btn-sm { padding: 4px 10px; font-size: 11px; width: auto; margin: 2px; }
-  .admin-panel .movie-item {
-    display: flex;
-    justify-content: space-between;
-    align-items: center;
-    padding: 8px 0;
-    border-bottom: 1px solid #222;
-  }
-  .admin-panel .movie-item span { font-size: 13px; flex: 1; }
-  .admin-panel .movie-item .actions { display: flex; gap: 4px; }
-  .admin-panel .movie-item .btn-sm { padding: 2px 8px; font-size: 10px; }
-  .admin-panel .category-badge {
-    display: inline-block;
-    padding: 2px 8px;
-    border-radius: 10px;
-    font-size: 9px;
-    font-weight: 700;
-    margin-left: 8px;
-  }
-  .admin-panel .category-badge.movies { background: #e50914; color: #fff; }
-  .admin-panel .category-badge.tvshow { background: #1a8cd8; color: #fff; }
-  .admin-panel .category-badge.skill { background: #10b981; color: #fff; }
-
-  @media (max-width: 480px) {
-    .admin-panel .row { grid-template-columns: 1fr; }
+  @media (min-width: 901px) {
+    .movie-grid { grid-template-columns: repeat(5, 1fr); }
   }
 </style>
 </head>
 <body>
 
-<!-- HEADER -->
+<!-- ===== HEADER ===== -->
 <div class="header">
-  <div class="logo" id="logoClick">Flix<span>Zone</span></div>
+  <div class="logo">Flix<span>Zone</span></div>
   <div class="header-icons">
-    <svg viewBox="0 0 24 24"><circle cx="11" cy="11" r="8"/><line x1="21" y1="21" x2="16.65" y2="16.65"/></svg>
-    <svg viewBox="0 0 24 24"><path d="M20 21v-2a4 4 0 0 0-4-4H8a4 4 0 0 0-4 4v2"/><circle cx="12" cy="7" r="4"/></svg>
+    <svg viewBox="0 0 24 24" style="width:24px;height:24px;fill:none;stroke:#fff;stroke-width:2;"><circle cx="11" cy="11" r="8"/><line x1="21" y1="21" x2="16.65" y2="16.65"/></svg>
+    <svg viewBox="0 0 24 24" style="width:24px;height:24px;fill:none;stroke:#fff;stroke-width:2;"><path d="M20 21v-2a4 4 0 0 0-4-4H8a4 4 0 0 0-4 4v2"/><circle cx="12" cy="7" r="4"/></svg>
   </div>
 </div>
 
-<!-- HERO BANNER - PEHLE LOAD -->
+<!-- ===== HERO BANNER ===== -->
 <div class="hero" id="heroBanner" onclick="openPlayer(getHeroMovieId())">
   <img id="heroImg" src="" alt="Hero" onerror="this.style.background='#e50914';this.src=''">
   <div class="hero-overlay">
@@ -373,81 +283,47 @@
     <div class="hero-meta" id="heroMeta"><span id="heroYear">---</span> &nbsp;·&nbsp; <span id="heroGenre">---</span></div>
     <div class="hero-btns">
       <button class="btn-play" onclick="event.stopPropagation(); openPlayer(getHeroMovieId())">
-        <svg viewBox="0 0 24 24"><polygon points="5 3 19 12 5 21 5 3"/></svg>
+        <svg viewBox="0 0 24 24" style="width:16px;height:16px;fill:#fff;"><polygon points="5 3 19 12 5 21 5 3"/></svg>
         Play Now
       </button>
     </div>
   </div>
 </div>
 
-<!-- CATEGORY TABS - SIRF 3 -->
+<!-- ===== CATEGORY TABS ===== -->
 <div class="tabs">
   <div class="tab active" data-category="movies" onclick="switchCategory('movies')">Movies</div>
   <div class="tab" data-category="tvshow" onclick="switchCategory('tvshow')">TV Show</div>
   <div class="tab" data-category="skill" onclick="switchCategory('skill')">Skill</div>
 </div>
 
-<!-- SEARCH -->
+<!-- ===== SEARCH ===== -->
 <div class="search-bar">
   <input type="text" placeholder="Search..." id="searchInput" oninput="filterContent()">
-  <svg viewBox="0 0 24 24"><circle cx="11" cy="11" r="8"/><line x1="21" y1="21" x2="16.65" y2="16.65"/></svg>
+  <svg viewBox="0 0 24 24" style="position:absolute;right:12px;top:50%;transform:translateY(-50%);width:18px;height:18px;stroke:#666;fill:none;stroke-width:2;"><circle cx="11" cy="11" r="8"/><line x1="21" y1="21" x2="16.65" y2="16.65"/></svg>
 </div>
 
-<!-- CONTENT - LAZY LOAD -->
+<!-- ===== CONTENT GRID ===== -->
 <div id="contentSection">
   <div class="section">
     <div class="section-title" id="categoryTitle">🎬 Movies</div>
-    <!-- SKELETON LOADER - JAB TAK DATA NAHI AATA -->
-    <div class="movie-grid" id="movieGrid">
-      <div class="skeleton"></div>
-      <div class="skeleton"></div>
-      <div class="skeleton"></div>
-      <div class="skeleton"></div>
-      <div class="skeleton"></div>
-      <div class="skeleton"></div>
-    </div>
+    <div class="movie-grid" id="movieGrid"></div>
   </div>
 </div>
 
-<!-- ADMIN PANEL - HIDDEN -->
-<div class="admin-panel" id="adminPanel">
-  <h3>🎬 Admin Panel</h3>
-  <div class="row">
-    <input type="text" id="movieTitle" placeholder="Title">
-    <input type="text" id="movieYear" placeholder="Year">
-  </div>
-  <div class="row">
-    <input type="text" id="movieYt" placeholder="YouTube Video ID">
-    <select id="movieCategory">
-      <option value="movies">Movies</option>
-      <option value="tvshow">TV Show</option>
-      <option value="skill">Skill</option>
-    </select>
-  </div>
-  <input type="text" id="movieImg" placeholder="Poster Image URL">
-  <textarea id="movieDesc" rows="2" placeholder="Description"></textarea>
-  <div style="display:flex; gap:10px;">
-    <button class="btn" id="addMovieBtn">➕ Add</button>
-    <button class="btn btn-danger" id="cancelEditBtn" style="display:none;">Cancel</button>
-  </div>
-  <div style="margin-top:16px; max-height:300px; overflow-y:auto;">
-    <div id="movieListAdmin"></div>
-  </div>
-</div>
-
-<!-- BOTTOM NAV - SIRF 2 BUTTON -->
+<!-- ===== BOTTOM NAV ===== -->
 <div class="bottom-nav">
   <div class="nav-item active" onclick="setNav(this, 'home')">
-    <svg viewBox="0 0 24 24"><path d="M3 9l9-7 9 7v11a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2z"/><polyline points="9 22 9 12 15 12 15 22"/></svg>
+    <svg viewBox="0 0 24 24" style="width:22px;height:22px;fill:none;stroke:currentColor;stroke-width:2;"><path d="M3 9l9-7 9 7v11a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2z"/><polyline points="9 22 9 12 15 12 15 22"/></svg>
     Home
   </div>
   <div class="nav-item" onclick="setNav(this, 'subscribe')">
-    <svg viewBox="0 0 24 24"><path d="M12 2v20M2 12h20"/></svg>
+    <svg viewBox="0 0 24 24" style="width:22px;height:22px;fill:none;stroke:currentColor;stroke-width:2;"><path d="M12 2v20M2 12h20"/></svg>
     Subscribe
   </div>
 </div>
 
-<!-- MODAL PLAYER -->
+<!-- ===== PLAYER MODAL ===== -->
 <div class="modal-overlay" id="modalOverlay">
   <div class="modal-box">
     <div class="modal-header">
@@ -463,139 +339,173 @@
 
 <script>
 // ============================================================
-// 🔥 APNI JSONBin ID AUR API KEY - FINAL 🔥
+// 🔥 YAHAN APNI VIDEOS ADD KARO YA DELETE KARO 🔥
 // ============================================================
-const JSONBIN_BIN_ID = '6a339ed4da38895dfed57a9c';
-const JSONBIN_API_KEY = $2a$10$nOnGCFeraZhT5LEzfg3nneQv8jFdjx.SxmP75pBSgpQ5XVS/jnla2
+// category: "movies", "tvshow", ya "skill"
+// yt: YouTube video ID (jaise "mqqft2x_Aa4")
+// img: Poster image ka URL
+// title, year, desc: Video ki details
 
-// ============================================================
-// ===== DEFAULT DATA (FAST FALLBACK) =====
-// ============================================================
-const DEFAULT_DATA = [
-  { id:'batman', title:'The Batman', year:'2022', category:'movies', img:'https://upload.wikimedia.org/wikipedia/en/1/1b/The_Batman_%28film%29_poster.jpg', yt:'mqqft2x_Aa4', desc:'Gotham City mein ek serial killer hai.' },
-  { id:'avengers', title:'Avengers', year:'2018', category:'movies', img:'https://upload.wikimedia.org/wikipedia/en/4/4d/Avengers_Infinity_War_poster.jpg', yt:'6ZfuNTqbHE8', desc:'Thanos ne aadhi duniya ko mita dene ki kasam khayi hai.' },
-  { id:'bb', title:'Breaking Bad', year:'2008', category:'tvshow', img:'https://upload.wikimedia.org/wikipedia/en/6/61/Breaking_Bad_title_card.png', yt:'HhesaQXLuRY', desc:'Ek chemistry teacher drugs ki duniya mein kadam rakhta hai.' },
-  { id:'got', title:'Game of Thrones', year:'2011', category:'tvshow', img:'https://upload.wikimedia.org/wikipedia/en/d/d8/Game_of_Thrones_Season_3.jpg', yt:'KPLWWIOCOOQ', desc:'Saat rajwansh ek iron throne ke liye ladte hain.' },
-  { id:'python', title:'Python Tutorial', year:'2024', category:'skill', img:'https://upload.wikimedia.org/wikipedia/commons/c/c3/Python-logo-notext.svg', yt:'rfscVS0vtbw', desc:'Python programming for beginners.' },
-  { id:'html', title:'HTML Course', year:'2024', category:'skill', img:'https://upload.wikimedia.org/wikipedia/commons/6/61/HTML5_logo_and_wordmark.svg', yt:'pQN-pnXPaVg', desc:'Complete HTML tutorial.' },
+const VIDEOS = [
+  // ===== MOVIES (5) =====
+  {
+    id: 'm1',
+    title: 'The Batman',
+    year: '2022',
+    category: 'movies',
+    img: 'https://upload.wikimedia.org/wikipedia/en/1/1b/The_Batman_%28film%29_poster.jpg',
+    yt: 'mqqft2x_Aa4',
+    desc: 'Gotham City mein ek serial killer hai. Batman ko uska raaz sulajhna hai.'
+  },
+  {
+    id: 'm2',
+    title: 'Avengers: Infinity War',
+    year: '2018',
+    category: 'movies',
+    img: 'https://upload.wikimedia.org/wikipedia/en/4/4d/Avengers_Infinity_War_poster.jpg',
+    yt: '6ZfuNTqbHE8',
+    desc: 'Thanos ne aadhi duniya ko mita dene ki kasam khayi hai.'
+  },
+  {
+    id: 'm3',
+    title: 'Lord of the Rings',
+    year: '2001',
+    category: 'movies',
+    img: 'https://upload.wikimedia.org/wikipedia/en/f/fb/Lord_Rings_Fellowship_Ring.jpg',
+    yt: 'V75dMMIW2B4',
+    desc: 'Ek hobbit ek shaktishali angoothi ko nasht karne ki yatra par nikalta hai.'
+  },
+  {
+    id: 'm4',
+    title: 'Black Panther',
+    year: '2018',
+    category: 'movies',
+    img: 'https://upload.wikimedia.org/wikipedia/en/0/0c/Black_Panther_film_poster.jpg',
+    yt: 'xjDjITE7pWc',
+    desc: 'Wakanda ka raja T\'Challa apni dharti ko bachata hai.'
+  },
+  {
+    id: 'm5',
+    title: 'Dunki',
+    year: '2023',
+    category: 'movies',
+    img: 'https://upload.wikimedia.org/wikipedia/en/0/0f/Dunki_poster.jpg',
+    yt: 'pVAaFBGlbMU',
+    desc: 'Ek group ka sapna — videsh jaana — aur unki behtareen journey.'
+  },
+
+  // ===== TV SHOWS (5) =====
+  {
+    id: 't1',
+    title: 'Breaking Bad',
+    year: '2008',
+    category: 'tvshow',
+    img: 'https://upload.wikimedia.org/wikipedia/en/6/61/Breaking_Bad_title_card.png',
+    yt: 'HhesaQXLuRY',
+    desc: 'Ek chemistry teacher drugs ki duniya mein kadam rakhta hai.'
+  },
+  {
+    id: 't2',
+    title: 'Game of Thrones',
+    year: '2011',
+    category: 'tvshow',
+    img: 'https://upload.wikimedia.org/wikipedia/en/d/d8/Game_of_Thrones_Season_3.jpg',
+    yt: 'KPLWWIOCOOQ',
+    desc: 'Saat rajwansh ek iron throne ke liye ladte hain.'
+  },
+  {
+    id: 't3',
+    title: 'Money Heist',
+    year: '2017',
+    category: 'tvshow',
+    img: 'https://upload.wikimedia.org/wikipedia/en/e/e4/La_Casa_de_Papel_Netflix_poster.jpg',
+    yt: 'A_zy4Hm_dlo',
+    desc: 'Professor apne gang ke saath Spain ka royal mint lootna chahta hai.'
+  },
+  {
+    id: 't4',
+    title: 'Stranger Things',
+    year: '2016',
+    category: 'tvshow',
+    img: 'https://upload.wikimedia.org/wikipedia/en/4/43/Stranger_Things_season_1.jpg',
+    yt: 'b9EkMc79ZSU',
+    desc: 'Ek chota sa town supernatural ghatnaon ka ghar ban jata hai.'
+  },
+  {
+    id: 't5',
+    title: 'The Witcher',
+    year: '2019',
+    category: 'tvshow',
+    img: 'https://upload.wikimedia.org/wikipedia/en/8/8c/The_Witcher_%28TV_series%29.jpg',
+    yt: 'ndl1W4ltcmg',
+    desc: 'Geralt of Rivia ek monster hunter hai jo destiny ko maanta nahin.'
+  },
+
+  // ===== SKILLS (5) =====
+  {
+    id: 's1',
+    title: 'Python Tutorial',
+    year: '2024',
+    category: 'skill',
+    img: 'https://upload.wikimedia.org/wikipedia/commons/c/c3/Python-logo-notext.svg',
+    yt: 'rfscVS0vtbw',
+    desc: 'Python programming for beginners.'
+  },
+  {
+    id: 's2',
+    title: 'HTML Course',
+    year: '2024',
+    category: 'skill',
+    img: 'https://upload.wikimedia.org/wikipedia/commons/6/61/HTML5_logo_and_wordmark.svg',
+    yt: 'pQN-pnXPaVg',
+    desc: 'Complete HTML tutorial.'
+  },
+  {
+    id: 's3',
+    title: 'CSS Masterclass',
+    year: '2024',
+    category: 'skill',
+    img: 'https://upload.wikimedia.org/wikipedia/commons/d/d5/CSS3_logo_and_wordmark.svg',
+    yt: '1Rs2ND1ryYc',
+    desc: 'CSS styling complete guide.'
+  },
+  {
+    id: 's4',
+    title: 'JavaScript Course',
+    year: '2024',
+    category: 'skill',
+    img: 'https://upload.wikimedia.org/wikipedia/commons/9/99/Unofficial_JavaScript_logo_2.svg',
+    yt: 'W6NZfCO5SIk',
+    desc: 'JavaScript programming from scratch.'
+  },
+  {
+    id: 's5',
+    title: 'React Tutorial',
+    year: '2024',
+    category: 'skill',
+    img: 'https://upload.wikimedia.org/wikipedia/commons/a/a7/React-icon.svg',
+    yt: 'SqcY0GlETXk',
+    desc: 'React.js for beginners.'
+  }
 ];
 
 // ============================================================
-// ===== STATE =====
+// ===== CODE - ISME KUCH MAT CHHEDO =====
 // ============================================================
-let allContent = [];
 let currentCategory = 'movies';
-let editingId = null;
-let adminMode = false;
-let flixzoneCount = 0;
-let dataLoaded = false;
 
-// ============================================================
-// ===== CACHE FUNCTIONS =====
-// ============================================================
-function getCachedData() {
-  try {
-    const cached = localStorage.getItem('flixzone_cache');
-    if (cached) {
-      const data = JSON.parse(cached);
-      if (Date.now() - data.timestamp < 300000) {
-        return data.content;
-      }
-    }
-  } catch(e) {}
-  return null;
+function getHeroMovieId() {
+  const items = VIDEOS.filter(v => v.category === 'movies');
+  return items.length > 0 ? items[0].id : null;
 }
 
-function setCacheData(content) {
-  try {
-    localStorage.setItem('flixzone_cache', JSON.stringify({
-      content: content,
-      timestamp: Date.now()
-    }));
-  } catch(e) {}
-}
-
-// ============================================================
-// ===== LAZY LOAD - PART BY PART =====
-// ============================================================
-
-// PART 1: PEHLE HERO BANNER SHOW KARO (DEFAULT DATA SE)
-function showHeroFromDefault() {
-  const hero = DEFAULT_DATA.find(m => m.category === 'movies') || DEFAULT_DATA[0];
-  document.getElementById('heroImg').src = hero.img || '';
-  document.getElementById('heroTitle').textContent = hero.title || 'No Content';
-  document.getElementById('heroYear').textContent = hero.year || '';
-  document.getElementById('heroGenre').textContent = hero.category || '';
-}
-
-// PART 2: SKELETON LOADER SHOW KARO (GRID MEIN)
-function showSkeleton() {
-  const grid = document.getElementById('movieGrid');
-  grid.innerHTML = `
-    <div class="skeleton"></div>
-    <div class="skeleton"></div>
-    <div class="skeleton"></div>
-    <div class="skeleton"></div>
-    <div class="skeleton"></div>
-    <div class="skeleton"></div>
-  `;
-}
-
-// PART 3: ACTUAL DATA LOAD KARO (CACHE SE)
-function loadFromCache() {
-  const cached = getCachedData();
-  if (cached) {
-    allContent = cached;
-    dataLoaded = true;
-    renderGrid();
-    renderHero();
-    if (adminMode) renderAdminList();
-    return true;
-  }
-  return false;
-}
-
-// PART 4: CLOUD SE FETCH KARO (BACKGROUND MEIN)
-async function fetchFromCloud() {
-  try {
-    const response = await fetch(`https://api.jsonbin.io/v3/b/${JSONBIN_BIN_ID}`, {
-      headers: { 'X-Master-Key': JSONBIN_API_KEY }
-    });
-    
-    if (!response.ok) throw new Error('Network error');
-    const data = await response.json();
-    
-    allContent = data.record.content || DEFAULT_DATA;
-    setCacheData(allContent);
-    dataLoaded = true;
-    renderGrid();
-    renderHero();
-    if (adminMode) renderAdminList();
-  } catch (error) {
-    console.error('Cloud fetch error:', error);
-    // Agar cloud fail ho aur cache nahi hai toh default use karo
-    if (!dataLoaded) {
-      allContent = DEFAULT_DATA;
-      dataLoaded = true;
-      renderGrid();
-      renderHero();
-      if (adminMode) renderAdminList();
-    }
-  }
-}
-
-// ============================================================
-// ===== RENDER FUNCTIONS =====
-// ============================================================
 function renderGrid() {
   const grid = document.getElementById('movieGrid');
-  const items = allContent.filter(item => item.category === currentCategory);
-  
+  const items = VIDEOS.filter(v => v.category === currentCategory);
   if (!items.length) {
-    grid.innerHTML = '<div style="grid-column:1/-1;text-align:center;color:#666;padding:20px;">No content in this category.</div>';
+    grid.innerHTML = '<div style="grid-column:1/-1;text-align:center;color:#666;padding:20px;">No videos in this category.</div>';
     return;
   }
-  
   grid.innerHTML = items.map(m => `
     <div class="movie-card" onclick="openPlayer('${m.id}')">
       <img src="${m.img}" alt="${m.title}" onerror="this.style.background='#2a2a2a'; this.src=''">
@@ -608,9 +518,8 @@ function renderGrid() {
 }
 
 function renderHero() {
-  const items = allContent.filter(item => item.category === 'movies');
-  const hero = items.length > 0 ? items[0] : (allContent.length > 0 ? allContent[0] : null);
-  
+  const items = VIDEOS.filter(v => v.category === 'movies');
+  const hero = items.length > 0 ? items[0] : null;
   if (hero) {
     document.getElementById('heroImg').src = hero.img || '';
     document.getElementById('heroTitle').textContent = hero.title || 'No Content';
@@ -619,205 +528,24 @@ function renderHero() {
   }
 }
 
-function getHeroMovieId() {
-  const items = allContent.filter(item => item.category === 'movies');
-  return items.length > 0 ? items[0].id : (allContent.length > 0 ? allContent[0].id : null);
-}
-
-function renderAdminList() {
-  const container = document.getElementById('movieListAdmin');
-  if (!allContent.length) {
-    container.innerHTML = '<div style="color:#666;padding:10px;">No content. Add some!</div>';
-    return;
-  }
-  
-  container.innerHTML = allContent.map(m => {
-    const catClass = m.category || 'movies';
-    return `
-      <div class="movie-item">
-        <span>${m.title} (${m.year}) <span class="category-badge ${catClass}">${catClass}</span></span>
-        <div class="actions">
-          <button class="btn btn-sm" onclick="editItem('${m.id}')">✏️</button>
-          <button class="btn btn-sm btn-danger" onclick="deleteItem('${m.id}')">🗑️</button>
-        </div>
-      </div>
-    `;
-  }).join('');
-}
-
-// ============================================================
-// ===== CATEGORY SWITCH =====
-// ============================================================
 function switchCategory(category) {
   currentCategory = category;
   document.querySelectorAll('.tab').forEach(t => {
     t.classList.toggle('active', t.dataset.category === category);
   });
-  
   const titles = { movies: '🎬 Movies', tvshow: '📺 TV Shows', skill: '🎓 Skills' };
   document.getElementById('categoryTitle').textContent = titles[category] || category;
-  
-  if (dataLoaded) {
-    renderGrid();
-  } else {
-    showSkeleton();
-  }
-}
-
-// ============================================================
-// ===== ADMIN CRUD =====
-// ============================================================
-async function addItem() {
-  const title = document.getElementById('movieTitle').value.trim();
-  const year = document.getElementById('movieYear').value.trim();
-  const yt = document.getElementById('movieYt').value.trim();
-  const category = document.getElementById('movieCategory').value;
-  const img = document.getElementById('movieImg').value.trim() || 'https://via.placeholder.com/300x450/222/666?text=No+Image';
-  const desc = document.getElementById('movieDesc').value.trim() || 'No description.';
-
-  if (!title || !year || !yt) {
-    alert('Title, Year, and YouTube ID are required.');
-    return;
-  }
-
-  if (editingId) {
-    const index = allContent.findIndex(m => m.id === editingId);
-    if (index !== -1) {
-      allContent[index] = { ...allContent[index], title, year, yt, category, img, desc };
-    }
-    editingId = null;
-    document.getElementById('addMovieBtn').textContent = '➕ Add';
-    document.getElementById('cancelEditBtn').style.display = 'none';
-  } else {
-    const id = title.toLowerCase().replace(/[^a-z0-9]/g, '') + Date.now();
-    allContent.push({ id, title, year, yt, category, img, desc });
-  }
-
-  clearForm();
-  const saved = await saveToCloud();
-  if (saved) {
-    alert('✅ Saved to cloud!');
-    refreshAll();
-  } else {
-    refreshAll();
-  }
-}
-
-function editItem(id) {
-  const m = allContent.find(x => x.id === id);
-  if (!m) return;
-  document.getElementById('movieTitle').value = m.title;
-  document.getElementById('movieYear').value = m.year;
-  document.getElementById('movieYt').value = m.yt;
-  document.getElementById('movieCategory').value = m.category || 'movies';
-  document.getElementById('movieImg').value = m.img || '';
-  document.getElementById('movieDesc').value = m.desc || '';
-  editingId = id;
-  document.getElementById('addMovieBtn').textContent = '💾 Update';
-  document.getElementById('cancelEditBtn').style.display = 'inline-block';
-}
-
-function cancelEdit() {
-  editingId = null;
-  clearForm();
-  document.getElementById('addMovieBtn').textContent = '➕ Add';
-  document.getElementById('cancelEditBtn').style.display = 'none';
-}
-
-function clearForm() {
-  document.getElementById('movieTitle').value = '';
-  document.getElementById('movieYear').value = '';
-  document.getElementById('movieYt').value = '';
-  document.getElementById('movieCategory').value = 'movies';
-  document.getElementById('movieImg').value = '';
-  document.getElementById('movieDesc').value = '';
-}
-
-async function deleteItem(id) {
-  if (!confirm('Delete this item?')) return;
-  allContent = allContent.filter(m => m.id !== id);
-  const saved = await saveToCloud();
-  if (saved) {
-    alert('✅ Deleted from cloud!');
-    refreshAll();
-  } else {
-    refreshAll();
-  }
-}
-
-async function saveToCloud() {
-  try {
-    const response = await fetch(`https://api.jsonbin.io/v3/b/${JSONBIN_BIN_ID}`, {
-      method: 'PUT',
-      headers: {
-        'Content-Type': 'application/json',
-        'X-Master-Key': JSONBIN_API_KEY
-      },
-      body: JSON.stringify({ content: allContent })
-    });
-    
-    if (!response.ok) throw new Error('Save failed');
-    setCacheData(allContent);
-    return true;
-  } catch (error) {
-    console.error('Save error:', error);
-    alert('❌ Save failed! Check API Key.');
-    return false;
-  }
-}
-
-function refreshAll() {
   renderGrid();
-  renderHero();
-  if (adminMode) renderAdminList();
 }
 
-// ============================================================
-// ===== PLAYER =====
-// ============================================================
-let currentVideoId = null;
-let isPlaying = false;
-
-function openPlayer(id) {
-  const m = allContent.find(x => x.id === id);
-  if (!m) return;
-
-  currentVideoId = m.yt;
-  document.getElementById('modalTitle').textContent = m.title;
-  document.getElementById('modalMeta').innerHTML = `<strong style="color:#fff">${m.year} · ${m.category}</strong><br>${m.desc}`;
-
-  const iframe = document.getElementById('ytPlayer');
-  iframe.src = `https://www.youtube.com/embed/${m.yt}?autoplay=1&rel=0&modestbranding=1&showinfo=0&controls=0&fs=0&iv_load_policy=3&disablekb=1`;
-
-  document.getElementById('modalOverlay').classList.add('open');
-  document.body.style.overflow = 'hidden';
-  isPlaying = true;
-}
-
-function closePlayer() {
-  document.getElementById('ytPlayer').src = '';
-  document.getElementById('modalOverlay').classList.remove('open');
-  document.body.style.overflow = '';
-  isPlaying = false;
-}
-
-document.addEventListener('keydown', function(e) {
-  if (e.key === 'Escape') closePlayer();
-});
-
-// ============================================================
-// ===== SEARCH =====
-// ============================================================
 function filterContent() {
-  if (!dataLoaded) return;
   const q = document.getElementById('searchInput').value.toLowerCase();
-  const items = allContent.filter(item => item.category === currentCategory);
+  const items = VIDEOS.filter(v => v.category === currentCategory);
   const filtered = items.filter(m =>
     m.title.toLowerCase().includes(q) ||
     m.year.includes(q) ||
     m.category.includes(q)
   );
-  
   const grid = document.getElementById('movieGrid');
   if (!filtered.length) {
     grid.innerHTML = '<div style="grid-column:1/-1;text-align:center;color:#666;padding:20px;">No results.</div>';
@@ -834,60 +562,42 @@ function filterContent() {
   `).join('');
 }
 
-// ============================================================
-// ===== BOTTOM NAV =====
-// ============================================================
+function openPlayer(id) {
+  const m = VIDEOS.find(v => v.id === id);
+  if (!m) return;
+  document.getElementById('modalTitle').textContent = m.title;
+  document.getElementById('modalMeta').innerHTML = `<strong style="color:#fff">${m.year} · ${m.category}</strong><br>${m.desc}`;
+  document.getElementById('ytPlayer').src = `https://www.youtube.com/embed/${m.yt}?autoplay=1&rel=0&modestbranding=1&showinfo=0&controls=1&fs=0&iv_load_policy=3`;
+  document.getElementById('modalOverlay').classList.add('open');
+  document.body.style.overflow = 'hidden';
+}
+
+function closePlayer() {
+  document.getElementById('ytPlayer').src = '';
+  document.getElementById('modalOverlay').classList.remove('open');
+  document.body.style.overflow = '';
+}
+
 function setNav(el, type) {
   document.querySelectorAll('.nav-item').forEach(n => n.classList.remove('active'));
   el.classList.add('active');
-  
   if (type === 'subscribe') {
     alert('🎉 Subscribe feature coming soon!');
   }
 }
 
-// ============================================================
-// ===== ADMIN HIDDEN - 11 baar "flixzone" type karo =====
-// ============================================================
-document.getElementById('logoClick').addEventListener('click', function() {
-  flixzoneCount++;
-  if (flixzoneCount >= 11) {
-    if (!adminMode) {
-      adminMode = true;
-      document.getElementById('adminPanel').classList.add('visible');
-      renderAdminList();
-      alert('🔐 Admin panel unlocked!');
-    }
-    flixzoneCount = 0;
-  }
+// ESC key se close
+document.addEventListener('keydown', function(e) {
+  if (e.key === 'Escape') closePlayer();
 });
 
-// ============================================================
-// ===== INIT - LAZY LOAD STEP BY STEP =====
-// ============================================================
+// ===== INIT =====
 document.addEventListener('DOMContentLoaded', function() {
-  // STEP 1: Hero banner show karo (default data se)
-  showHeroFromDefault();
-  
-  // STEP 2: Skeleton loader show karo
-  showSkeleton();
-  
-  // STEP 3: Cache se data load karo (agar hai toh)
-  const cached = loadFromCache();
-  
-  // STEP 4: Cloud se fetch karo (background mein)
-  setTimeout(() => {
-    fetchFromCloud();
-  }, 100);
-  
-  // Event listeners
-  document.getElementById('addMovieBtn').addEventListener('click', addItem);
-  document.getElementById('cancelEditBtn').addEventListener('click', cancelEdit);
+  renderHero();
+  renderGrid();
 });
 
-// ============================================================
 // ===== DEVTOOLS DETERRENT =====
-// ============================================================
 document.addEventListener('contextmenu', e => e.preventDefault());
 document.addEventListener('keydown', function(e) {
   const k = e.key.toLowerCase();
