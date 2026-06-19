@@ -1,612 +1,1686 @@
 <!DOCTYPE html>
-<html lang="hi">
+<html lang="en">
 <head>
-<meta charset="UTF-8">
-<meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>FlixZone</title>
-<style>
-  * { margin: 0; padding: 0; box-sizing: border-box; }
-  body {
-    background: #0a0a0a;
-    color: #fff;
-    font-family: 'Segoe UI', sans-serif;
-    min-height: 100vh;
-    padding-bottom: 70px;
-  }
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>BigLand Construction · Premium Builders</title>
+    <!-- Google Fonts -->
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link href="https://fonts.googleapis.com/css2?family=Inter:opsz,wght@14..32,300;14..32,400;14..32,500;14..32,600;14..32,700&family=Poppins:wght@300;400;600;700&display=swap" rel="stylesheet" />
+    <!-- Font Awesome -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css" />
+    <style>
+        /* ============================================================
+                   CSS VARIABLES (Gold & Dark Theme)
+                   ============================================================ */
+        :root {
+            --color-primary: #0b0a08;
+            --color-secondary: #1a1815;
+            --color-accent: #c9a84c;
+            --color-accent-light: #e8d5a3;
+            --color-gold-gradient: linear-gradient(135deg, #c9a84c 0%, #f0e6b0 50%, #c9a84c 100%);
+            --color-text-primary: #f0ece4;
+            --color-text-muted: rgba(220, 205, 185, 0.6);
+            --color-surface-card: rgba(20, 18, 15, 0.60);
+            --color-border-subtle: rgba(220, 200, 175, 0.06);
+            --color-border-glow: rgba(201, 168, 76, 0.15);
+            --font-family-primary: 'Inter', sans-serif;
+            --font-family-display: 'Poppins', sans-serif;
+            --radius-lg: 36px;
+            --radius-md: 20px;
+            --radius-sm: 12px;
+            --radius-full: 60px;
+            --shadow-card: 0 40px 80px rgba(0, 0, 0, 0.7);
+            --transition-smooth: 0.35s cubic-bezier(0.25, 0.46, 0.45, 0.94);
+        }
 
-  .header {
-    position: sticky;
-    top: 0;
-    z-index: 100;
-    background: linear-gradient(180deg, #0a0a0a 70%, transparent);
-    padding: 16px 16px 8px;
-    display: flex;
-    align-items: center;
-    justify-content: space-between;
-  }
-  .logo { font-size: 26px; font-weight: 800; color: #fff; letter-spacing: -0.5px; }
-  .logo span { color: #e50914; }
+        /* ============================================================
+                   RESET & BASE
+                   ============================================================ */
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
 
-  .hero {
-    position: relative;
-    height: 280px;
-    overflow: hidden;
-    margin-bottom: 0;
-    cursor: pointer;
-    background: #111;
-  }
-  .hero img {
-    width: 100%;
-    height: 100%;
-    object-fit: cover;
-    object-position: top;
-    display: block;
-  }
-  .hero-overlay {
-    position: absolute;
-    inset: 0;
-    background: linear-gradient(to bottom, rgba(10,10,10,0.2) 0%, rgba(10,10,10,0.95) 100%);
-    display: flex;
-    flex-direction: column;
-    justify-content: flex-end;
-    padding: 20px 16px;
-  }
-  .hero-title { font-size: 28px; font-weight: 800; line-height: 1.1; margin-bottom: 6px; }
-  .hero-meta { font-size: 13px; color: #aaa; margin-bottom: 14px; }
-  .hero-meta span { color: #e50914; font-weight: 600; }
-  .hero-btns { display: flex; gap: 10px; }
-  .btn-play {
-    background: #e50914;
-    color: #fff;
-    border: none;
-    padding: 10px 22px;
-    border-radius: 6px;
-    font-size: 14px;
-    font-weight: 700;
-    cursor: pointer;
-    display: flex;
-    align-items: center;
-    gap: 6px;
-  }
-  .btn-play svg { width: 16px; height: 16px; fill: #fff; }
+        html {
+            scroll-behavior: smooth;
+        }
 
-  .tabs {
-    display: flex;
-    margin: 16px 16px 20px;
-    background: #1a1a1a;
-    border-radius: 8px;
-    overflow: hidden;
-    border: 1px solid #2a2a2a;
-  }
-  .tab {
-    flex: 1;
-    text-align: center;
-    padding: 12px 0;
-    font-size: 14px;
-    font-weight: 600;
-    color: #888;
-    cursor: pointer;
-    transition: all 0.2s;
-    border-radius: 6px;
-    margin: 3px;
-  }
-  .tab.active { background: #e50914; color: #fff; }
+        body {
+            font-family: var(--font-family-primary);
+            background: var(--color-primary);
+            color: var(--color-text-primary);
+            line-height: 1.6;
+            background-image:
+                radial-gradient(ellipse at 30% 20%, rgba(180, 150, 110, 0.04) 0%, transparent 60%),
+                radial-gradient(ellipse at 80% 80%, rgba(140, 110, 80, 0.03) 0%, transparent 50%);
+        }
 
-  .section { margin-bottom: 28px; }
-  .section-title {
-    font-size: 17px;
-    font-weight: 700;
-    padding: 0 16px 12px;
-    color: #fff;
-  }
+        a {
+            text-decoration: none;
+            color: inherit;
+        }
 
-  /* ===== GRID - FULLY RESPONSIVE ===== */
-  .movie-grid {
-    display: grid;
-    grid-template-columns: repeat(auto-fill, minmax(150px, 1fr));
-    gap: 12px;
-    padding: 0 16px;
-  }
+        .container {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 0 1.5rem;
+        }
 
-  .movie-card {
-    border-radius: 10px;
-    overflow: hidden;
-    position: relative;
-    cursor: pointer;
-    background: #1a1a1a;
-    transition: transform 0.2s;
-  }
-  .movie-card:hover { transform: scale(1.04); }
-  .movie-card img {
-    width: 100%;
-    aspect-ratio: 2/3;
-    object-fit: cover;
-    display: block;
-  }
-  .movie-card-overlay {
-    position: absolute;
-    bottom: 0; left: 0; right: 0;
-    background: linear-gradient(transparent, rgba(0,0,0,0.85));
-    padding: 16px 6px 6px;
-  }
-  .movie-card-title { font-size: 11px; font-weight: 600; line-height: 1.3; color: #fff; }
-  .movie-card-category {
-    font-size: 9px;
-    color: #e50914;
-    font-weight: 600;
-    text-transform: uppercase;
-  }
+        /* ============================================================
+                   SKIP LINK (Accessibility)
+                   ============================================================ */
+        .skip-link {
+            position: absolute;
+            top: -1000px;
+            left: 50%;
+            transform: translateX(-50%);
+            background: var(--color-accent);
+            color: var(--color-primary);
+            padding: 0.8rem 2rem;
+            border-radius: var(--radius-full);
+            font-weight: 600;
+            z-index: 10000;
+        }
+        .skip-link:focus {
+            top: 1rem;
+        }
 
-  /* ===== BOTTOM NAV ===== */
-  .bottom-nav {
-    position: fixed;
-    bottom: 0; left: 0; right: 0;
-    background: #111;
-    border-top: 1px solid #222;
-    display: flex;
-    justify-content: space-around;
-    align-items: center;
-    padding: 10px 0 14px;
-    z-index: 200;
-  }
-  .nav-item {
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-    gap: 3px;
-    cursor: pointer;
-    color: #666;
-    font-size: 10px;
-    transition: color 0.2s;
-  }
-  .nav-item.active { color: #e50914; }
-  .nav-item svg { width: 22px; height: 22px; fill: none; stroke: currentColor; stroke-width: 2; }
+        /* ============================================================
+                   BUTTONS
+                   ============================================================ */
+        .btn {
+            display: inline-flex;
+            align-items: center;
+            justify-content: center;
+            gap: 0.5rem;
+            font-family: var(--font-family-primary);
+            font-weight: 500;
+            font-size: 0.85rem;
+            letter-spacing: 0.04em;
+            padding: 0.7rem 1.8rem;
+            border-radius: var(--radius-full);
+            border: 1px solid transparent;
+            cursor: pointer;
+            transition: var(--transition-smooth);
+            background: transparent;
+            color: var(--color-text-primary);
+            min-height: 44px;
+            min-width: 44px;
+        }
 
-  /* ===== PLAYER MODAL ===== */
-  .modal-overlay {
-    display: none;
-    position: fixed;
-    inset: 0;
-    background: rgba(0,0,0,0.95);
-    z-index: 999;
-    flex-direction: column;
-    justify-content: center;
-    align-items: center;
-    padding: 16px;
-  }
-  .modal-overlay.open { display: flex; }
-  .modal-box {
-    width: 100%;
-    max-width: 800px;
-    background: #0a0a0a;
-    border-radius: 14px;
-    overflow: hidden;
-    border: 1px solid #222;
-  }
-  .modal-header {
-    display: flex;
-    justify-content: space-between;
-    align-items: center;
-    padding: 14px 18px;
-    background: #111;
-  }
-  .modal-title { font-size: 16px; font-weight: 700; color: #fff; white-space: nowrap; overflow: hidden; text-overflow: ellipsis; max-width: 70%; }
-  .modal-close {
-    background: #2a2a2a;
-    border: none;
-    color: #fff;
-    border-radius: 50%;
-    width: 36px; height: 36px;
-    font-size: 20px;
-    cursor: pointer;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    transition: 0.2s;
-  }
-  .modal-close:hover { background: #e50914; }
-  .video-wrap {
-    position: relative;
-    background: #000;
-    width: 100%;
-    padding-bottom: 56.25%;
-    height: 0;
-  }
-  .video-wrap iframe {
-    position: absolute;
-    top: 0; left: 0;
-    width: 100%; height: 100%;
-    border: none;
-  }
-  .modal-meta {
-    padding: 10px 16px;
-    color: #aaa;
-    font-size: 13px;
-    line-height: 1.6;
-    background: #0a0a0a;
-  }
+        .btn:focus-visible {
+            outline: 2px solid var(--color-accent);
+            outline-offset: 2px;
+        }
 
-  .search-bar {
-    margin: 0 16px 16px;
-    position: relative;
-  }
-  .search-bar input {
-    width: 100%;
-    background: #1a1a1a;
-    border: 1px solid #2a2a2a;
-    border-radius: 8px;
-    padding: 11px 40px 11px 14px;
-    color: #fff;
-    font-size: 14px;
-    outline: none;
-  }
-  .search-bar input::placeholder { color: #666; }
-  .search-bar svg {
-    position: absolute;
-    right: 12px;
-    top: 50%;
-    transform: translateY(-50%);
-    width: 18px; height: 18px;
-    stroke: #666; fill: none; stroke-width: 2;
-  }
+        .btn-primary {
+            background: var(--color-gold-gradient);
+            color: var(--color-primary);
+            border-color: var(--color-accent);
+        }
+        .btn-primary:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 8px 32px rgba(201, 168, 76, 0.15);
+        }
+        .btn-primary:active {
+            transform: scale(0.97);
+        }
 
-  /* ===== RESPONSIVE ===== */
-  @media (max-width: 600px) {
-    .movie-grid { grid-template-columns: repeat(2, 1fr); gap: 8px; }
-    .hero { height: 200px; }
-    .hero-title { font-size: 20px; }
-  }
-  @media (min-width: 601px) and (max-width: 900px) {
-    .movie-grid { grid-template-columns: repeat(3, 1fr); }
-  }
-  @media (min-width: 901px) {
-    .movie-grid { grid-template-columns: repeat(5, 1fr); }
-  }
-</style>
+        .btn-outline {
+            border-color: var(--color-border-subtle);
+            background: rgba(255, 255, 255, 0.02);
+        }
+        .btn-outline:hover {
+            border-color: rgba(201, 168, 76, 0.2);
+            background: rgba(201, 168, 76, 0.03);
+            transform: translateY(-2px);
+        }
+
+        /* ============================================================
+                   NAVIGATION
+                   ============================================================ */
+        .navbar {
+            position: fixed;
+            top: 0;
+            left: 0;
+            right: 0;
+            z-index: 1000;
+            padding: 0.8rem 0;
+            background: rgba(11, 10, 8, 0.75);
+            backdrop-filter: blur(16px);
+            -webkit-backdrop-filter: blur(16px);
+            border-bottom: 1px solid var(--color-border-subtle);
+            transition: var(--transition-smooth);
+        }
+
+        .navbar .container {
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            flex-wrap: wrap;
+        }
+
+        .logo {
+            font-family: var(--font-family-display);
+            font-size: 1.4rem;
+            font-weight: 700;
+            letter-spacing: -0.02em;
+        }
+        .logo .gold {
+            background: var(--color-gold-gradient);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+        }
+        .logo span {
+            font-size: 0.6rem;
+            font-family: var(--font-family-primary);
+            font-weight: 300;
+            color: var(--color-text-muted);
+            display: block;
+            letter-spacing: 0.15em;
+            text-transform: uppercase;
+            margin-top: -4px;
+            -webkit-text-fill-color: var(--color-text-muted);
+        }
+
+        .nav-links {
+            display: flex;
+            align-items: center;
+            gap: 2rem;
+            list-style: none;
+        }
+        .nav-links a {
+            font-size: 0.85rem;
+            font-weight: 400;
+            color: var(--color-text-muted);
+            transition: var(--transition-smooth);
+            position: relative;
+            padding: 0.2rem 0;
+        }
+        .nav-links a::after {
+            content: '';
+            position: absolute;
+            bottom: -2px;
+            left: 0;
+            width: 0;
+            height: 1.5px;
+            background: var(--color-gold-gradient);
+            transition: width 0.3s ease;
+        }
+        .nav-links a:hover {
+            color: var(--color-text-primary);
+        }
+        .nav-links a:hover::after {
+            width: 100%;
+        }
+
+        .nav-toggle {
+            display: none;
+            background: transparent;
+            border: none;
+            color: var(--color-text-primary);
+            font-size: 1.6rem;
+            cursor: pointer;
+            padding: 0.4rem;
+            min-height: 44px;
+            min-width: 44px;
+        }
+
+        @media (max-width: 768px) {
+            .nav-toggle {
+                display: block;
+            }
+            .nav-links {
+                display: none;
+                flex-direction: column;
+                width: 100%;
+                padding: 1.5rem 0;
+                gap: 1.2rem;
+                align-items: center;
+            }
+            .nav-links.open {
+                display: flex;
+            }
+        }
+
+        /* ============================================================
+                   HERO BANNER (Image full width background, text right overlay)
+                   ============================================================ */
+        .hero-banner {
+            position: relative;
+            min-height: 100vh;
+            display: flex;
+            align-items: center;
+            overflow: hidden;
+            isolation: isolate;
+        }
+
+        .hero-banner .bg-image {
+            position: absolute;
+            inset: 0;
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+            object-position: center 30%;
+            display: block;
+            will-change: transform;
+            animation: heroZoom 22s ease-in-out infinite alternate;
+        }
+        @keyframes heroZoom {
+            from { transform: scale(1); }
+            to { transform: scale(1.08); }
+        }
+
+        .hero-banner .overlay {
+            position: absolute;
+            inset: 0;
+            background:
+                linear-gradient(90deg,
+                    rgba(11, 10, 8, 0.15) 0%,
+                    rgba(11, 10, 8, 0.20) 28%,
+                    rgba(11, 10, 8, 0.55) 58%,
+                    rgba(11, 10, 8, 0.86) 82%,
+                    rgba(11, 10, 8, 0.96) 100%),
+                linear-gradient(0deg,
+                    rgba(11, 10, 8, 0.55) 0%,
+                    rgba(11, 10, 8, 0) 30%,
+                    rgba(11, 10, 8, 0) 75%,
+                    rgba(11, 10, 8, 0.3) 100%);
+            pointer-events: none;
+        }
+
+        .hero-banner .container {
+            position: relative;
+            z-index: 2;
+            width: 100%;
+            max-width: 1400px;
+            display: flex;
+            justify-content: flex-end;
+        }
+
+        .hero-content {
+            max-width: 540px;
+            width: 100%;
+            text-align: left;
+            padding-right: clamp(1rem, 5vw, 4.5rem);
+            animation: heroContentIn 1s cubic-bezier(0.16, 1, 0.3, 1) both;
+            animation-delay: 0.15s;
+        }
+        @keyframes heroContentIn {
+            from {
+                opacity: 0;
+                transform: translateX(28px);
+            }
+            to {
+                opacity: 1;
+                transform: translateX(0);
+            }
+        }
+
+        .hero-content .sub-title {
+            display: inline-flex;
+            align-items: center;
+            gap: 0.6rem;
+            font-size: 0.78rem;
+            font-weight: 500;
+            color: var(--color-accent-light);
+            letter-spacing: 0.2em;
+            text-transform: uppercase;
+            margin-bottom: 1.1rem;
+        }
+        .hero-content .sub-title::before {
+            content: '';
+            width: 32px;
+            height: 1.5px;
+            background: var(--color-gold-gradient);
+            display: inline-block;
+        }
+
+        .hero-content h1 {
+            font-family: var(--font-family-display);
+            font-weight: 300;
+            font-size: clamp(2.2rem, 4vw, 3.6rem);
+            line-height: 1.1;
+            letter-spacing: -0.02em;
+            margin-bottom: 1rem;
+            color: var(--color-text-primary);
+            text-shadow: 0 4px 30px rgba(0, 0, 0, 0.5);
+        }
+
+        .hero-content h1 strong {
+            font-weight: 700;
+            background: var(--color-gold-gradient);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+        }
+
+        .hero-content p {
+            font-size: 1.05rem;
+            color: rgba(240, 236, 228, 0.88);
+            max-width: 440px;
+            line-height: 1.75;
+            font-weight: 300;
+            margin-bottom: 2.2rem;
+            text-shadow: 0 2px 20px rgba(0, 0, 0, 0.4);
+        }
+
+        .hero-content .btn-group {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 0.9rem;
+        }
+        .hero-content .btn-group .btn-outline {
+            border-color: rgba(255, 255, 255, 0.25);
+            background: rgba(255, 255, 255, 0.04);
+            backdrop-filter: blur(6px);
+            color: var(--color-text-primary);
+        }
+        .hero-content .btn-group .btn-outline:hover {
+            border-color: rgba(201, 168, 76, 0.6);
+            background: rgba(201, 168, 76, 0.1);
+        }
+
+        .hero-stats {
+            display: flex;
+            gap: 0;
+            margin-top: 2.8rem;
+            padding-top: 1.8rem;
+            border-top: 1px solid rgba(255, 255, 255, 0.14);
+        }
+
+        .hero-stats .stat {
+            flex: 1;
+            padding-right: 1.5rem;
+            border-right: 1px solid rgba(255, 255, 255, 0.1);
+        }
+        .hero-stats .stat:last-child {
+            border-right: none;
+            padding-right: 0;
+        }
+        .hero-stats .stat:not(:first-child) {
+            padding-left: 1.5rem;
+        }
+
+        .hero-stats .stat .number {
+            font-family: var(--font-family-display);
+            font-size: 1.7rem;
+            font-weight: 700;
+            color: var(--color-accent);
+            display: block;
+            line-height: 1.2;
+            text-shadow: 0 2px 10px rgba(0, 0, 0, 0.3);
+        }
+        .hero-stats .stat .label {
+            font-size: 0.7rem;
+            color: rgba(240, 236, 228, 0.7);
+            font-weight: 300;
+            text-transform: uppercase;
+            letter-spacing: 0.06em;
+        }
+
+        .hero-scroll-cue {
+            position: absolute;
+            left: 50%;
+            bottom: 1.8rem;
+            transform: translateX(-50%);
+            z-index: 2;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            gap: 0.4rem;
+            color: rgba(240, 236, 228, 0.55);
+            font-size: 0.65rem;
+            letter-spacing: 0.18em;
+            text-transform: uppercase;
+            animation: scrollCueBob 2.2s ease-in-out infinite;
+        }
+        .hero-scroll-cue i {
+            font-size: 0.9rem;
+            color: var(--color-accent);
+        }
+        @keyframes scrollCueBob {
+            0%, 100% { transform: translate(-50%, 0); opacity: 0.5; }
+            50% { transform: translate(-50%, 6px); opacity: 1; }
+        }
+
+        @media (prefers-reduced-motion: reduce) {
+            .hero-banner .bg-image,
+            .hero-content,
+            .hero-scroll-cue {
+                animation: none;
+            }
+        }
+
+        /* ============================================================
+                   RESPONSIVE: HERO
+                   ============================================================ */
+        @media (max-width: 1024px) {
+            .hero-content {
+                padding-right: 2rem;
+            }
+        }
+
+        @media (max-width: 768px) {
+            .hero-banner {
+                min-height: 100vh;
+                padding: 6rem 0 3rem;
+            }
+            .hero-banner .container {
+                justify-content: center;
+            }
+            .hero-content {
+                max-width: 100%;
+                text-align: center;
+                padding: 1.5rem;
+                background: rgba(11, 10, 8, 0.35);
+                backdrop-filter: blur(6px);
+                border-radius: var(--radius-md);
+                border: 1px solid rgba(255, 255, 255, 0.08);
+            }
+            .hero-content .sub-title {
+                justify-content: center;
+            }
+            .hero-content .sub-title::before {
+                display: none;
+            }
+            .hero-content p {
+                max-width: 100%;
+                margin-left: auto;
+                margin-right: auto;
+            }
+            .hero-content .btn-group {
+                justify-content: center;
+            }
+            .hero-stats {
+                justify-content: center;
+            }
+            .hero-banner .overlay {
+                background: linear-gradient(180deg,
+                        rgba(11, 10, 8, 0.35) 0%,
+                        rgba(11, 10, 8, 0.55) 60%,
+                        rgba(11, 10, 8, 0.8) 100%);
+            }
+            .hero-scroll-cue {
+                display: none;
+            }
+        }
+
+        @media (max-width: 480px) {
+            .hero-stats .stat {
+                padding-right: 0.8rem;
+                padding-left: 0.8rem !important;
+            }
+            .hero-stats .stat .number {
+                font-size: 1.4rem;
+            }
+            .hero-stats .stat .label {
+                font-size: 0.58rem;
+            }
+        }
+
+        /* ============================================================
+                   SECTION COMMON
+                   ============================================================ */
+        section {
+            padding: 4rem 0;
+        }
+
+        .section-label {
+            font-size: 0.7rem;
+            font-weight: 400;
+            letter-spacing: 0.15em;
+            text-transform: uppercase;
+            color: var(--color-accent);
+            display: inline-block;
+            margin-bottom: 0.6rem;
+            opacity: 0.7;
+        }
+
+        .section-title {
+            font-family: var(--font-family-display);
+            font-size: clamp(1.8rem, 3vw, 2.8rem);
+            font-weight: 600;
+            line-height: 1.15;
+            letter-spacing: -0.02em;
+            margin-bottom: 0.6rem;
+        }
+        .section-title .gold {
+            background: var(--color-gold-gradient);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+        }
+
+        .section-desc {
+            font-size: 1.05rem;
+            color: var(--color-text-muted);
+            max-width: 600px;
+            font-weight: 300;
+            line-height: 1.7;
+        }
+        .section-desc.centered {
+            margin-left: auto;
+            margin-right: auto;
+            text-align: center;
+        }
+
+        .text-center {
+            text-align: center;
+        }
+
+        .gold-divider {
+            width: 60px;
+            height: 2.5px;
+            background: var(--color-gold-gradient);
+            border-radius: 4px;
+            margin: 1rem 0 1.5rem;
+        }
+        .gold-divider.centered {
+            margin-left: auto;
+            margin-right: auto;
+        }
+
+        /* ============================================================
+                   PACKAGES (Cards with Stagger)
+                   ============================================================ */
+        .package-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(260px, 1fr));
+            gap: 1.8rem;
+            margin-top: 2.5rem;
+        }
+
+        .package-card {
+            background: var(--color-surface-card);
+            backdrop-filter: blur(12px);
+            -webkit-backdrop-filter: blur(12px);
+            border: 1px solid var(--color-border-subtle);
+            border-radius: var(--radius-md);
+            padding: 2rem 1.8rem;
+            transition: var(--transition-smooth);
+            display: flex;
+            flex-direction: column;
+            position: relative;
+            overflow: hidden;
+            opacity: 0;
+            transform: translateY(40px);
+            will-change: transform, opacity;
+        }
+
+        .package-card.visible {
+            opacity: 1;
+            transform: translateY(0);
+            transition: opacity 0.7s ease, transform 0.7s cubic-bezier(0.25, 0.46, 0.45, 0.94);
+        }
+
+        .package-card:nth-child(1).visible { transition-delay: 0.05s; }
+        .package-card:nth-child(2).visible { transition-delay: 0.15s; }
+        .package-card:nth-child(3).visible { transition-delay: 0.25s; }
+        .package-card:nth-child(4).visible { transition-delay: 0.35s; }
+
+        .package-card::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            height: 2px;
+            background: var(--color-gold-gradient);
+            opacity: 0;
+            transition: var(--transition-smooth);
+        }
+        .package-card:hover {
+            transform: translateY(-6px);
+            border-color: var(--color-border-glow);
+            box-shadow: 0 20px 60px rgba(0, 0, 0, 0.3);
+        }
+        .package-card:hover::before {
+            opacity: 1;
+        }
+
+        .package-card .popular-badge {
+            position: absolute;
+            top: 1rem;
+            right: 1rem;
+            background: var(--color-gold-gradient);
+            color: var(--color-primary);
+            font-size: 0.6rem;
+            font-weight: 700;
+            text-transform: uppercase;
+            letter-spacing: 0.06em;
+            padding: 0.2rem 0.8rem;
+            border-radius: var(--radius-full);
+        }
+
+        .package-card .pkg-name {
+            font-family: var(--font-family-display);
+            font-size: 1.5rem;
+            font-weight: 600;
+            letter-spacing: -0.02em;
+            margin-bottom: 0.1rem;
+        }
+        .package-card .pkg-price {
+            font-family: var(--font-family-display);
+            font-size: 1.8rem;
+            font-weight: 700;
+            color: var(--color-accent);
+            margin: 0.2rem 0 0.4rem;
+        }
+        .package-card .pkg-price span {
+            font-family: var(--font-family-primary);
+            font-size: 0.85rem;
+            font-weight: 400;
+            color: var(--color-text-muted);
+        }
+        .package-card .pkg-desc {
+            font-size: 0.9rem;
+            color: var(--color-text-muted);
+            font-weight: 300;
+            line-height: 1.6;
+            margin-bottom: 1.2rem;
+            min-height: 2.8rem;
+        }
+
+        .package-card .highlights-label {
+            font-size: 0.65rem;
+            font-weight: 600;
+            letter-spacing: 0.08em;
+            text-transform: uppercase;
+            color: var(--color-accent);
+            opacity: 0.7;
+            margin-bottom: 0.5rem;
+        }
+        .package-card .features-list {
+            list-style: none;
+            padding: 0;
+            margin: 0 0 1.2rem;
+            flex-grow: 1;
+        }
+        .package-card .features-list li {
+            padding: 0.25rem 0;
+            font-size: 0.85rem;
+            color: var(--color-text-muted);
+            padding-left: 1.4rem;
+            position: relative;
+            line-height: 1.5;
+            font-weight: 300;
+        }
+        .package-card .features-list li::before {
+            content: '◆';
+            position: absolute;
+            left: 0;
+            color: var(--color-accent);
+            font-size: 0.5rem;
+            top: 0.45rem;
+            opacity: 0.6;
+        }
+
+        .package-card .brand-logos {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 0.6rem 1rem;
+            align-items: center;
+            padding: 0.8rem 0;
+            margin: 0.4rem 0 1.2rem;
+            border-top: 1px solid var(--color-border-subtle);
+            border-bottom: 1px solid var(--color-border-subtle);
+        }
+        .package-card .brand-logos .brand {
+            font-size: 0.65rem;
+            font-weight: 600;
+            color: var(--color-text-muted);
+            letter-spacing: 0.04em;
+            text-transform: uppercase;
+            opacity: 0.7;
+        }
+        .package-card .brand-logos .brand.gold {
+            color: var(--color-accent);
+            opacity: 1;
+        }
+
+        .package-card .btn {
+            width: 100%;
+            margin-top: auto;
+        }
+
+        /* ============================================================
+                   SERVICES SECTION (merged from standalone)
+                   ============================================================ */
+        .services-section {
+            background: rgba(255, 255, 255, 0.01);
+        }
+
+        .services-header {
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            flex-wrap: wrap;
+            gap: 1rem;
+            margin-bottom: 2.5rem;
+        }
+
+        .services-header .left h2 {
+            font-family: var(--font-family-display);
+            font-size: clamp(1.8rem, 3vw, 2.8rem);
+            font-weight: 600;
+            letter-spacing: -0.02em;
+            line-height: 1.15;
+        }
+        .services-header .left h2 .gold {
+            background: var(--color-gold-gradient);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+        }
+        .services-header .left .section-label {
+            font-size: 0.7rem;
+            font-weight: 400;
+            letter-spacing: 0.15em;
+            text-transform: uppercase;
+            color: var(--color-accent);
+            display: inline-block;
+            margin-bottom: 0.3rem;
+            opacity: 0.7;
+        }
+
+        .services-header .see-all {
+            display: inline-flex;
+            align-items: center;
+            gap: 0.5rem;
+            font-family: var(--font-family-primary);
+            font-size: 0.85rem;
+            font-weight: 500;
+            color: var(--color-accent);
+            cursor: pointer;
+            border: none;
+            background: transparent;
+            padding: 0.4rem 0;
+            border-bottom: 1.5px solid transparent;
+            transition: all 0.3s ease;
+        }
+        .services-header .see-all:hover {
+            border-bottom-color: var(--color-accent);
+            color: var(--color-accent-light);
+        }
+        .services-header .see-all i {
+            font-size: 0.7rem;
+            transition: transform 0.3s ease;
+        }
+        .services-header .see-all:hover i {
+            transform: translateX(4px);
+        }
+
+        .services-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+            gap: 1.8rem;
+        }
+
+        .service-card {
+            background: var(--color-surface-card);
+            backdrop-filter: blur(12px);
+            -webkit-backdrop-filter: blur(12px);
+            border: 1px solid var(--color-border-subtle);
+            border-radius: var(--radius-md);
+            overflow: hidden;
+            transition: all 0.4s cubic-bezier(0.25, 0.46, 0.45, 0.94);
+            display: flex;
+            flex-direction: column;
+            position: relative;
+            will-change: transform;
+            opacity: 0;
+            transform: translateY(30px);
+            animation: fadeUp 0.7s ease forwards;
+        }
+        .service-card:nth-child(1) { animation-delay: 0.05s; }
+        .service-card:nth-child(2) { animation-delay: 0.12s; }
+        .service-card:nth-child(3) { animation-delay: 0.19s; }
+        .service-card:nth-child(4) { animation-delay: 0.26s; }
+        .service-card:nth-child(5) { animation-delay: 0.33s; }
+        .service-card:nth-child(6) { animation-delay: 0.40s; }
+
+        @keyframes fadeUp {
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+
+        .service-card::after {
+            content: '';
+            position: absolute;
+            inset: -1px;
+            border-radius: var(--radius-md);
+            padding: 1px;
+            background: var(--color-gold-gradient);
+            -webkit-mask: linear-gradient(#fff 0 0) content-box, linear-gradient(#fff 0 0);
+            -webkit-mask-composite: xor;
+            mask-composite: exclude;
+            opacity: 0;
+            transition: opacity 0.4s ease;
+            pointer-events: none;
+        }
+
+        .service-card:hover {
+            transform: translateY(-8px) scale(1.01);
+            border-color: var(--color-border-glow);
+            box-shadow: 0 25px 60px rgba(0, 0, 0, 0.5), 0 0 40px rgba(201, 168, 76, 0.04);
+        }
+        .service-card:hover::after {
+            opacity: 1;
+        }
+
+        .service-card .image-wrapper {
+            overflow: hidden;
+            position: relative;
+        }
+
+        .service-card .card-image {
+            width: 100%;
+            height: 200px;
+            object-fit: cover;
+            display: block;
+            transition: transform 0.6s cubic-bezier(0.25, 0.46, 0.45, 0.94);
+            border-bottom: 1px solid var(--color-border-subtle);
+        }
+
+        .service-card:hover .card-image {
+            transform: scale(1.05);
+        }
+
+        .service-card .image-overlay {
+            position: absolute;
+            bottom: 0;
+            left: 0;
+            right: 0;
+            height: 50%;
+            background: linear-gradient(to top, rgba(11, 10, 8, 0.6) 0%, transparent 100%);
+            pointer-events: none;
+        }
+
+        .service-card .card-body {
+            padding: 1.5rem 1.8rem 1.8rem;
+            display: flex;
+            flex-direction: column;
+            flex-grow: 1;
+            position: relative;
+            z-index: 1;
+        }
+
+        .service-card .icon-wrapper {
+            width: 48px;
+            height: 48px;
+            border-radius: var(--radius-sm);
+            background: rgba(201, 168, 76, 0.08);
+            border: 1px solid rgba(201, 168, 76, 0.12);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            margin-bottom: 0.8rem;
+            transition: all 0.4s ease;
+        }
+        .service-card:hover .icon-wrapper {
+            background: rgba(201, 168, 76, 0.18);
+            border-color: rgba(201, 168, 76, 0.35);
+            transform: scale(1.05);
+        }
+        .service-card .icon-wrapper i {
+            font-size: 1.2rem;
+            color: var(--color-accent);
+            transition: transform 0.4s ease;
+        }
+        .service-card:hover .icon-wrapper i {
+            transform: rotate(-4deg) scale(1.1);
+        }
+
+        .service-card h3 {
+            font-family: var(--font-family-display);
+            font-size: 1.2rem;
+            font-weight: 600;
+            margin-bottom: 0.5rem;
+            letter-spacing: -0.02em;
+            transition: color 0.3s ease;
+        }
+        .service-card:hover h3 {
+            color: var(--color-accent-light);
+        }
+
+        .service-card p {
+            font-size: 0.9rem;
+            color: var(--color-text-muted);
+            font-weight: 300;
+            line-height: 1.7;
+            margin-bottom: 1.2rem;
+            flex-grow: 1;
+        }
+
+        .service-card .know-more {
+            display: inline-flex;
+            align-items: center;
+            gap: 0.5rem;
+            font-family: var(--font-family-primary);
+            font-size: 0.8rem;
+            font-weight: 500;
+            color: var(--color-accent);
+            transition: all 0.3s ease;
+            cursor: pointer;
+            border: none;
+            background: transparent;
+            padding: 0;
+            width: fit-content;
+        }
+        .service-card .know-more i {
+            font-size: 0.65rem;
+            transition: transform 0.3s ease;
+        }
+        .service-card .know-more:hover {
+            color: var(--color-accent-light);
+        }
+        .service-card .know-more:hover i {
+            transform: translateX(6px);
+        }
+
+        @media (max-width: 768px) {
+            .services-header {
+                flex-direction: column;
+                align-items: flex-start;
+            }
+            .services-header .see-all {
+                align-self: flex-start;
+            }
+            .services-grid {
+                grid-template-columns: 1fr;
+                gap: 1.2rem;
+            }
+            .service-card .card-image {
+                height: 160px;
+            }
+            .service-card .card-body {
+                padding: 1.2rem 1.2rem 1.5rem;
+            }
+        }
+
+        @media (max-width: 480px) {
+            .service-card .card-image {
+                height: 140px;
+            }
+            .service-card .icon-wrapper {
+                width: 40px;
+                height: 40px;
+            }
+            .service-card .icon-wrapper i {
+                font-size: 1rem;
+            }
+            .service-card h3 {
+                font-size: 1rem;
+            }
+            .service-card p {
+                font-size: 0.85rem;
+            }
+        }
+
+        /* ============================================================
+                   BANKING PARTNERS CAROUSEL
+                   ============================================================ */
+        .partners-section {
+            background: rgba(255, 255, 255, 0.01);
+            padding: 4rem 0;
+        }
+
+        .carousel-wrapper {
+            position: relative;
+            overflow: hidden;
+            padding: 1.5rem 0;
+            margin-top: 1.5rem;
+        }
+
+        .carousel-track {
+            display: flex;
+            gap: 2.5rem;
+            animation: scroll 24s linear infinite;
+            width: max-content;
+        }
+
+        .carousel-track:hover {
+            animation-play-state: paused;
+        }
+
+        .carousel-item {
+            flex: 0 0 auto;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            min-width: 160px;
+            padding: 1.2rem 2rem;
+            background: var(--color-surface-card);
+            backdrop-filter: blur(8px);
+            border: 1px solid var(--color-border-subtle);
+            border-radius: var(--radius-sm);
+            transition: var(--transition-smooth);
+        }
+
+        .carousel-item:hover {
+            border-color: var(--color-border-glow);
+            transform: scale(1.04);
+            box-shadow: var(--shadow-card);
+        }
+
+        .carousel-item img {
+            max-height: 52px;
+            width: auto;
+            object-fit: contain;
+            filter: brightness(0.8) grayscale(0.3);
+            transition: var(--transition-smooth);
+        }
+
+        .carousel-item:hover img {
+            filter: brightness(1) grayscale(0);
+        }
+
+        .carousel-item .fallback-text {
+            font-family: var(--font-family-display);
+            font-size: 1rem;
+            font-weight: 600;
+            color: var(--color-text-muted);
+            letter-spacing: 0.04em;
+            text-transform: uppercase;
+        }
+
+        @keyframes scroll {
+            0% { transform: translateX(0); }
+            100% { transform: translateX(-50%); }
+        }
+
+        @media (max-width: 768px) {
+            .carousel-item {
+                min-width: 120px;
+                padding: 0.8rem 1.2rem;
+            }
+            .carousel-item img {
+                max-height: 40px;
+            }
+            .carousel-track {
+                gap: 1.5rem;
+            }
+        }
+
+        @media (max-width: 480px) {
+            .carousel-item {
+                min-width: 100px;
+                padding: 0.6rem 0.8rem;
+            }
+            .carousel-item img {
+                max-height: 32px;
+            }
+            .carousel-track {
+                gap: 1rem;
+            }
+        }
+
+        /* ============================================================
+                   CONTACT / CTA
+                   ============================================================ */
+        .contact-section {
+            padding: 3rem 0 4rem;
+        }
+
+        .contact-card {
+            background: var(--color-surface-card);
+            backdrop-filter: blur(12px);
+            border: 1px solid var(--color-border-subtle);
+            border-radius: var(--radius-lg);
+            padding: 3rem 2.5rem;
+            text-align: center;
+        }
+
+        .contact-card h2 {
+            font-family: var(--font-family-display);
+            font-size: clamp(1.6rem, 2.5vw, 2.4rem);
+            font-weight: 600;
+            margin-bottom: 0.5rem;
+        }
+        .contact-card p {
+            color: var(--color-text-muted);
+            font-weight: 300;
+            max-width: 480px;
+            margin: 0 auto 1.8rem;
+        }
+        .contact-card .phone {
+            font-size: 1.4rem;
+            font-weight: 600;
+            color: var(--color-accent);
+            margin-top: 1rem;
+        }
+        .contact-card .phone i {
+            opacity: 0.6;
+            margin-right: 0.6rem;
+        }
+        .contact-card .btn-group {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 1rem;
+            justify-content: center;
+        }
+
+        /* ============================================================
+                   FOOTER
+                   ============================================================ */
+        .footer {
+            border-top: 1px solid var(--color-border-subtle);
+            padding: 2rem 0;
+            text-align: center;
+            font-size: 0.85rem;
+            color: var(--color-text-muted);
+            font-weight: 300;
+        }
+        .footer a {
+            color: var(--color-text-muted);
+            transition: var(--transition-smooth);
+        }
+        .footer a:hover {
+            color: var(--color-accent);
+        }
+        .footer .footer-links {
+            display: flex;
+            justify-content: center;
+            gap: 2rem;
+            margin-top: 0.5rem;
+            flex-wrap: wrap;
+        }
+
+        /* ============================================================
+                   UTILITY
+                   ============================================================ */
+        .sr-only {
+            position: absolute;
+            width: 1px;
+            height: 1px;
+            padding: 0;
+            margin: -1px;
+            overflow: hidden;
+            clip: rect(0, 0, 0, 0);
+            border: 0;
+        }
+    </style>
 </head>
 <body>
 
-<!-- ===== HEADER ===== -->
-<div class="header">
-  <div class="logo">Flix<span>Zone</span></div>
-  <div class="header-icons">
-    <svg viewBox="0 0 24 24" style="width:24px;height:24px;fill:none;stroke:#fff;stroke-width:2;"><circle cx="11" cy="11" r="8"/><line x1="21" y1="21" x2="16.65" y2="16.65"/></svg>
-    <svg viewBox="0 0 24 24" style="width:24px;height:24px;fill:none;stroke:#fff;stroke-width:2;"><path d="M20 21v-2a4 4 0 0 0-4-4H8a4 4 0 0 0-4 4v2"/><circle cx="12" cy="7" r="4"/></svg>
-  </div>
-</div>
+    <!-- ===== SKIP LINK ===== -->
+    <a class="skip-link" href="#main">Skip to main content</a>
 
-<!-- ===== HERO BANNER ===== -->
-<div class="hero" id="heroBanner" onclick="openPlayer(getHeroMovieId())">
-  <img id="heroImg" src="" alt="Hero" onerror="this.style.background='#e50914';this.src=''">
-  <div class="hero-overlay">
-    <div class="hero-title" id="heroTitle">Loading...</div>
-    <div class="hero-meta" id="heroMeta"><span id="heroYear">---</span> &nbsp;·&nbsp; <span id="heroGenre">---</span></div>
-    <div class="hero-btns">
-      <button class="btn-play" onclick="event.stopPropagation(); openPlayer(getHeroMovieId())">
-        <svg viewBox="0 0 24 24" style="width:16px;height:16px;fill:#fff;"><polygon points="5 3 19 12 5 21 5 3"/></svg>
-        Play Now
-      </button>
-    </div>
-  </div>
-</div>
+    <!-- ============================================================
+    NAVIGATION
+    ============================================================ -->
+    <nav class="navbar" role="navigation" aria-label="Main navigation">
+        <div class="container">
+            <a href="#" class="logo" aria-label="BigLand Construction Home">
+                Big<span class="gold">Land</span>
+                <span>Construction</span>
+            </a>
+            <button class="nav-toggle" aria-expanded="false" aria-controls="navLinks" aria-label="Toggle navigation menu">
+                <i class="fas fa-bars"></i>
+            </button>
+            <ul class="nav-links" id="navLinks" role="menubar">
+                <li role="none"><a href="#packages" role="menuitem">Packages</a></li>
+                <li role="none"><a href="#services" role="menuitem">Services</a></li>
+                <li role="none"><a href="#partners" role="menuitem">Partners</a></li>
+                <li role="none"><a href="#contact" role="menuitem">Contact</a></li>
+                <li role="none"><a href="#contact" role="menuitem"><button class="btn btn-primary" style="padding:0.4rem 1.5rem;font-size:0.75rem;">Get Started</button></a></li>
+            </ul>
+        </div>
+    </nav>
 
-<!-- ===== CATEGORY TABS ===== -->
-<div class="tabs">
-  <div class="tab active" data-category="movies" onclick="switchCategory('movies')">Movies</div>
-  <div class="tab" data-category="tvshow" onclick="switchCategory('tvshow')">TV Show</div>
-  <div class="tab" data-category="skill" onclick="switchCategory('skill')">Skill</div>
-</div>
+    <!-- ============================================================
+    MAIN
+    ============================================================ -->
+    <main id="main">
 
-<!-- ===== SEARCH ===== -->
-<div class="search-bar">
-  <input type="text" placeholder="Search..." id="searchInput" oninput="filterContent()">
-  <svg viewBox="0 0 24 24" style="position:absolute;right:12px;top:50%;transform:translateY(-50%);width:18px;height:18px;stroke:#666;fill:none;stroke-width:2;"><circle cx="11" cy="11" r="8"/><line x1="21" y1="21" x2="16.65" y2="16.65"/></svg>
-</div>
+        <!-- ============================================================
+        HERO BANNER
+        ============================================================ -->
+        <section class="hero-banner" aria-labelledby="hero-title">
+            <img
+            src="https://res.cloudinary.com/dpvpnwhm4/image/upload/v1781864169/Construct_Your_Dream_Home_10_q0l87a.png"
+            alt="Luxury home entrance with warm golden hour lighting"
+            class="bg-image"
+            fetchpriority="high"
+            decoding="async"
+            />
+            <div class="overlay"></div>
+            <div class="container">
+                <div class="hero-content">
+                    <div class="sub-title"><i class="fas fa-crown" aria-hidden="true" style="font-size:0.75em;"></i> Premium Home Construction</div>
+                    <h1 id="hero-title">Construct Your <strong>Dream Home</strong> With BigLand Construction</h1>
+                    <p>Experience world-class luxury construction with premium materials, transparent processes, and a 10-year warranty. Your vision, built with precision.</p>
+                    <div class="btn-group">
+                        <a href="#contact"><button class="btn btn-primary"><i class="fas fa-calculator"></i> Get Free Estimate</button></a>
+                        <a href="#packages"><button class="btn btn-outline">Explore Packages</button></a>
+                    </div>
+                    <div class="hero-stats">
+                        <div class="stat">
+                            <span class="number">20Lakhs+</span>
+                            <span class="label">Sq. Ft. Constructed</span>
+                        </div>
+                        <div class="stat">
+                            <span class="number">470+</span>
+                            <span class="label">Quality Checks</span>
+                        </div>
+                        <div class="stat">
+                            <span class="number">11+</span>
+                            <span class="label">Years Experience</span>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <a href="#packages" class="hero-scroll-cue" aria-label="Scroll to packages">
+                <span>Scroll</span>
+                <i class="fas fa-chevron-down" aria-hidden="true"></i>
+            </a>
+        </section>
 
-<!-- ===== CONTENT GRID ===== -->
-<div id="contentSection">
-  <div class="section">
-    <div class="section-title" id="categoryTitle">🎬 Movies</div>
-    <div class="movie-grid" id="movieGrid"></div>
-  </div>
-</div>
+        <!-- ============================================================
+        PACKAGES
+        ============================================================ -->
+        <section id="packages" aria-labelledby="packages-title">
+            <div class="container">
+                <div class="text-center">
+                    <span class="section-label">Our Packages</span>
+                    <h2 class="section-title" id="packages-title">Choose Your <span class="gold">Construction</span> Plan</h2>
+                    <p class="section-desc centered">Premium packages designed to match your vision, budget, and lifestyle.</p>
+                    <div class="gold-divider centered"></div>
+                </div>
 
-<!-- ===== BOTTOM NAV ===== -->
-<div class="bottom-nav">
-  <div class="nav-item active" onclick="setNav(this, 'home')">
-    <svg viewBox="0 0 24 24" style="width:22px;height:22px;fill:none;stroke:currentColor;stroke-width:2;"><path d="M3 9l9-7 9 7v11a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2z"/><polyline points="9 22 9 12 15 12 15 22"/></svg>
-    Home
-  </div>
-  <div class="nav-item" onclick="setNav(this, 'subscribe')">
-    <svg viewBox="0 0 24 24" style="width:22px;height:22px;fill:none;stroke:currentColor;stroke-width:2;"><path d="M12 2v20M2 12h20"/></svg>
-    Subscribe
-  </div>
-</div>
+                <div class="package-grid">
+                    <!-- Basic -->
+                    <div class="package-card" data-delay="0">
+                        <h3 class="pkg-name">Basic</h3>
+                        <div class="pkg-price">₹1950 <span>per sqft</span></div>
+                        <p class="pkg-desc">A budget package with no compromise on quality that includes all construction essentials</p>
+                        <div class="highlights-label">Highlights</div>
+                        <ul class="features-list">
+                            <li>Trusted brand steel &amp; cement</li>
+                            <li>Standard floor tiles upto ₹50/sqft</li>
+                            <li>Standard flush doors and window finish</li>
+                            <li>Tractor Emulsion finish</li>
+                            <li>Essential kitchen &amp; bathroom fittings</li>
+                        </ul>
+                        <div class="brand-logos">
+                            <span class="brand gold">SUNVIK&reg;</span>
+                            <span class="brand">Dalma</span>
+                            <span class="brand">CERA</span>
+                        </div>
+                        <button class="btn btn-outline" data-package="Basic">Learn More <i class="fas fa-arrow-right"></i></button>
+                    </div>
 
-<!-- ===== PLAYER MODAL ===== -->
-<div class="modal-overlay" id="modalOverlay">
-  <div class="modal-box">
-    <div class="modal-header">
-      <div class="modal-title" id="modalTitle">Movie</div>
-      <button class="modal-close" onclick="closePlayer()">✕</button>
-    </div>
-    <div class="video-wrap">
-      <iframe id="ytPlayer" src="" allow="autoplay; encrypted-media; fullscreen" allowfullscreen></iframe>
-    </div>
-    <div class="modal-meta" id="modalMeta"></div>
-  </div>
-</div>
+                    <!-- Classic (Popular) -->
+                    <div class="package-card" data-delay="1">
+                        <span class="popular-badge"><i class="fas fa-star"></i> Best Seller</span>
+                        <h3 class="pkg-name">Classic</h3>
+                        <div class="pkg-price">₹2080 <span>per sqft</span></div>
+                        <p class="pkg-desc">Our best seller package with upgraded brands like Jindal Steels, Hindware etc at a considerable price</p>
+                        <div class="highlights-label">Highlights</div>
+                        <ul class="features-list">
+                            <li>Superior brand steel &amp; cement</li>
+                            <li>Refined floor tiles upto ₹100/sqft</li>
+                            <li>Elegant teak doors and window finish</li>
+                            <li>Tractor Shyne Emulsion finish</li>
+                            <li>Stylish kitchen &amp; bathroom</li>
+                        </ul>
+                        <div class="brand-logos">
+                            <span class="brand gold">JINDAL STEEL &amp; POWER</span>
+                            <span class="brand">Dalma</span>
+                            <span class="brand">O</span>
+                            <span class="brand">handware</span>
+                        </div>
+                        <button class="btn btn-primary" data-package="Classic">Learn More <i class="fas fa-arrow-right"></i></button>
+                    </div>
 
-<script>
-// ============================================================
-// 🔥 YAHAN APNI VIDEOS ADD KARO YA DELETE KARO 🔥
-// ============================================================
-// category: "movies", "tvshow", ya "skill"
-// yt: YouTube video ID (jaise "mqqft2x_Aa4")
-// img: Poster image ka URL
-// title, year, desc: Video ki details
+                    <!-- Premium -->
+                    <div class="package-card" data-delay="2">
+                        <h3 class="pkg-name">Premium</h3>
+                        <div class="pkg-price">₹2410 <span>per sqft</span></div>
+                        <p class="pkg-desc">An elegant package crafted for modern living with extra provisions like solar heater setup, puja room door etc</p>
+                        <div class="highlights-label">Highlights</div>
+                        <ul class="features-list">
+                            <li>Superior Brand steel &amp; cement</li>
+                            <li>Premium floor tiles upto ₹140/sqft</li>
+                            <li>Designer teak doors and window finish</li>
+                            <li>Apcolite Premium finish</li>
+                            <li>Quality kitchen &amp; bathroom</li>
+                        </ul>
+                        <div class="brand-logos">
+                            <span class="brand gold">JINDAL STEEL &amp; POWER</span>
+                            <span class="brand">Dalma</span>
+                            <span class="brand">O</span>
+                            <span class="brand">handware</span>
+                        </div>
+                        <button class="btn btn-outline" data-package="Premium">Learn More <i class="fas fa-arrow-right"></i></button>
+                    </div>
 
-const VIDEOS = [
-  // ===== MOVIES (5) =====
-  {
-    id: 'm1',
-    title: 'Deepak Kumar',
-    year: '2005',
-    category: 'movies',
-    img: 'https://share.google/wslplB9nTM7ythbFC,
-    yt: '8j4ptxsDkpM',
-    desc: 'Gotham City mein ek serial killer hai. Batman ko uska raaz sulajhna hai.'
-  },
-  {
-    id: 'm2',
-    title: 'Avengers: Infinity War',
-    year: '2018',
-    category: 'movies',
-    img: 'https://upload.wikimedia.org/wikipedia/en/4/4d/Avengers_Infinity_War_poster.jpg',
-    yt: '6ZfuNTqbHE8',
-    desc: 'Thanos ne aadhi duniya ko mita dene ki kasam khayi hai.'
-  },
-  {
-    id: 'm3',
-    title: 'Lord of the Rings',
-    year: '2001',
-    category: 'movies',
-    img: 'https://upload.wikimedia.org/wikipedia/en/f/fb/Lord_Rings_Fellowship_Ring.jpg',
-    yt: 'V75dMMIW2B4',
-    desc: 'Ek hobbit ek shaktishali angoothi ko nasht karne ki yatra par nikalta hai.'
-  },
-  {
-    id: 'm4',
-    title: 'Black Panther',
-    year: '2018',
-    category: 'movies',
-    img: 'https://upload.wikimedia.org/wikipedia/en/0/0c/Black_Panther_film_poster.jpg',
-    yt: 'xjDjITE7pWc',
-    desc: 'Wakanda ka raja T\'Challa apni dharti ko bachata hai.'
-  },
-  {
-    id: 'm5',
-    title: 'Dunki',
-    year: '2023',
-    category: 'movies',
-    img: 'https://upload.wikimedia.org/wikipedia/en/0/0f/Dunki_poster.jpg',
-    yt: 'pVAaFBGlbMU',
-    desc: 'Ek group ka sapna — videsh jaana — aur unki behtareen journey.'
-  },
+                    <!-- Royale -->
+                    <div class="package-card" data-delay="3">
+                        <h3 class="pkg-name">Royale</h3>
+                        <div class="pkg-price">₹2650 <span>per sqft</span></div>
+                        <p class="pkg-desc">An ultimate plan with high-end finishes with amenities like EV charging, copper gas connection etc</p>
+                        <div class="highlights-label">Highlights</div>
+                        <ul class="features-list">
+                            <li>Superior brand steel &amp; cement</li>
+                            <li>Lavish floor tiles upto ₹160/sqft</li>
+                            <li>Designer teak doors and window finish</li>
+                            <li>Apex Ultima Exterior finish</li>
+                            <li>Lavish Fittings for kitchen &amp; bathroom</li>
+                        </ul>
+                        <div class="brand-logos">
+                            <span class="brand gold">JINDAL STEEL &amp; POWER</span>
+                            <span class="brand">Dalma</span>
+                            <span class="brand">O</span>
+                            <span class="brand">handware</span>
+                        </div>
+                        <button class="btn btn-outline" data-package="Royale">Learn More <i class="fas fa-arrow-right"></i></button>
+                    </div>
+                </div>
+            </div>
+        </section>
 
-  // ===== TV SHOWS (5) =====
-  {
-    id: 't1',
-    title: 'Breaking Bad',
-    year: '2008',
-    category: 'tvshow',
-    img: 'https://upload.wikimedia.org/wikipedia/en/6/61/Breaking_Bad_title_card.png',
-    yt: 'HhesaQXLuRY',
-    desc: 'Ek chemistry teacher drugs ki duniya mein kadam rakhta hai.'
-  },
-  {
-    id: 't2',
-    title: 'Game of Thrones',
-    year: '2011',
-    category: 'tvshow',
-    img: 'https://upload.wikimedia.org/wikipedia/en/d/d8/Game_of_Thrones_Season_3.jpg',
-    yt: 'KPLWWIOCOOQ',
-    desc: 'Saat rajwansh ek iron throne ke liye ladte hain.'
-  },
-  {
-    id: 't3',
-    title: 'Money Heist',
-    year: '2017',
-    category: 'tvshow',
-    img: 'https://upload.wikimedia.org/wikipedia/en/e/e4/La_Casa_de_Papel_Netflix_poster.jpg',
-    yt: 'A_zy4Hm_dlo',
-    desc: 'Professor apne gang ke saath Spain ka royal mint lootna chahta hai.'
-  },
-  {
-    id: 't4',
-    title: 'Stranger Things',
-    year: '2016',
-    category: 'tvshow',
-    img: 'https://upload.wikimedia.org/wikipedia/en/4/43/Stranger_Things_season_1.jpg',
-    yt: 'b9EkMc79ZSU',
-    desc: 'Ek chota sa town supernatural ghatnaon ka ghar ban jata hai.'
-  },
-  {
-    id: 't5',
-    title: 'The Witcher',
-    year: '2019',
-    category: 'tvshow',
-    img: 'https://upload.wikimedia.org/wikipedia/en/8/8c/The_Witcher_%28TV_series%29.jpg',
-    yt: 'ndl1W4ltcmg',
-    desc: 'Geralt of Rivia ek monster hunter hai jo destiny ko maanta nahin.'
-  },
+        <!-- ============================================================
+        SERVICES WE OFFER
+        ============================================================ -->
+        <section id="services" class="services-section" aria-labelledby="services-title">
+            <div class="container">
+                <div class="services-header">
+                    <div class="left">
+                        <span class="section-label">What We Do</span>
+                        <h2 id="services-title">Services <span class="gold">We Offer</span></h2>
+                        <div class="gold-divider" style="margin-top:0.3rem;"></div>
+                    </div>
+                    <button class="see-all" aria-label="See all services">
+                        See All Services <i class="fas fa-arrow-right"></i>
+                    </button>
+                </div>
 
-  // ===== SKILLS (5) =====
-  {
-    id: 's1',
-    title: 'Python Tutorial',
-    year: '2024',
-    category: 'skill',
-    img: 'https://upload.wikimedia.org/wikipedia/commons/c/c3/Python-logo-notext.svg',
-    yt: 'rfscVS0vtbw',
-    desc: 'Python programming for beginners.'
-  },
-  {
-    id: 's2',
-    title: 'HTML Course',
-    year: '2024',
-    category: 'skill',
-    img: 'https://upload.wikimedia.org/wikipedia/commons/6/61/HTML5_logo_and_wordmark.svg',
-    yt: 'pQN-pnXPaVg',
-    desc: 'Complete HTML tutorial.'
-  },
-  {
-    id: 's3',
-    title: 'CSS Masterclass',
-    year: '2024',
-    category: 'skill',
-    img: 'https://upload.wikimedia.org/wikipedia/commons/d/d5/CSS3_logo_and_wordmark.svg',
-    yt: '1Rs2ND1ryYc',
-    desc: 'CSS styling complete guide.'
-  },
-  {
-    id: 's4',
-    title: 'JavaScript Course',
-    year: '2024',
-    category: 'skill',
-    img: 'https://upload.wikimedia.org/wikipedia/commons/9/99/Unofficial_JavaScript_logo_2.svg',
-    yt: 'W6NZfCO5SIk',
-    desc: 'JavaScript programming from scratch.'
-  },
-  {
-    id: 's5',
-    title: 'React Tutorial',
-    year: '2024',
-    category: 'skill',
-    img: 'https://upload.wikimedia.org/wikipedia/commons/a/a7/React-icon.svg',
-    yt: 'SqcY0GlETXk',
-    desc: 'React.js for beginners.'
-  }
-];
+                <div class="services-grid">
+                    <!-- Residential Construction -->
+                    <div class="service-card">
+                        <div class="image-wrapper">
+                            <img src="https://i.pinimg.com/1200x/b2/64/91/b2649169d21b6a0d807114d325fc73f6.jpg" alt="Residential Construction" class="card-image" loading="lazy" />
+                            <div class="image-overlay"></div>
+                        </div>
+                        <div class="card-body">
+                            <div class="icon-wrapper"><i class="fas fa-home"></i></div>
+                            <h3>Residential Construction</h3>
+                            <p>Your idea, our work. Build your customized dream home with BigLand's expert vision and lifestyle.</p>
+                            <button class="know-more">Know More <i class="fas fa-arrow-right"></i></button>
+                        </div>
+                    </div>
 
-// ============================================================
-// ===== CODE - ISME KUCH MAT CHHEDO =====
-// ============================================================
-let currentCategory = 'movies';
+                    <!-- Commercial Construction -->
+                    <div class="service-card">
+                        <div class="image-wrapper">
+                            <img src="https://images.unsplash.com/photo-1486406146926-c627a92ad1ab?w=600&h=400&fit=crop&auto=format" alt="Commercial Construction" class="card-image" loading="lazy" />
+                            <div class="image-overlay"></div>
+                        </div>
+                        <div class="card-body">
+                            <div class="icon-wrapper"><i class="fas fa-building"></i></div>
+                            <h3>Commercial Construction</h3>
+                            <p>From business complexes to hotels, BigLand delivers superior quality and efficiency that reflects professionalism.</p>
+                            <button class="know-more">Know More <i class="fas fa-arrow-right"></i></button>
+                        </div>
+                    </div>
 
-function getHeroMovieId() {
-  const items = VIDEOS.filter(v => v.category === 'movies');
-  return items.length > 0 ? items[0].id : null;
-}
+                    <!-- Interiors -->
+                    <div class="service-card">
+                        <div class="image-wrapper">
+                            <img src="https://images.unsplash.com/photo-1618220179428-22790b461013?w=600&h=400&fit=crop&auto=format" alt="Interior Design" class="card-image" loading="lazy" />
+                            <div class="image-overlay"></div>
+                        </div>
+                        <div class="card-body">
+                            <div class="icon-wrapper"><i class="fas fa-paint-roller"></i></div>
+                            <h3>Interiors</h3>
+                            <p>Right before moving in, we make your house a home with our top-notch interior design service, tailored to your unique style.</p>
+                            <button class="know-more">Know More <i class="fas fa-arrow-right"></i></button>
+                        </div>
+                    </div>
 
-function renderGrid() {
-  const grid = document.getElementById('movieGrid');
-  const items = VIDEOS.filter(v => v.category === currentCategory);
-  if (!items.length) {
-    grid.innerHTML = '<div style="grid-column:1/-1;text-align:center;color:#666;padding:20px;">No videos in this category.</div>';
-    return;
-  }
-  grid.innerHTML = items.map(m => `
-    <div class="movie-card" onclick="openPlayer('${m.id}')">
-      <img src="${m.img}" alt="${m.title}" onerror="this.style.background='#2a2a2a'; this.src=''">
-      <div class="movie-card-overlay">
-        <div class="movie-card-category">${m.category}</div>
-        <div class="movie-card-title">${m.title}</div>
-      </div>
-    </div>
-  `).join('');
-}
+                    <!-- Renovation -->
+                    <div class="service-card">
+                        <div class="image-wrapper">
+                            <img src="https://images.unsplash.com/photo-1581578731548-c64695cc6952?w=600&h=400&fit=crop&auto=format" alt="Renovation" class="card-image" loading="lazy" />
+                            <div class="image-overlay"></div>
+                        </div>
+                        <div class="card-body">
+                            <div class="icon-wrapper"><i class="fas fa-hammer"></i></div>
+                            <h3>Renovation</h3>
+                            <p>Breathe new life into your property with our expert renovation services. We transform spaces to match your evolving needs.</p>
+                            <button class="know-more">Know More <i class="fas fa-arrow-right"></i></button>
+                        </div>
+                    </div>
 
-function renderHero() {
-  const items = VIDEOS.filter(v => v.category === 'movies');
-  const hero = items.length > 0 ? items[0] : null;
-  if (hero) {
-    document.getElementById('heroImg').src = hero.img || '';
-    document.getElementById('heroTitle').textContent = hero.title || 'No Content';
-    document.getElementById('heroYear').textContent = hero.year || '';
-    document.getElementById('heroGenre').textContent = hero.category || '';
-  }
-}
+                    <!-- Architectural Services -->
+                    <div class="service-card">
+                        <div class="image-wrapper">
+                            <img src="https://images.unsplash.com/photo-1503387762-592deb58ef4e?w=600&h=400&fit=crop&auto=format" alt="Architectural Services" class="card-image" loading="lazy" />
+                            <div class="image-overlay"></div>
+                        </div>
+                        <div class="card-body">
+                            <div class="icon-wrapper"><i class="fas fa-drafting-compass"></i></div>
+                            <h3>Architectural Services</h3>
+                            <p>Every solid build starts with smart planning. Our expert architects handle the numbers and design that make it happen.</p>
+                            <button class="know-more">Know More <i class="fas fa-arrow-right"></i></button>
+                        </div>
+                    </div>
 
-function switchCategory(category) {
-  currentCategory = category;
-  document.querySelectorAll('.tab').forEach(t => {
-    t.classList.toggle('active', t.dataset.category === category);
-  });
-  const titles = { movies: '🎬 Movies', tvshow: '📺 TV Shows', skill: '🎓 Skills' };
-  document.getElementById('categoryTitle').textContent = titles[category] || category;
-  renderGrid();
-}
+                    <!-- Contractor Services -->
+                    <div class="service-card">
+                        <div class="image-wrapper">
+                            <img src="https://images.unsplash.com/photo-1541888946425-d81bb19240f5?w=600&h=400&fit=crop&auto=format" alt="Contractor Services" class="card-image" loading="lazy" />
+                            <div class="image-overlay"></div>
+                        </div>
+                        <div class="card-body">
+                            <div class="icon-wrapper"><i class="fas fa-hard-hat"></i></div>
+                            <h3>Contractor Services</h3>
+                            <p>From project management to on-site execution, our skilled contractors ensure every detail is built to the highest standard.</p>
+                            <button class="know-more">Know More <i class="fas fa-arrow-right"></i></button>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
 
-function filterContent() {
-  const q = document.getElementById('searchInput').value.toLowerCase();
-  const items = VIDEOS.filter(v => v.category === currentCategory);
-  const filtered = items.filter(m =>
-    m.title.toLowerCase().includes(q) ||
-    m.year.includes(q) ||
-    m.category.includes(q)
-  );
-  const grid = document.getElementById('movieGrid');
-  if (!filtered.length) {
-    grid.innerHTML = '<div style="grid-column:1/-1;text-align:center;color:#666;padding:20px;">No results.</div>';
-    return;
-  }
-  grid.innerHTML = filtered.map(m => `
-    <div class="movie-card" onclick="openPlayer('${m.id}')">
-      <img src="${m.img}" alt="${m.title}" onerror="this.style.background='#2a2a2a'; this.src=''">
-      <div class="movie-card-overlay">
-        <div class="movie-card-category">${m.category}</div>
-        <div class="movie-card-title">${m.title}</div>
-      </div>
-    </div>
-  `).join('');
-}
+        <!-- ============================================================
+        BANKING PARTNERS CAROUSEL
+        ============================================================ -->
+        <section id="partners" class="partners-section" aria-labelledby="partners-title">
+            <div class="container">
+                <div class="text-center">
+                    <span class="section-label">Our Banking Partners</span>
+                    <h2 class="section-title" id="partners-title">Our <span class="gold">Banking</span> Partners</h2>
+                    <p class="section-desc centered">Helping customers get easy access to home construction loans.</p>
+                    <div class="gold-divider centered"></div>
+                </div>
 
-function openPlayer(id) {
-  const m = VIDEOS.find(v => v.id === id);
-  if (!m) return;
-  document.getElementById('modalTitle').textContent = m.title;
-  document.getElementById('modalMeta').innerHTML = `<strong style="color:#fff">${m.year} · ${m.category}</strong><br>${m.desc}`;
-  document.getElementById('ytPlayer').src = `https://www.youtube.com/embed/${m.yt}?autoplay=1&rel=0&modestbranding=1&showinfo=0&controls=1&fs=0&iv_load_policy=3`;
-  document.getElementById('modalOverlay').classList.add('open');
-  document.body.style.overflow = 'hidden';
-}
+                <div class="carousel-wrapper">
+                    <div class="carousel-track" id="carouselTrack">
+                        <!-- Items injected by JavaScript -->
+                    </div>
+                </div>
+            </div>
+        </section>
 
-function closePlayer() {
-  document.getElementById('ytPlayer').src = '';
-  document.getElementById('modalOverlay').classList.remove('open');
-  document.body.style.overflow = '';
-}
+        <!-- ============================================================
+        CONTACT / CTA
+        ============================================================ -->
+        <section id="contact" class="contact-section" aria-labelledby="contact-title">
+            <div class="container">
+                <div class="contact-card">
+                    <span class="section-label" style="opacity:0.5;">Start Your Journey</span>
+                    <h2 id="contact-title">Let's Build Your <span class="gold">Dream Home</span></h2>
+                    <p>Get a free consultation and estimate. Our team will respond within 20 minutes.</p>
+                    <div class="btn-group">
+                        <a href="#" class="btn btn-primary">Get Free Estimate</a>
+                        <a href="#" class="btn btn-outline"><i class="fas fa-phone-alt"></i> Call Now</a>
+                    </div>
+                    <div class="phone">
+                        <i class="fas fa-phone-alt"></i> <a href="tel:+917505205205" style="color:inherit;">+91 7505 205 205</a>
+                    </div>
+                </div>
+            </div>
+        </section>
 
-function setNav(el, type) {
-  document.querySelectorAll('.nav-item').forEach(n => n.classList.remove('active'));
-  el.classList.add('active');
-  if (type === 'subscribe') {
-    alert('🎉 Subscribe feature coming soon!');
-  }
-}
+    </main>
 
-// ESC key se close
-document.addEventListener('keydown', function(e) {
-  if (e.key === 'Escape') closePlayer();
-});
+    <!-- ============================================================
+    FOOTER
+    ============================================================ -->
+    <footer class="footer">
+        <div class="container">
+            <p>&copy; 2026 BigLand Construction. All rights reserved.</p>
+            <div class="footer-links">
+                <a href="#">Privacy Policy</a>
+                <a href="#">Terms of Service</a>
+                <a href="#contact">Contact</a>
+            </div>
+        </div>
+    </footer>
 
-// ===== INIT =====
-document.addEventListener('DOMContentLoaded', function() {
-  renderHero();
-  renderGrid();
-});
+    <!-- ============================================================
+    JAVASCRIPT
+    ============================================================ -->
+    <script>
+        (function() {
+            'use strict';
 
-// ===== DEVTOOLS DETERRENT =====
-document.addEventListener('contextmenu', e => e.preventDefault());
-document.addEventListener('keydown', function(e) {
-  const k = e.key.toLowerCase();
-  if (e.key === 'F12' || (e.ctrlKey && e.shiftKey && ['i','j','c','k'].includes(k)) || (e.ctrlKey && ['u','s'].includes(k))) {
-    e.preventDefault();
-    e.stopPropagation();
-    return false;
-  }
-});
-</script>
+            // ===== MOBILE NAV =====
+            const navToggle = document.querySelector('.nav-toggle');
+            const navLinks = document.querySelector('#navLinks');
+
+            if (navToggle && navLinks) {
+                navToggle.addEventListener('click', function() {
+                    const isOpen = navLinks.classList.toggle('open');
+                    this.setAttribute('aria-expanded', isOpen);
+                    this.innerHTML = isOpen ?
+                        '<i class="fas fa-times"></i>' :
+                        '<i class="fas fa-bars"></i>';
+                });
+
+                navLinks.querySelectorAll('a').forEach(function(link) {
+                    link.addEventListener('click', function() {
+                        navLinks.classList.remove('open');
+                        navToggle.setAttribute('aria-expanded', 'false');
+                        navToggle.innerHTML = '<i class="fas fa-bars"></i>';
+                    });
+                });
+            }
+
+            // ===== NAVBAR SCROLL =====
+            const navbar = document.querySelector('.navbar');
+            window.addEventListener('scroll', function() {
+                const scrollY = window.pageYOffset || document.documentElement.scrollTop;
+                if (scrollY > 60) {
+                    navbar.style.background = 'rgba(11, 10, 8, 0.92)';
+                } else {
+                    navbar.style.background = 'rgba(11, 10, 8, 0.75)';
+                }
+            });
+
+            // ===== PACKAGE BUTTONS (Learn More) =====
+            const pkgButtons = document.querySelectorAll('.package-card .btn');
+            pkgButtons.forEach(function(btn) {
+                btn.addEventListener('click', function(e) {
+                    e.preventDefault();
+                    const pkgName = this.dataset.package || 'package';
+                    const card = this.closest('.package-card');
+                    const price = card.querySelector('.pkg-price')?.textContent?.trim() || '';
+                    alert(`✨ ${pkgName} package selected — ${price}`);
+                    console.log(`📦 Package selected: ${pkgName} | ${price}`);
+                });
+            });
+
+            // ============================================================
+            // STAGGER ANIMATION ON PACKAGE CARDS (Intersection Observer)
+            // ============================================================
+            const cards = document.querySelectorAll('.package-card');
+            const observer = new IntersectionObserver((entries) => {
+                entries.forEach(entry => {
+                    if (entry.isIntersecting) {
+                        entry.target.classList.add('visible');
+                        observer.unobserve(entry.target);
+                    }
+                });
+            }, {
+                threshold: 0.15,
+                rootMargin: '0px 0px -50px 0px'
+            });
+            cards.forEach(card => { observer.observe(card); });
+
+            // ============================================================
+            // BANKING PARTNERS CAROUSEL
+            // ============================================================
+            const partners = [
+                { name: 'Bajaj Finserv', image: 'https://d2d4xyu1zrrrws.cloudfront.net/website/landing-pages/c/bnb-revamp/bajaj.webp' },
+                { name: 'BASIC', image: 'https://d2d4xyu1zrrrws.cloudfront.net/website/landing-pages/c/bnb-revamp/basic.webp' },
+                { name: 'Godrej', image: 'https://d2d4xyu1zrrrws.cloudfront.net/website/landing-pages/c/bnb-revamp/godrej.webp' },
+                { name: 'HDFC Home Loan', image: 'https://d2d4xyu1zrrrws.cloudfront.net/website/landing-pages/c/bnb-revamp/hdfc_home_loan.webp' },
+                { name: 'Housing.com', image: 'https://d2d4xyu1zrrrws.cloudfront.net/website/landing-pages/c/bnb-revamp/housing.webp' },
+                { name: 'SBI Home Loans', image: 'https://d2d4xyu1zrrrws.cloudfront.net/website/landing-pages/c/bnb-revamp/sbi_home_loan.webp' }
+            ];
+
+            const track = document.getElementById('carouselTrack');
+            if (track) {
+                const allItems = [...partners, ...partners];
+                allItems.forEach((partner) => {
+                    const item = document.createElement('div');
+                    item.className = 'carousel-item';
+
+                    const img = document.createElement('img');
+                    img.src = partner.image;
+                    img.alt = partner.name;
+                    img.loading = 'lazy';
+
+                    img.onerror = function() {
+                        this.style.display = 'none';
+                        const fallback = document.createElement('span');
+                        fallback.className = 'fallback-text';
+                        fallback.textContent = partner.name;
+                        item.appendChild(fallback);
+                    };
+
+                    item.appendChild(img);
+                    track.appendChild(item);
+                });
+                console.log('🏦 Banking Partners carousel initialized');
+            }
+
+            // ============================================================
+            // SERVICES: "See All Services" & "Know More" buttons
+            // ============================================================
+            const seeAllBtn = document.querySelector('.see-all');
+            if (seeAllBtn) {
+                seeAllBtn.addEventListener('click', function() {
+                    alert('✨ All Services page — coming soon!');
+                    console.log('🔍 See All Services clicked');
+                });
+            }
+
+            const knowMoreBtns = document.querySelectorAll('.know-more');
+            knowMoreBtns.forEach(function(btn) {
+                btn.addEventListener('click', function(e) {
+                    e.stopPropagation();
+                    const card = this.closest('.service-card');
+                    const title = card.querySelector('h3')?.textContent || 'Service';
+                    alert(`📋 Learn more about: ${title}`);
+                    console.log(`🔍 Know More clicked: ${title}`);
+                });
+            });
+
+            console.log('🏗️ BigLand Construction · Full website ready');
+
+        })();
+    </script>
+
 </body>
 </html>
