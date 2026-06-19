@@ -1025,6 +1025,125 @@
         }
 
         /* ============================================================
+                   WHY WORK WITH US
+                   ============================================================ */
+        .why-section {
+            background: rgba(255, 255, 255, 0.01);
+            padding: 4rem 0;
+        }
+
+        .why-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(240px, 1fr));
+            gap: 2rem;
+            margin-top: 2.5rem;
+        }
+
+        .why-card {
+            background: var(--color-surface-card);
+            backdrop-filter: blur(12px);
+            -webkit-backdrop-filter: blur(12px);
+            border: 1px solid var(--color-border-subtle);
+            border-radius: var(--radius-md);
+            padding: 2rem 1.8rem;
+            text-align: center;
+            transition: var(--transition-smooth);
+        }
+
+        .why-card:hover {
+            transform: translateY(-6px);
+            border-color: var(--color-border-glow);
+            box-shadow: 0 20px 60px rgba(0, 0, 0, 0.3);
+        }
+
+        .why-card .icon-wrapper {
+            width: 60px;
+            height: 60px;
+            border-radius: 50%;
+            background: rgba(201, 168, 76, 0.08);
+            border: 1px solid rgba(201, 168, 76, 0.12);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            margin: 0 auto 1rem;
+            transition: var(--transition-smooth);
+        }
+
+        .why-card:hover .icon-wrapper {
+            background: rgba(201, 168, 76, 0.15);
+            border-color: rgba(201, 168, 76, 0.25);
+            transform: scale(1.05);
+        }
+
+        .why-card .icon-wrapper i {
+            font-size: 1.5rem;
+            color: var(--color-accent);
+        }
+
+        .why-card h3 {
+            font-family: var(--font-family-display);
+            font-size: 1.1rem;
+            font-weight: 600;
+            margin-bottom: 0.5rem;
+        }
+
+        .why-card p {
+            font-size: 0.9rem;
+            color: var(--color-text-muted);
+            font-weight: 300;
+            line-height: 1.7;
+        }
+
+        /* ============================================================
+                   TRUSTED BY SECTION
+                   ============================================================ */
+        .trusted-section {
+            background: rgba(255, 255, 255, 0.01);
+            padding: 3rem 0;
+            border-top: 1px solid var(--color-border-subtle);
+            border-bottom: 1px solid var(--color-border-subtle);
+        }
+
+        .trusted-grid {
+            display: flex;
+            flex-wrap: wrap;
+            align-items: center;
+            justify-content: center;
+            gap: 2.5rem 4rem;
+            margin-top: 1.5rem;
+        }
+
+        .trusted-item {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            opacity: 0.6;
+            transition: var(--transition-smooth);
+            filter: grayscale(0.3) brightness(0.7);
+        }
+
+        .trusted-item:hover {
+            opacity: 1;
+            filter: grayscale(0) brightness(1);
+            transform: scale(1.05);
+        }
+
+        .trusted-item img {
+            max-height: 48px;
+            width: auto;
+            object-fit: contain;
+        }
+
+        @media (max-width: 640px) {
+            .trusted-grid {
+                gap: 1.5rem 2rem;
+            }
+            .trusted-item img {
+                max-height: 36px;
+            }
+        }
+
+        /* ============================================================
                    BANKING PARTNERS CAROUSEL
                    ============================================================ */
         .partners-section {
@@ -1228,6 +1347,8 @@
             <ul class="nav-links" id="navLinks" role="menubar">
                 <li role="none"><a href="#packages" role="menuitem">Packages</a></li>
                 <li role="none"><a href="#services" role="menuitem">Services</a></li>
+                <li role="none"><a href="#why-us" role="menuitem">Why Us</a></li>
+                <li role="none"><a href="#trusted" role="menuitem">Trusted By</a></li>
                 <li role="none"><a href="#partners" role="menuitem">Partners</a></li>
                 <li role="none"><a href="#contact" role="menuitem">Contact</a></li>
                 <li role="none"><a href="#contact" role="menuitem"><button class="btn btn-primary" style="padding:0.4rem 1.5rem;font-size:0.75rem;">Get Started</button></a></li>
@@ -1487,6 +1608,66 @@
                             <button class="know-more">Know More <i class="fas fa-arrow-right"></i></button>
                         </div>
                     </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- ============================================================
+        WHY WORK WITH US
+        ============================================================ -->
+        <section id="why-us" class="why-section" aria-labelledby="why-title">
+            <div class="container">
+                <div class="text-center">
+                    <span class="section-label">Why Choose Us</span>
+                    <h2 class="section-title" id="why-title">Why Work <span class="gold">With Us</span></h2>
+                    <p class="section-desc centered">We combine decades of experience with a commitment to quality, transparency, and client satisfaction.</p>
+                    <div class="gold-divider centered"></div>
+                </div>
+
+                <div class="why-grid">
+                    <div class="why-card">
+                        <div class="icon-wrapper"><i class="fas fa-trophy"></i></div>
+                        <h3>10+ Years of Excellence</h3>
+                        <p>With over a decade of experience, we have delivered hundreds of premium projects with unmatched quality.</p>
+                    </div>
+                    <div class="why-card">
+                        <div class="icon-wrapper"><i class="fas fa-shield-alt"></i></div>
+                        <h3>470+ Quality Checks</h3>
+                        <p>Our rigorous quality assurance process ensures every inch of your home meets the highest standards.</p>
+                    </div>
+                    <div class="why-card">
+                        <div class="icon-wrapper"><i class="fas fa-hand-holding-heart"></i></div>
+                        <h3>Transparent Process</h3>
+                        <p>From estimation to handover, we maintain complete transparency with real-time project tracking.</p>
+                    </div>
+                    <div class="why-card">
+                        <div class="icon-wrapper"><i class="fas fa-clock"></i></div>
+                        <h3>On-Time Delivery</h3>
+                        <p>We understand the value of time and ensure your project is completed within the committed timeline.</p>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- ============================================================
+        TRUSTED BY
+        ============================================================ -->
+        <section id="trusted" class="trusted-section" aria-labelledby="trusted-title">
+            <div class="container">
+                <div class="text-center">
+                    <span class="section-label">Our Credibility</span>
+                    <h2 class="section-title" id="trusted-title">Trusted <span class="gold">By</span></h2>
+                    <p class="section-desc centered">We are proud to be the preferred choice for leading brands and institutions.</p>
+                    <div class="gold-divider centered"></div>
+                </div>
+
+                <div class="trusted-grid">
+                    <div class="trusted-item"><img src="https://www.biglandconstruction.com/wp-content/uploads/2026/05/5-2.png" alt="Trusted Partner 1" loading="lazy" /></div>
+                    <div class="trusted-item"><img src="https://www.biglandconstruction.com/wp-content/uploads/2026/05/6-1.png" alt="Trusted Partner 2" loading="lazy" /></div>
+                    <div class="trusted-item"><img src="https://www.biglandconstruction.com/wp-content/uploads/2026/05/3-3.png" alt="Trusted Partner 3" loading="lazy" /></div>
+                    <div class="trusted-item"><img src="https://www.biglandconstruction.com/wp-content/uploads/2026/05/4-3.png" alt="Trusted Partner 4" loading="lazy" /></div>
+                    <div class="trusted-item"><img src="https://www.biglandconstruction.com/wp-content/uploads/2026/05/5-2.png" alt="Trusted Partner 5" loading="lazy" /></div>
+                    <div class="trusted-item"><img src="https://www.biglandconstruction.com/wp-content/uploads/2026/05/6-1.png" alt="Trusted Partner 6" loading="lazy" /></div>
                 </div>
             </div>
         </section>
