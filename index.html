@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover" />
-    <title>Bigland Construction · Premium Home</title>
+    <title>BigLand Construction · Premium Builders</title>
 
     <!-- PWA -->
     <link rel="manifest" href="manifest.json" />
@@ -167,10 +167,6 @@
             flex-shrink: 0;
             text-decoration: none;
             opacity: 0;
-            background: #ffffff;
-            padding: 4px 12px 4px 8px;
-            border-radius: 12px;
-            box-shadow: 0 1px 4px rgba(0, 0, 0, 0.04);
         }
 
         .header-logo.logo-pop {
@@ -178,25 +174,38 @@
         }
 
         @keyframes logoPopIn {
-            0% {
-                opacity: 0;
-                transform: scale(0.4) rotate(-8deg);
-            }
-            60% {
-                opacity: 1;
-                transform: scale(1.08) rotate(2deg);
-            }
-            100% {
-                opacity: 1;
-                transform: scale(1) rotate(0deg);
-            }
+            0% { opacity: 0; transform: scale(0.4) rotate(-8deg); }
+            60% { opacity: 1; transform: scale(1.08) rotate(2deg); }
+            100% { opacity: 1; transform: scale(1) rotate(0deg); }
         }
 
         .header-logo img {
-            height: 40px;
+            height: 30px;
             width: auto;
-            display: block;
+            max-width: 44px;
             object-fit: contain;
+            display: block;
+        }
+
+        .header-logo .logo-mark {
+            display: inline-flex;
+            align-items: center;
+            justify-content: center;
+            width: 44px;
+            height: 44px;
+            border-radius: 12px;
+            background: #ffffff;
+            border: 1px solid var(--color-border);
+            box-shadow: 0 4px 14px rgba(0, 0, 0, 0.06);
+            flex-shrink: 0;
+            overflow: hidden;
+        }
+
+        .header-logo .logo-mark.logo-mark-fallback {
+            background: linear-gradient(135deg, var(--color-accent) 0%, #e3c878 50%, var(--color-accent) 100%);
+            color: #fff;
+            font-size: 16px;
+            border: none;
         }
 
         .header-logo .logo-text {
@@ -204,7 +213,6 @@
             font-weight: 700;
             letter-spacing: -0.3px;
             color: var(--color-text);
-            margin-left: 4px;
         }
 
         .header-logo .logo-text span {
@@ -213,10 +221,7 @@
         }
 
         @media (prefers-reduced-motion: reduce) {
-            .header-logo {
-                opacity: 1;
-                animation: none !important;
-            }
+            .header-logo { opacity: 1; animation: none !important; }
         }
 
         .header-nav {
@@ -288,40 +293,28 @@
             font-size: 0.78rem;
         }
         @media (max-width: 840px) {
-            .install-btn {
-                display: none;
-            }
+            .install-btn { display: none; }
         }
-
         .install-btn-mobile {
             display: none;
-            align-items: center;
-            justify-content: center;
-            gap: 8px;
-            width: 100%;
-            margin-top: 6px;
-            padding: 10px 14px;
-            border-radius: 12px;
-            border: 1.5px solid var(--color-accent);
-            background: var(--color-accent-soft);
-            color: var(--color-text);
-            font-family: inherit;
-            font-size: 15px;
-            font-weight: 600;
-            cursor: pointer;
-            text-decoration: none;
-            transition: var(--transition);
         }
-
-        .install-btn-mobile:hover {
-            background: var(--color-accent);
-            color: #fff;
-            border-color: var(--color-accent);
-        }
-
         @media (max-width: 840px) {
             .install-btn-mobile {
                 display: flex;
+                align-items: center;
+                justify-content: center;
+                gap: 8px;
+                width: 100%;
+                margin-top: 6px;
+                padding: 10px 14px;
+                border-radius: 12px;
+                border: 1.5px solid var(--color-accent);
+                background: var(--color-accent-soft);
+                color: var(--color-text);
+                font-family: inherit;
+                font-size: 15px;
+                font-weight: 600;
+                cursor: pointer;
             }
         }
 
@@ -386,8 +379,15 @@
                 padding: 0 20px;
             }
 
+            .header-logo .logo-mark {
+                width: 38px;
+                height: 38px;
+                border-radius: 10px;
+            }
+
             .header-logo img {
-                height: 32px;
+                height: 26px;
+                max-width: 36px;
             }
 
             .header-logo .logo-text {
@@ -440,8 +440,15 @@
                 padding: 0 16px;
             }
 
+            .header-logo .logo-mark {
+                width: 34px;
+                height: 34px;
+                border-radius: 9px;
+            }
+
             .header-logo img {
-                height: 28px;
+                height: 22px;
+                max-width: 30px;
             }
 
             .header-logo .logo-text {
@@ -971,14 +978,8 @@
             display: block;
         }
         @keyframes estFadeSlide {
-            from {
-                opacity: 0;
-                transform: translateY(10px);
-            }
-            to {
-                opacity: 1;
-                transform: translateY(0);
-            }
+            from { opacity: 0; transform: translateY(10px); }
+            to { opacity: 1; transform: translateY(0); }
         }
         .est-result-row {
             display: flex;
@@ -1142,30 +1143,15 @@
             animation: fadeUp 0.5s ease forwards;
         }
 
-        .service-card:nth-child(1) {
-            animation-delay: 0.04s;
-        }
-        .service-card:nth-child(2) {
-            animation-delay: 0.10s;
-        }
-        .service-card:nth-child(3) {
-            animation-delay: 0.16s;
-        }
-        .service-card:nth-child(4) {
-            animation-delay: 0.22s;
-        }
-        .service-card:nth-child(5) {
-            animation-delay: 0.28s;
-        }
-        .service-card:nth-child(6) {
-            animation-delay: 0.34s;
-        }
+        .service-card:nth-child(1) { animation-delay: 0.04s; }
+        .service-card:nth-child(2) { animation-delay: 0.10s; }
+        .service-card:nth-child(3) { animation-delay: 0.16s; }
+        .service-card:nth-child(4) { animation-delay: 0.22s; }
+        .service-card:nth-child(5) { animation-delay: 0.28s; }
+        .service-card:nth-child(6) { animation-delay: 0.34s; }
 
         @keyframes fadeUp {
-            to {
-                opacity: 1;
-                transform: translateY(0);
-            }
+            to { opacity: 1; transform: translateY(0); }
         }
 
         .service-card:hover {
@@ -1767,12 +1753,8 @@
             transform: translateY(-50%) scale(0.94);
         }
 
-        .clients-carousel-btn.prev {
-            left: 8px;
-        }
-        .clients-carousel-btn.next {
-            right: 8px;
-        }
+        .clients-carousel-btn.prev { left: 8px; }
+        .clients-carousel-btn.next { right: 8px; }
 
         .clients-carousel-dots {
             display: flex;
@@ -1804,53 +1786,24 @@
         }
 
         @media (max-width: 1024px) {
-            .client-carousel-card {
-                width: calc(33.33% - 16px);
-            }
+            .client-carousel-card { width: calc(33.33% - 16px); }
         }
 
         @media (max-width: 768px) {
-            .client-carousel-card {
-                width: calc(50% - 12px);
-            }
-            .clients-carousel-section .section-header h2 {
-                font-size: 32px;
-            }
-            .clients-carousel-btn {
-                width: 36px;
-                height: 36px;
-                font-size: 1rem;
-            }
-            .clients-carousel-btn.prev {
-                left: 4px;
-            }
-            .clients-carousel-btn.next {
-                right: 4px;
-            }
+            .client-carousel-card { width: calc(50% - 12px); }
+            .clients-carousel-section .section-header h2 { font-size: 32px; }
+            .clients-carousel-btn { width: 36px; height: 36px; font-size: 1rem; }
+            .clients-carousel-btn.prev { left: 4px; }
+            .clients-carousel-btn.next { right: 4px; }
         }
 
         @media (max-width: 480px) {
-            .client-carousel-card {
-                width: calc(100% - 0px);
-                aspect-ratio: 1 / 1;
-            }
-            .clients-carousel-section .section-header h2 {
-                font-size: 26px;
-            }
-            .clients-carousel-section .section-header p {
-                font-size: 14px;
-            }
-            .clients-carousel-btn {
-                width: 30px;
-                height: 30px;
-                font-size: 0.8rem;
-            }
-            .clients-carousel-btn.prev {
-                left: 2px;
-            }
-            .clients-carousel-btn.next {
-                right: 2px;
-            }
+            .client-carousel-card { width: calc(100% - 0px); aspect-ratio: 1 / 1; }
+            .clients-carousel-section .section-header h2 { font-size: 26px; }
+            .clients-carousel-section .section-header p { font-size: 14px; }
+            .clients-carousel-btn { width: 30px; height: 30px; font-size: 0.8rem; }
+            .clients-carousel-btn.prev { left: 2px; }
+            .clients-carousel-btn.next { right: 2px; }
         }
 
         /* ============================================================
@@ -1974,87 +1927,40 @@
         }
 
         @keyframes scroll-left {
-            0% {
-                transform: translateX(0);
-            }
-            100% {
-                transform: translateX(-50%);
-            }
+            0% { transform: translateX(0); }
+            100% { transform: translateX(-50%); }
         }
 
         @keyframes scroll-right {
-            0% {
-                transform: translateX(-50%);
-            }
-            100% {
-                transform: translateX(0);
-            }
+            0% { transform: translateX(-50%); }
+            100% { transform: translateX(0); }
         }
 
         @media (max-width: 1024px) {
-            .gallery-card {
-                width: 170px;
-                padding: 3px;
-            }
-            .gallery-card .gallery-image {
-                border-radius: 12px;
-            }
-            .gallery-marquee-row {
-                padding: 4px 0;
-            }
-            .gallery-marquee-wrapper {
-                gap: 8px;
-            }
-            .gallery-marquee-track {
-                gap: 12px;
-            }
+            .gallery-card { width: 170px; padding: 3px; }
+            .gallery-card .gallery-image { border-radius: 12px; }
+            .gallery-marquee-row { padding: 4px 0; }
+            .gallery-marquee-wrapper { gap: 8px; }
+            .gallery-marquee-track { gap: 12px; }
         }
 
         @media (max-width: 768px) {
-            .project-gallery-section .section-header h2 {
-                font-size: 32px;
-            }
-            .project-gallery-section .section-header p {
-                font-size: 15px;
-            }
-            .gallery-card {
-                width: 140px;
-                padding: 3px;
-            }
-            .gallery-card .gallery-image {
-                border-radius: 10px;
-            }
-            .gallery-marquee-track {
-                gap: 10px;
-            }
-            .gallery-marquee-wrapper {
-                gap: 6px;
-            }
+            .project-gallery-section .section-header h2 { font-size: 32px; }
+            .project-gallery-section .section-header p { font-size: 15px; }
+            .gallery-card { width: 140px; padding: 3px; }
+            .gallery-card .gallery-image { border-radius: 10px; }
+            .gallery-marquee-track { gap: 10px; }
+            .gallery-marquee-wrapper { gap: 6px; }
         }
 
         @media (max-width: 480px) {
-            .project-gallery-section .section-header h2 {
-                font-size: 26px;
-            }
-            .project-gallery-section .section-header p {
-                font-size: 14px;
-            }
-            .gallery-card {
-                width: 120px;
-                padding: 2px;
-            }
-            .gallery-card .gallery-image {
-                border-radius: 8px;
-            }
-            .gallery-marquee-track {
-                gap: 8px;
-            }
-            .gallery-marquee-row {
-                padding: 3px 0;
-            }
-            .gallery-marquee-wrapper {
-                gap: 4px;
-            }
+            .project-gallery-section .section-header h2 { font-size: 26px; }
+            .project-gallery-section .section-header p { font-size: 14px; }
+            .gallery-card { width: 120px; padding: 2px; }
+            .gallery-card .gallery-image { border-radius: 8px; }
+            .gallery-marquee-track { gap: 8px; }
+            .gallery-marquee-row { padding: 3px 0; }
+            .gallery-marquee-wrapper { gap: 4px; }
         }
 
         /* ============================================================
@@ -2209,34 +2115,17 @@
             background: var(--color-accent-soft);
         }
         @media (max-width: 1024px) {
-            .showcase-item {
-                flex: 0 0 calc(33.33% - 0.8rem);
-            }
+            .showcase-item { flex: 0 0 calc(33.33% - 0.8rem); }
         }
         @media (max-width: 768px) {
-            .showcase-item {
-                flex: 0 0 calc(50% - 0.6rem);
-            }
-            .showcase-item .play-overlay i {
-                font-size: 2.4rem;
-            }
-            .showcase-item .video-title {
-                font-size: 0.65rem;
-                padding: 0.5rem 0.7rem;
-            }
+            .showcase-item { flex: 0 0 calc(50% - 0.6rem); }
+            .showcase-item .play-overlay i { font-size: 2.4rem; }
+            .showcase-item .video-title { font-size: 0.65rem; padding: 0.5rem 0.7rem; }
         }
         @media (max-width: 480px) {
-            .showcase-item {
-                flex: 0 0 calc(100% - 0rem);
-            }
-            .showcase-item .play-overlay i {
-                font-size: 2rem;
-            }
-            .showcase-nav button {
-                width: 34px;
-                height: 34px;
-                font-size: 0.75rem;
-            }
+            .showcase-item { flex: 0 0 calc(100% - 0rem); }
+            .showcase-item .play-overlay i { font-size: 2rem; }
+            .showcase-nav button { width: 34px; height: 34px; font-size: 0.75rem; }
         }
 
         /* ---------- VIDEO MODAL ---------- */
@@ -2310,13 +2199,8 @@
             transform: rotate(90deg);
         }
         @media (max-width: 768px) {
-            .video-modal-close {
-                top: -44px;
-                font-size: 1.4rem;
-            }
-            .video-modal {
-                padding: 0.8rem;
-            }
+            .video-modal-close { top: -44px; font-size: 1.4rem; }
+            .video-modal { padding: 0.8rem; }
         }
 
         /* ---------- PARTNERS CAROUSEL ---------- */
@@ -2376,36 +2260,18 @@
             text-transform: uppercase;
         }
         @keyframes scroll {
-            0% {
-                transform: translateX(0);
-            }
-            100% {
-                transform: translateX(-50%);
-            }
+            0% { transform: translateX(0); }
+            100% { transform: translateX(-50%); }
         }
         @media (max-width: 768px) {
-            .carousel-item {
-                min-width: 110px;
-                padding: 0.7rem 1rem;
-            }
-            .carousel-item img {
-                max-height: 34px;
-            }
-            .carousel-track {
-                gap: 1.2rem;
-            }
+            .carousel-item { min-width: 110px; padding: 0.7rem 1rem; }
+            .carousel-item img { max-height: 34px; }
+            .carousel-track { gap: 1.2rem; }
         }
         @media (max-width: 480px) {
-            .carousel-item {
-                min-width: 90px;
-                padding: 0.5rem 0.7rem;
-            }
-            .carousel-item img {
-                max-height: 28px;
-            }
-            .carousel-track {
-                gap: 0.8rem;
-            }
+            .carousel-item { min-width: 90px; padding: 0.5rem 0.7rem; }
+            .carousel-item img { max-height: 28px; }
+            .carousel-track { gap: 0.8rem; }
         }
 
         /* ---------- CONTACT / CTA ---------- */
@@ -2453,29 +2319,267 @@
             justify-content: center;
         }
 
-        /* ---------- FOOTER ---------- */
-        .footer {
-            border-top: 1px solid var(--color-border);
-            padding: 2rem 0;
-            text-align: center;
-            font-size: 0.82rem;
-            color: var(--color-text-muted);
-            font-weight: 350;
-            background: var(--color-surface);
+        /* ============================================================
+           FOOTER — COMPREHENSIVE SITEMAP STYLES
+           ============================================================ */
+        .footer-sitemap {
+            background: #0b1a2e;
+            color: #e2e8f0;
+            padding: 50px 20px 20px;
+            border-top: 4px solid #d97706;
         }
-        .footer a {
-            color: var(--color-text-muted);
-            transition: var(--transition);
+
+        .footer-sitemap .container {
+            max-width: 1280px;
+            margin: 0 auto;
         }
-        .footer a:hover {
-            color: var(--color-accent);
+
+        .footer-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(160px, 1fr));
+            gap: 30px 20px;
+            margin-bottom: 40px;
         }
-        .footer .footer-links {
+
+        .footer-col h4 {
+            color: #ffffff;
+            font-size: 0.95rem;
+            font-weight: 600;
+            letter-spacing: 0.3px;
+            margin-bottom: 16px;
+            position: relative;
+            padding-bottom: 8px;
+        }
+        .footer-col h4::after {
+            content: '';
+            position: absolute;
+            left: 0;
+            bottom: 0;
+            width: 28px;
+            height: 2.5px;
+            background: #d97706;
+            border-radius: 4px;
+        }
+
+        .footer-col ul {
+            list-style: none;
+        }
+        .footer-col ul li {
+            margin-bottom: 6px;
+        }
+        .footer-col ul li a {
+            color: #cbd5e1;
+            text-decoration: none;
+            font-size: 0.85rem;
+            transition: color 0.2s ease;
+            display: inline-block;
+        }
+        .footer-col ul li a:hover {
+            color: #fbbf24;
+        }
+
+        /* contact column */
+        .footer-col.contact-col h4::after {
+            background: #d97706;
+        }
+        .contact-info {
+            margin-top: 4px;
+        }
+        .contact-info .contact-item {
             display: flex;
-            justify-content: center;
-            gap: 2rem;
-            margin-top: 0.4rem;
+            align-items: center;
+            gap: 10px;
+            margin-bottom: 10px;
+            color: #cbd5e1;
+            font-size: 0.88rem;
+        }
+        .contact-info .contact-item i {
+            width: 20px;
+            color: #d97706;
+            font-size: 0.95rem;
+            text-align: center;
+        }
+        .contact-info .contact-item a {
+            color: #cbd5e1;
+            text-decoration: none;
+            transition: color 0.2s;
+        }
+        .contact-info .contact-item a:hover {
+            color: #fbbf24;
+        }
+        .contact-info .address-block {
+            font-size: 0.82rem;
+            color: #94a3b8;
+            line-height: 1.5;
+            margin-top: 2px;
+        }
+        .contact-info .address-block strong {
+            color: #e2e8f0;
+            font-weight: 600;
+        }
+
+        /* city / region SEO links */
+        .footer-cities {
+            border-top: 1px solid #1e3a5a;
+            border-bottom: 1px solid #1e3a5a;
+            padding: 20px 0 18px;
+            margin-bottom: 28px;
+        }
+
+        .footer-cities .cities-row {
+            display: flex;
             flex-wrap: wrap;
+            gap: 3px 14px;
+            justify-content: center;
+        }
+        .footer-cities .cities-row a {
+            color: #94a3b8;
+            text-decoration: none;
+            font-size: 0.78rem;
+            transition: color 0.2s;
+            white-space: nowrap;
+        }
+        .footer-cities .cities-row a:hover {
+            color: #fbbf24;
+        }
+        .footer-cities .cities-row .city-label {
+            color: #64748b;
+            font-size: 0.68rem;
+            font-weight: 700;
+            text-transform: uppercase;
+            letter-spacing: 0.5px;
+            margin-right: 2px;
+            display: inline-flex;
+            align-items: center;
+        }
+        .footer-cities .cities-row .city-label::after {
+            content: '›';
+            margin-left: 4px;
+            color: #d97706;
+            font-weight: 300;
+        }
+        .footer-cities .divider-dot {
+            color: #334155;
+            font-size: 0.5rem;
+            display: inline-flex;
+            align-items: center;
+        }
+
+        /* bottom bar */
+        .footer-bottom {
+            display: flex;
+            flex-wrap: wrap;
+            align-items: center;
+            justify-content: space-between;
+            gap: 18px 30px;
+            padding-top: 16px;
+        }
+
+        .footer-bottom .copyright {
+            font-size: 0.78rem;
+            color: #94a3b8;
+            order: 2;
+        }
+        .footer-bottom .copyright span {
+            color: #64748b;
+        }
+
+        .app-links {
+            display: flex;
+            align-items: center;
+            gap: 14px;
+            order: 1;
+        }
+        .app-links a {
+            display: inline-flex;
+            align-items: center;
+            gap: 8px;
+            background: #1e3a5a;
+            color: #e2e8f0;
+            padding: 7px 16px 7px 12px;
+            border-radius: 8px;
+            text-decoration: none;
+            font-size: 0.78rem;
+            font-weight: 500;
+            transition: background 0.25s, transform 0.15s;
+            border: 1px solid transparent;
+        }
+        .app-links a i {
+            font-size: 1.2rem;
+            color: #d97706;
+        }
+        .app-links a:hover {
+            background: #2a4a6a;
+            transform: translateY(-2px);
+            border-color: #d9770640;
+        }
+        .app-links a .app-text {
+            display: flex;
+            flex-direction: column;
+            line-height: 1.2;
+        }
+        .app-links a .app-text small {
+            font-weight: 300;
+            font-size: 0.55rem;
+            opacity: 0.8;
+        }
+
+        @media (max-width: 768px) {
+            .footer-grid {
+                grid-template-columns: repeat(2, 1fr);
+                gap: 24px 16px;
+            }
+            .footer-col.contact-col {
+                grid-column: 1 / -1;
+            }
+            .footer-bottom {
+                flex-direction: column;
+                align-items: center;
+                text-align: center;
+            }
+            .footer-bottom .copyright {
+                order: 2;
+            }
+            .app-links {
+                order: 1;
+                flex-wrap: wrap;
+                justify-content: center;
+            }
+            .footer-cities .cities-row {
+                gap: 2px 10px;
+            }
+            .footer-cities .cities-row a {
+                font-size: 0.68rem;
+            }
+        }
+
+        @media (max-width: 480px) {
+            .footer-grid {
+                grid-template-columns: 1fr 1fr;
+                gap: 18px 12px;
+            }
+            .footer-col h4 {
+                font-size: 0.82rem;
+            }
+            .footer-col ul li a {
+                font-size: 0.78rem;
+            }
+            .app-links a {
+                padding: 5px 12px 5px 10px;
+                font-size: 0.68rem;
+            }
+            .app-links a i {
+                font-size: 1rem;
+            }
+            .contact-info .contact-item {
+                font-size: 0.78rem;
+            }
+            .footer-cities .cities-row a {
+                font-size: 0.62rem;
+            }
+            .footer-cities .cities-row .city-label {
+                font-size: 0.6rem;
+            }
         }
 
         /* ---------- UTILITY ---------- */
@@ -2501,7 +2605,9 @@
     ============================================================ -->
     <header class="header" id="mainHeader" role="banner">
         <a href="#" class="header-logo" id="headerLogo" aria-label="Bigland Construction home">
-            <img src="https://res.cloudinary.com/dpvpnwhm4/image/upload/v1782292250/logo_b_vk7fin.png" alt="BigLand Construction Logo" />
+            <span class="logo-mark">
+                <img src="https://res.cloudinary.com/dpvpnwhm4/image/upload/v1782292250/logo_b_vk7fin.png" alt="" loading="eager" onerror="this.onerror=null; this.style.display='none'; this.parentElement.classList.add('logo-mark-fallback'); this.parentElement.innerHTML='<i class=\'fas fa-crown\' aria-hidden=\'true\'></i>';" />
+            </span>
             <span class="logo-text">BigLand<span>Construction</span></span>
         </a>
 
@@ -2516,7 +2622,7 @@
             <a href="#showcase">Showcase</a>
             <a href="#partners">Partners</a>
             <a href="#contact">Contact</a>
-            <button class="install-btn-mobile" id="installBtnMobile"><i class="fas fa-mobile-alt"></i> Install App</button>
+            <button class="install-btn-mobile" id="installBtnMobile" hidden><i class="fas fa-mobile-alt"></i> Install App</button>
         </nav>
 
         <div class="header-actions">
@@ -3071,16 +3177,208 @@
     </main>
 
     <!-- ============================================================
-    FOOTER
+    FOOTER — COMPREHENSIVE SITEMAP
     ============================================================ -->
-    <footer class="footer">
+    <footer class="footer-sitemap" role="contentinfo">
         <div class="container">
-            <p>&copy; 2026 BigLand Construction. All rights reserved.</p>
-            <div class="footer-links">
-                <a href="#">Privacy Policy</a>
-                <a href="#">Terms of Service</a>
-                <a href="#contact">Contact</a>
+
+            <!-- main grid -->
+            <div class="footer-grid">
+
+                <!-- Column 1: Site Map -->
+                <div class="footer-col">
+                    <h4>Site Map</h4>
+                    <ul>
+                        <li><a href="#">How it Works</a></li>
+                        <li><a href="#">Our Projects</a></li>
+                        <li><a href="#">Luxury Projects</a></li>
+                        <li><a href="#">Cost Estimator</a></li>
+                        <li><a href="#">Material Estimator</a></li>
+                        <li><a href="#">Floor Plans</a></li>
+                        <li><a href="#">About Us</a></li>
+                        <li><a href="#">Blogs &amp; Articles</a></li>
+                        <li><a href="#">Careers</a></li>
+                        <li><a href="#">Contact Us</a></li>
+                        <li><a href="#">Reviews</a></li>
+                    </ul>
+                </div>
+
+                <!-- Column 2: Others + Information -->
+                <div class="footer-col">
+                    <h4>Others</h4>
+                    <ul>
+                        <li><a href="#">Join as a Professional</a></li>
+                        <li><a href="#">Refer a Friend</a></li>
+                        <li><a href="#">Channel Partner</a></li>
+                    </ul>
+                    <br />
+                    <h4 style="margin-top: 6px;">Information</h4>
+                    <ul>
+                        <li><a href="#">Terms &amp; Conditions</a></li>
+                        <li><a href="#">Privacy Policy</a></li>
+                        <li><a href="#">FAQs</a></li>
+                        <li><a href="#">Cancellation Policy</a></li>
+                        <li><a href="#">Referral Policy</a></li>
+                        <li><a href="#">News &amp; Media</a></li>
+                    </ul>
+                </div>
+
+                <!-- Column 3: Our Services -->
+                <div class="footer-col">
+                    <h4>Our Services</h4>
+                    <ul>
+                        <li><a href="#">Residential Construction</a></li>
+                        <li><a href="#">Commercial Construction</a></li>
+                        <li><a href="#">Villa Construction</a></li>
+                        <li><a href="#">Farmhouse Construction</a></li>
+                        <li><a href="#">Warehouse Construction</a></li>
+                        <li><a href="#">Retail Construction</a></li>
+                        <li><a href="#">Hospital Construction</a></li>
+                        <li><a href="#">School Construction</a></li>
+                        <li><a href="#">Home Renovation</a></li>
+                    </ul>
+                    <br />
+                    <h4 style="margin-top: 6px;">Floor Plans</h4>
+                    <ul>
+                        <li><a href="#">1 BHK House Plan</a></li>
+                        <li><a href="#">2 BHK House Plan</a></li>
+                        <li><a href="#">3 BHK House Plan</a></li>
+                        <li><a href="#">Duplex House Plan</a></li>
+                    </ul>
+                </div>
+
+                <!-- Column 4: Calculators + Quick -->
+                <div class="footer-col">
+                    <h4>Calculators</h4>
+                    <ul>
+                        <li><a href="#">Cost Estimator</a></li>
+                        <li><a href="#">Stamp Duty Estimator</a></li>
+                        <li><a href="#">Compound Wall Calculator</a></li>
+                        <li><a href="#">Staircase Calculator</a></li>
+                        <li><a href="#">Property Tax Calculator</a></li>
+                        <li><a href="#">Foundation Cost Estimator</a></li>
+                    </ul>
+                    <br />
+                    <h4 style="margin-top: 6px;">Architectural</h4>
+                    <ul>
+                        <li><a href="#">Residential Architects</a></li>
+                        <li><a href="#">Commercial Architects</a></li>
+                        <li><a href="#">Interior Designers</a></li>
+                    </ul>
+                </div>
+
+                <!-- Column 5: Get in Touch -->
+                <div class="footer-col contact-col">
+                    <h4>Get in Touch</h4>
+                    <div class="contact-info">
+                        <div class="contact-item">
+                            <i class="fas fa-phone-alt"></i>
+                            <a href="tel:+918409637705">+91 84096 37705</a>
+                        </div>
+                        <div class="contact-item">
+                            <i class="fas fa-envelope"></i>
+                            <a href="mailto:adim@biglandconstruction.com">adim@biglandconstruction.com</a>
+                        </div>
+                        <div class="contact-item" style="align-items: flex-start; margin-top: 6px;">
+                            <i class="fas fa-map-marker-alt" style="margin-top: 3px;"></i>
+                            <div class="address-block">
+                                <strong>Bigland Construction</strong><br />
+                                B5 Lane 1, Vijay Nagar,<br />
+                                Bailey Road, Patna - 800014<br />
+                                Bihar, India
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
             </div>
+            <!-- end footer-grid -->
+
+            <!-- SEO City Links: Bihar, Jharkhand, Uttar Pradesh -->
+            <div class="footer-cities">
+                <div class="cities-row">
+
+                    <!-- Bihar -->
+                    <span class="city-label">Bihar</span>
+                    <a href="#">Construction Companies in Patna</a>
+                    <a href="#">Home Construction Patna</a>
+                    <a href="#">Builders in Patna</a>
+                    <a href="#">Construction Contractors Patna</a>
+                    <a href="#">Low-Cost House Construction Patna</a>
+                    <a href="#">Building Contractors Gaya</a>
+                    <a href="#">Home Construction Bhagalpur</a>
+                    <a href="#">Builders in Muzaffarpur</a>
+                    <a href="#">Construction Company Bihar</a>
+
+                    <span class="divider-dot">•</span>
+
+                    <!-- Jharkhand -->
+                    <span class="city-label">Jharkhand</span>
+                    <a href="#">Construction Companies in Ranchi</a>
+                    <a href="#">Home Construction Ranchi</a>
+                    <a href="#">Builders in Jamshedpur</a>
+                    <a href="#">Construction Contractors Dhanbad</a>
+                    <a href="#">Low-Cost House Construction Jharkhand</a>
+                    <a href="#">Building Contractors Bokaro</a>
+                    <a href="#">Home Construction Hazaribagh</a>
+
+                    <span class="divider-dot">•</span>
+
+                    <!-- Uttar Pradesh -->
+                    <span class="city-label">Uttar Pradesh</span>
+                    <a href="#">Construction Companies in Lucknow</a>
+                    <a href="#">Home Construction Lucknow</a>
+                    <a href="#">Builders in Varanasi</a>
+                    <a href="#">Construction Contractors Kanpur</a>
+                    <a href="#">Low-Cost House Construction UP</a>
+                    <a href="#">Building Contractors Allahabad</a>
+                    <a href="#">Home Construction Gorakhpur</a>
+                    <a href="#">Builders in Noida</a>
+                    <a href="#">Construction Company Uttar Pradesh</a>
+
+                    <span class="divider-dot">•</span>
+
+                    <!-- Regional -->
+                    <span class="city-label">Regional</span>
+                    <a href="#">Villa Builders Bihar</a>
+                    <a href="#">Villa Builders Jharkhand</a>
+                    <a href="#">Villa Builders Uttar Pradesh</a>
+                    <a href="#">Home Renovation Patna</a>
+                    <a href="#">Home Renovation Ranchi</a>
+                    <a href="#">Home Renovation Lucknow</a>
+                    <a href="#">Architects in Bihar</a>
+                    <a href="#">Architects in Jharkhand</a>
+                    <a href="#">Architects in Uttar Pradesh</a>
+
+                </div>
+            </div>
+
+            <!-- bottom bar: app links + copyright -->
+            <div class="footer-bottom">
+
+                <div class="app-links">
+                    <a href="#">
+                        <i class="fab fa-google-play"></i>
+                        <span class="app-text">
+                            <small>Get it on</small>
+                            Google Play
+                        </span>
+                    </a>
+                    <a href="#">
+                        <i class="fab fa-apple"></i>
+                        <span class="app-text">
+                            <small>Download on the</small>
+                            App Store
+                        </span>
+                    </a>
+                </div>
+
+                <div class="copyright">
+                    © 2026 Bigland Construction. All rights reserved.
+                </div>
+
+            </div>
+
         </div>
     </footer>
 
@@ -3121,8 +3419,8 @@
                     const isOpen = headerNav.classList.toggle('open');
                     this.setAttribute('aria-expanded', isOpen);
                 });
-                headerNav.querySelectorAll('a, .install-btn-mobile').forEach(function(el) {
-                    el.addEventListener('click', function() {
+                headerNav.querySelectorAll('a').forEach(function(link) {
+                    link.addEventListener('click', function() {
                         headerNav.classList.remove('open');
                         headerToggle.setAttribute('aria-expanded', 'false');
                     });
@@ -3510,14 +3808,16 @@
                     item.dataset.videoId = id;
                     item.setAttribute('role', 'button');
                     item.setAttribute('tabindex', '0');
-                    item.setAttribute('aria-label', 'Play video: ' + (videoTitles[index] || 'Project ' + (index + 1)));
+                    item.setAttribute('aria-label', 'Play video: ' + (videoTitles[index] || 'Project ' + (index +
+                    1)));
 
                     const img = document.createElement('img');
                     img.src = 'https://img.youtube.com/vi/' + id + '/hqdefault.jpg';
                     img.alt = videoTitles[index] || 'Project ' + (index + 1);
                     img.loading = 'lazy';
                     img.onerror = function() {
-                        this.src = 'data:image/svg+xml,%3Csvg xmlns="http://www.w3.org/2000/svg" width="480" height="360" viewBox="0 0 480 360"%3E%3Crect width="480" height="360" fill="%23e6e2da"/%3E%3Ctext x="50%25" y="50%25" font-family="Inter" font-size="20" fill="%236b6760" text-anchor="middle" dy=".3em"%3ENo thumbnail%3C/text%3E%3C/svg%3E';
+                        this.src =
+                            'data:image/svg+xml,%3Csvg xmlns="http://www.w3.org/2000/svg" width="480" height="360" viewBox="0 0 480 360"%3E%3Crect width="480" height="360" fill="%23e6e2da"/%3E%3Ctext x="50%25" y="50%25" font-family="Inter" font-size="20" fill="%236b6760" text-anchor="middle" dy=".3em"%3ENo thumbnail%3C/text%3E%3C/svg%3E';
                     };
 
                     const overlay = document.createElement('div');
@@ -3828,7 +4128,7 @@
                     resultArea.textContent = validArea.toLocaleString('en-IN') + ' sqft';
                     resultRate.textContent = '₹' + selectedPrice.toLocaleString('en-IN');
                     resultTotal.textContent = '₹' + total.toLocaleString('en-IN');
-                    contactCta.href = 'tel:+917505205205';
+                    contactCta.href = 'tel:+918409637705';
                 }
 
                 form.addEventListener('submit', function(e) {
@@ -3893,11 +4193,7 @@
         });
 
         function triggerInstall() {
-            if (!deferredInstallPrompt) {
-                // Fallback: prompt user to open the app in browser
-                alert('To install the app, open this page in Chrome or Edge and tap "Add to Home Screen".');
-                return;
-            }
+            if (!deferredInstallPrompt) return;
             deferredInstallPrompt.prompt();
             deferredInstallPrompt.userChoice.finally(function() {
                 deferredInstallPrompt = null;
