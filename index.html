@@ -180,8 +180,10 @@
         }
 
         .header-logo img {
-            height: 40px;
+            height: 30px;
             width: auto;
+            max-width: 44px;
+            object-fit: contain;
             display: block;
         }
 
@@ -189,14 +191,21 @@
             display: inline-flex;
             align-items: center;
             justify-content: center;
-            width: 36px;
-            height: 36px;
-            border-radius: 10px;
+            width: 44px;
+            height: 44px;
+            border-radius: 12px;
+            background: #ffffff;
+            border: 1px solid var(--color-border);
+            box-shadow: 0 4px 14px rgba(0, 0, 0, 0.06);
+            flex-shrink: 0;
+            overflow: hidden;
+        }
+
+        .header-logo .logo-mark.logo-mark-fallback {
             background: linear-gradient(135deg, var(--color-accent) 0%, #e3c878 50%, var(--color-accent) 100%);
             color: #fff;
-            font-size: 15px;
-            box-shadow: 0 4px 14px rgba(184, 149, 58, 0.30);
-            flex-shrink: 0;
+            font-size: 16px;
+            border: none;
         }
 
         .header-logo .logo-text {
@@ -370,8 +379,15 @@
                 padding: 0 20px;
             }
 
+            .header-logo .logo-mark {
+                width: 38px;
+                height: 38px;
+                border-radius: 10px;
+            }
+
             .header-logo img {
-                height: 32px;
+                height: 26px;
+                max-width: 36px;
             }
 
             .header-logo .logo-text {
@@ -424,8 +440,15 @@
                 padding: 0 16px;
             }
 
+            .header-logo .logo-mark {
+                width: 34px;
+                height: 34px;
+                border-radius: 9px;
+            }
+
             .header-logo img {
-                height: 28px;
+                height: 22px;
+                max-width: 30px;
             }
 
             .header-logo .logo-text {
@@ -2344,7 +2367,9 @@
     ============================================================ -->
     <header class="header" id="mainHeader" role="banner">
         <a href="#" class="header-logo" id="headerLogo" aria-label="Bigland Construction home">
-            <span class="logo-mark"><i class="fas fa-crown" aria-hidden="true"></i></span>
+            <span class="logo-mark">
+                <img src="https://res.cloudinary.com/dpvpnwhm4/image/upload/v1782292250/logo_b_vk7fin.png" alt="" loading="eager" onerror="this.onerror=null; this.style.display='none'; this.parentElement.classList.add('logo-mark-fallback'); this.parentElement.innerHTML='<i class=\'fas fa-crown\' aria-hidden=\'true\'></i>';" />
+            </span>
             <span class="logo-text">BigLand<span>Construction</span></span>
         </a>
 
