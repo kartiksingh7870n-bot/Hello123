@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover" />
-    <title>BigLand Construction · Premium Builders</title>
+    <title>Bigland Construction · Premium Home</title>
 
     <!-- PWA -->
     <link rel="manifest" href="manifest.json" />
@@ -167,6 +167,10 @@
             flex-shrink: 0;
             text-decoration: none;
             opacity: 0;
+            background: #ffffff;
+            padding: 4px 12px 4px 8px;
+            border-radius: 12px;
+            box-shadow: 0 1px 4px rgba(0, 0, 0, 0.04);
         }
 
         .header-logo.logo-pop {
@@ -174,38 +178,25 @@
         }
 
         @keyframes logoPopIn {
-            0% { opacity: 0; transform: scale(0.4) rotate(-8deg); }
-            60% { opacity: 1; transform: scale(1.08) rotate(2deg); }
-            100% { opacity: 1; transform: scale(1) rotate(0deg); }
+            0% {
+                opacity: 0;
+                transform: scale(0.4) rotate(-8deg);
+            }
+            60% {
+                opacity: 1;
+                transform: scale(1.08) rotate(2deg);
+            }
+            100% {
+                opacity: 1;
+                transform: scale(1) rotate(0deg);
+            }
         }
 
         .header-logo img {
-            height: 30px;
+            height: 40px;
             width: auto;
-            max-width: 44px;
-            object-fit: contain;
             display: block;
-        }
-
-        .header-logo .logo-mark {
-            display: inline-flex;
-            align-items: center;
-            justify-content: center;
-            width: 44px;
-            height: 44px;
-            border-radius: 12px;
-            background: #ffffff;
-            border: 1px solid var(--color-border);
-            box-shadow: 0 4px 14px rgba(0, 0, 0, 0.06);
-            flex-shrink: 0;
-            overflow: hidden;
-        }
-
-        .header-logo .logo-mark.logo-mark-fallback {
-            background: linear-gradient(135deg, var(--color-accent) 0%, #e3c878 50%, var(--color-accent) 100%);
-            color: #fff;
-            font-size: 16px;
-            border: none;
+            object-fit: contain;
         }
 
         .header-logo .logo-text {
@@ -213,6 +204,7 @@
             font-weight: 700;
             letter-spacing: -0.3px;
             color: var(--color-text);
+            margin-left: 4px;
         }
 
         .header-logo .logo-text span {
@@ -221,7 +213,10 @@
         }
 
         @media (prefers-reduced-motion: reduce) {
-            .header-logo { opacity: 1; animation: none !important; }
+            .header-logo {
+                opacity: 1;
+                animation: none !important;
+            }
         }
 
         .header-nav {
@@ -293,28 +288,40 @@
             font-size: 0.78rem;
         }
         @media (max-width: 840px) {
-            .install-btn { display: none; }
+            .install-btn {
+                display: none;
+            }
         }
+
         .install-btn-mobile {
             display: none;
+            align-items: center;
+            justify-content: center;
+            gap: 8px;
+            width: 100%;
+            margin-top: 6px;
+            padding: 10px 14px;
+            border-radius: 12px;
+            border: 1.5px solid var(--color-accent);
+            background: var(--color-accent-soft);
+            color: var(--color-text);
+            font-family: inherit;
+            font-size: 15px;
+            font-weight: 600;
+            cursor: pointer;
+            text-decoration: none;
+            transition: var(--transition);
         }
+
+        .install-btn-mobile:hover {
+            background: var(--color-accent);
+            color: #fff;
+            border-color: var(--color-accent);
+        }
+
         @media (max-width: 840px) {
             .install-btn-mobile {
                 display: flex;
-                align-items: center;
-                justify-content: center;
-                gap: 8px;
-                width: 100%;
-                margin-top: 6px;
-                padding: 10px 14px;
-                border-radius: 12px;
-                border: 1.5px solid var(--color-accent);
-                background: var(--color-accent-soft);
-                color: var(--color-text);
-                font-family: inherit;
-                font-size: 15px;
-                font-weight: 600;
-                cursor: pointer;
             }
         }
 
@@ -379,15 +386,8 @@
                 padding: 0 20px;
             }
 
-            .header-logo .logo-mark {
-                width: 38px;
-                height: 38px;
-                border-radius: 10px;
-            }
-
             .header-logo img {
-                height: 26px;
-                max-width: 36px;
+                height: 32px;
             }
 
             .header-logo .logo-text {
@@ -440,15 +440,8 @@
                 padding: 0 16px;
             }
 
-            .header-logo .logo-mark {
-                width: 34px;
-                height: 34px;
-                border-radius: 9px;
-            }
-
             .header-logo img {
-                height: 22px;
-                max-width: 30px;
+                height: 28px;
             }
 
             .header-logo .logo-text {
@@ -858,7 +851,7 @@
         .est-form-group {
             margin-bottom: 1.5rem;
         }
-        .est-form-group > label {
+        .est-form-group>label {
             display: block;
             font-size: 0.85rem;
             font-weight: 600;
@@ -978,8 +971,14 @@
             display: block;
         }
         @keyframes estFadeSlide {
-            from { opacity: 0; transform: translateY(10px); }
-            to { opacity: 1; transform: translateY(0); }
+            from {
+                opacity: 0;
+                transform: translateY(10px);
+            }
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
         }
         .est-result-row {
             display: flex;
@@ -1143,15 +1142,30 @@
             animation: fadeUp 0.5s ease forwards;
         }
 
-        .service-card:nth-child(1) { animation-delay: 0.04s; }
-        .service-card:nth-child(2) { animation-delay: 0.10s; }
-        .service-card:nth-child(3) { animation-delay: 0.16s; }
-        .service-card:nth-child(4) { animation-delay: 0.22s; }
-        .service-card:nth-child(5) { animation-delay: 0.28s; }
-        .service-card:nth-child(6) { animation-delay: 0.34s; }
+        .service-card:nth-child(1) {
+            animation-delay: 0.04s;
+        }
+        .service-card:nth-child(2) {
+            animation-delay: 0.10s;
+        }
+        .service-card:nth-child(3) {
+            animation-delay: 0.16s;
+        }
+        .service-card:nth-child(4) {
+            animation-delay: 0.22s;
+        }
+        .service-card:nth-child(5) {
+            animation-delay: 0.28s;
+        }
+        .service-card:nth-child(6) {
+            animation-delay: 0.34s;
+        }
 
         @keyframes fadeUp {
-            to { opacity: 1; transform: translateY(0); }
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
         }
 
         .service-card:hover {
@@ -1753,8 +1767,12 @@
             transform: translateY(-50%) scale(0.94);
         }
 
-        .clients-carousel-btn.prev { left: 8px; }
-        .clients-carousel-btn.next { right: 8px; }
+        .clients-carousel-btn.prev {
+            left: 8px;
+        }
+        .clients-carousel-btn.next {
+            right: 8px;
+        }
 
         .clients-carousel-dots {
             display: flex;
@@ -1786,24 +1804,53 @@
         }
 
         @media (max-width: 1024px) {
-            .client-carousel-card { width: calc(33.33% - 16px); }
+            .client-carousel-card {
+                width: calc(33.33% - 16px);
+            }
         }
 
         @media (max-width: 768px) {
-            .client-carousel-card { width: calc(50% - 12px); }
-            .clients-carousel-section .section-header h2 { font-size: 32px; }
-            .clients-carousel-btn { width: 36px; height: 36px; font-size: 1rem; }
-            .clients-carousel-btn.prev { left: 4px; }
-            .clients-carousel-btn.next { right: 4px; }
+            .client-carousel-card {
+                width: calc(50% - 12px);
+            }
+            .clients-carousel-section .section-header h2 {
+                font-size: 32px;
+            }
+            .clients-carousel-btn {
+                width: 36px;
+                height: 36px;
+                font-size: 1rem;
+            }
+            .clients-carousel-btn.prev {
+                left: 4px;
+            }
+            .clients-carousel-btn.next {
+                right: 4px;
+            }
         }
 
         @media (max-width: 480px) {
-            .client-carousel-card { width: calc(100% - 0px); aspect-ratio: 1 / 1; }
-            .clients-carousel-section .section-header h2 { font-size: 26px; }
-            .clients-carousel-section .section-header p { font-size: 14px; }
-            .clients-carousel-btn { width: 30px; height: 30px; font-size: 0.8rem; }
-            .clients-carousel-btn.prev { left: 2px; }
-            .clients-carousel-btn.next { right: 2px; }
+            .client-carousel-card {
+                width: calc(100% - 0px);
+                aspect-ratio: 1 / 1;
+            }
+            .clients-carousel-section .section-header h2 {
+                font-size: 26px;
+            }
+            .clients-carousel-section .section-header p {
+                font-size: 14px;
+            }
+            .clients-carousel-btn {
+                width: 30px;
+                height: 30px;
+                font-size: 0.8rem;
+            }
+            .clients-carousel-btn.prev {
+                left: 2px;
+            }
+            .clients-carousel-btn.next {
+                right: 2px;
+            }
         }
 
         /* ============================================================
@@ -1927,40 +1974,87 @@
         }
 
         @keyframes scroll-left {
-            0% { transform: translateX(0); }
-            100% { transform: translateX(-50%); }
+            0% {
+                transform: translateX(0);
+            }
+            100% {
+                transform: translateX(-50%);
+            }
         }
 
         @keyframes scroll-right {
-            0% { transform: translateX(-50%); }
-            100% { transform: translateX(0); }
+            0% {
+                transform: translateX(-50%);
+            }
+            100% {
+                transform: translateX(0);
+            }
         }
 
         @media (max-width: 1024px) {
-            .gallery-card { width: 170px; padding: 3px; }
-            .gallery-card .gallery-image { border-radius: 12px; }
-            .gallery-marquee-row { padding: 4px 0; }
-            .gallery-marquee-wrapper { gap: 8px; }
-            .gallery-marquee-track { gap: 12px; }
+            .gallery-card {
+                width: 170px;
+                padding: 3px;
+            }
+            .gallery-card .gallery-image {
+                border-radius: 12px;
+            }
+            .gallery-marquee-row {
+                padding: 4px 0;
+            }
+            .gallery-marquee-wrapper {
+                gap: 8px;
+            }
+            .gallery-marquee-track {
+                gap: 12px;
+            }
         }
 
         @media (max-width: 768px) {
-            .project-gallery-section .section-header h2 { font-size: 32px; }
-            .project-gallery-section .section-header p { font-size: 15px; }
-            .gallery-card { width: 140px; padding: 3px; }
-            .gallery-card .gallery-image { border-radius: 10px; }
-            .gallery-marquee-track { gap: 10px; }
-            .gallery-marquee-wrapper { gap: 6px; }
+            .project-gallery-section .section-header h2 {
+                font-size: 32px;
+            }
+            .project-gallery-section .section-header p {
+                font-size: 15px;
+            }
+            .gallery-card {
+                width: 140px;
+                padding: 3px;
+            }
+            .gallery-card .gallery-image {
+                border-radius: 10px;
+            }
+            .gallery-marquee-track {
+                gap: 10px;
+            }
+            .gallery-marquee-wrapper {
+                gap: 6px;
+            }
         }
 
         @media (max-width: 480px) {
-            .project-gallery-section .section-header h2 { font-size: 26px; }
-            .project-gallery-section .section-header p { font-size: 14px; }
-            .gallery-card { width: 120px; padding: 2px; }
-            .gallery-card .gallery-image { border-radius: 8px; }
-            .gallery-marquee-track { gap: 8px; }
-            .gallery-marquee-row { padding: 3px 0; }
-            .gallery-marquee-wrapper { gap: 4px; }
+            .project-gallery-section .section-header h2 {
+                font-size: 26px;
+            }
+            .project-gallery-section .section-header p {
+                font-size: 14px;
+            }
+            .gallery-card {
+                width: 120px;
+                padding: 2px;
+            }
+            .gallery-card .gallery-image {
+                border-radius: 8px;
+            }
+            .gallery-marquee-track {
+                gap: 8px;
+            }
+            .gallery-marquee-row {
+                padding: 3px 0;
+            }
+            .gallery-marquee-wrapper {
+                gap: 4px;
+            }
         }
 
         /* ============================================================
@@ -2115,17 +2209,34 @@
             background: var(--color-accent-soft);
         }
         @media (max-width: 1024px) {
-            .showcase-item { flex: 0 0 calc(33.33% - 0.8rem); }
+            .showcase-item {
+                flex: 0 0 calc(33.33% - 0.8rem);
+            }
         }
         @media (max-width: 768px) {
-            .showcase-item { flex: 0 0 calc(50% - 0.6rem); }
-            .showcase-item .play-overlay i { font-size: 2.4rem; }
-            .showcase-item .video-title { font-size: 0.65rem; padding: 0.5rem 0.7rem; }
+            .showcase-item {
+                flex: 0 0 calc(50% - 0.6rem);
+            }
+            .showcase-item .play-overlay i {
+                font-size: 2.4rem;
+            }
+            .showcase-item .video-title {
+                font-size: 0.65rem;
+                padding: 0.5rem 0.7rem;
+            }
         }
         @media (max-width: 480px) {
-            .showcase-item { flex: 0 0 calc(100% - 0rem); }
-            .showcase-item .play-overlay i { font-size: 2rem; }
-            .showcase-nav button { width: 34px; height: 34px; font-size: 0.75rem; }
+            .showcase-item {
+                flex: 0 0 calc(100% - 0rem);
+            }
+            .showcase-item .play-overlay i {
+                font-size: 2rem;
+            }
+            .showcase-nav button {
+                width: 34px;
+                height: 34px;
+                font-size: 0.75rem;
+            }
         }
 
         /* ---------- VIDEO MODAL ---------- */
@@ -2199,8 +2310,13 @@
             transform: rotate(90deg);
         }
         @media (max-width: 768px) {
-            .video-modal-close { top: -44px; font-size: 1.4rem; }
-            .video-modal { padding: 0.8rem; }
+            .video-modal-close {
+                top: -44px;
+                font-size: 1.4rem;
+            }
+            .video-modal {
+                padding: 0.8rem;
+            }
         }
 
         /* ---------- PARTNERS CAROUSEL ---------- */
@@ -2260,18 +2376,36 @@
             text-transform: uppercase;
         }
         @keyframes scroll {
-            0% { transform: translateX(0); }
-            100% { transform: translateX(-50%); }
+            0% {
+                transform: translateX(0);
+            }
+            100% {
+                transform: translateX(-50%);
+            }
         }
         @media (max-width: 768px) {
-            .carousel-item { min-width: 110px; padding: 0.7rem 1rem; }
-            .carousel-item img { max-height: 34px; }
-            .carousel-track { gap: 1.2rem; }
+            .carousel-item {
+                min-width: 110px;
+                padding: 0.7rem 1rem;
+            }
+            .carousel-item img {
+                max-height: 34px;
+            }
+            .carousel-track {
+                gap: 1.2rem;
+            }
         }
         @media (max-width: 480px) {
-            .carousel-item { min-width: 90px; padding: 0.5rem 0.7rem; }
-            .carousel-item img { max-height: 28px; }
-            .carousel-track { gap: 0.8rem; }
+            .carousel-item {
+                min-width: 90px;
+                padding: 0.5rem 0.7rem;
+            }
+            .carousel-item img {
+                max-height: 28px;
+            }
+            .carousel-track {
+                gap: 0.8rem;
+            }
         }
 
         /* ---------- CONTACT / CTA ---------- */
@@ -2367,9 +2501,7 @@
     ============================================================ -->
     <header class="header" id="mainHeader" role="banner">
         <a href="#" class="header-logo" id="headerLogo" aria-label="Bigland Construction home">
-            <span class="logo-mark">
-                <img src="https://res.cloudinary.com/dpvpnwhm4/image/upload/v1782292250/logo_b_vk7fin.png" alt="" loading="eager" onerror="this.onerror=null; this.style.display='none'; this.parentElement.classList.add('logo-mark-fallback'); this.parentElement.innerHTML='<i class=\'fas fa-crown\' aria-hidden=\'true\'></i>';" />
-            </span>
+            <img src="https://res.cloudinary.com/dpvpnwhm4/image/upload/v1782292250/logo_b_vk7fin.png" alt="BigLand Construction Logo" />
             <span class="logo-text">BigLand<span>Construction</span></span>
         </a>
 
@@ -2384,7 +2516,7 @@
             <a href="#showcase">Showcase</a>
             <a href="#partners">Partners</a>
             <a href="#contact">Contact</a>
-            <button class="install-btn-mobile" id="installBtnMobile" hidden><i class="fas fa-mobile-alt"></i> Install App</button>
+            <button class="install-btn-mobile" id="installBtnMobile"><i class="fas fa-mobile-alt"></i> Install App</button>
         </nav>
 
         <div class="header-actions">
@@ -2989,8 +3121,8 @@
                     const isOpen = headerNav.classList.toggle('open');
                     this.setAttribute('aria-expanded', isOpen);
                 });
-                headerNav.querySelectorAll('a').forEach(function(link) {
-                    link.addEventListener('click', function() {
+                headerNav.querySelectorAll('a, .install-btn-mobile').forEach(function(el) {
+                    el.addEventListener('click', function() {
                         headerNav.classList.remove('open');
                         headerToggle.setAttribute('aria-expanded', 'false');
                     });
@@ -3201,7 +3333,9 @@
                 resetClientAutoSlide();
             });
 
-            let clientDragStartX = 0, clientDragStartIndex = 0, clientIsDragging = false;
+            let clientDragStartX = 0,
+                clientDragStartIndex = 0,
+                clientIsDragging = false;
             clientCarouselWrapper.addEventListener('mousedown', function(e) {
                 clientDragStartX = e.clientX;
                 clientDragStartIndex = clientCurrentSlide;
@@ -3227,7 +3361,8 @@
                 clientIsDragging = false;
             });
 
-            let clientTouchStartX = 0, clientTouchStartIndex = 0;
+            let clientTouchStartX = 0,
+                clientTouchStartIndex = 0;
             clientCarouselWrapper.addEventListener('touchstart', function(e) {
                 clientTouchStartX = e.touches[0].clientX;
                 clientTouchStartIndex = clientCurrentSlide;
@@ -3487,7 +3622,9 @@
                 resetVideoAutoSlide();
             });
 
-            let videoDragStartX = 0, videoDragStartIndex = 0, videoIsDragging = false;
+            let videoDragStartX = 0,
+                videoDragStartIndex = 0,
+                videoIsDragging = false;
             const showcaseWrapper = document.querySelector('.showcase-wrapper');
 
             showcaseWrapper.addEventListener('mousedown', function(e) {
@@ -3515,7 +3652,8 @@
                 videoIsDragging = false;
             });
 
-            let videoTouchStartX = 0, videoTouchStartIndex = 0;
+            let videoTouchStartX = 0,
+                videoTouchStartIndex = 0;
             showcaseWrapper.addEventListener('touchstart', function(e) {
                 videoTouchStartX = e.touches[0].clientX;
                 videoTouchStartIndex = currentSlide;
@@ -3755,7 +3893,11 @@
         });
 
         function triggerInstall() {
-            if (!deferredInstallPrompt) return;
+            if (!deferredInstallPrompt) {
+                // Fallback: prompt user to open the app in browser
+                alert('To install the app, open this page in Chrome or Edge and tap "Add to Home Screen".');
+                return;
+            }
             deferredInstallPrompt.prompt();
             deferredInstallPrompt.userChoice.finally(function() {
                 deferredInstallPrompt = null;
